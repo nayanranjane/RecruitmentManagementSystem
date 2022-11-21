@@ -1,0 +1,121 @@
+﻿@model RecruitmentAdministrationSystemProject.Models.CandidateInfo
+
+@{
+    ViewBag.Title = "CandidateDetails";
+}
+
+<h2>CandidateDetails</h2>
+
+<div>
+    <h4>CandidateInfo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SSC_Marks)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SSC_Marks)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SSC_College)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SSC_College)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SSC_PassingYear)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SSC_PassingYear)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HSC_Marks)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HSC_Marks)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HSC_College)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HSC_College)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HSC_PassingYear)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HSC_PassingYear)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UG_Marks)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UG_Marks)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UG_College)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UG_College)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UG_PassingYear)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UG_PassingYear)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Skill_1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Skill_1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Skill_2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Skill_2)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Skill_3)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Skill_3)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>
