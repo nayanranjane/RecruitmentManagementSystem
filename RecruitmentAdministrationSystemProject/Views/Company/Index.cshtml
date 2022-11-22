@@ -1,0 +1,72 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    var companyList = (List<RecruitmentAdministrationSystemProject.Models.CompanyDetails>)ViewBag.Companies;
+}
+
+<h2>Index</h2>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>
+                Logo
+            </th>
+            <th>
+                CompanyName
+            </th>
+            <th>
+                Location
+            </th>
+            <th>
+                MobileNo
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                CompanyUrl
+            </th>
+            <th>
+                EmployeeCount
+            </th>
+            <th>
+                Action
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in companyList)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Img)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Location)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MobileNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CompanyUrl)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmployeeCount)
+                </td>
+                <td>
+                    @Html.ActionLink("Delete", "DeleteCompany", new { id = item.UserId })
+                </td>
+
+
+            </tr>
+        }
+    </tbody>
+</table>
