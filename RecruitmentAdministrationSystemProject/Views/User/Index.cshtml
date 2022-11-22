@@ -66,7 +66,19 @@
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id = item.UserId }) |
-            @Html.ActionLink("Education Details","CandidateDetails", new { id = item.UserId }) |
+            @if (item.RoleId == 2)
+            {
+                @Html.ActionLink("Education Details", "CandidateDetails", new { id = item.UserId })<span>|</span>
+}
+else if (item.RoleId == 3)
+{
+        @Html.ActionLink("Company Details", "CompanyDetails", new { id = item.UserId })<span>|</span>
+
+}
+else if (item.RoleId == 4)
+{
+        @Html.ActionLink("Company Details", "CompanyDetails", new { id = item.UserId })<span>|</span>
+}
             @Html.ActionLink("Details", "DetailsUser", new { id = item.UserId }) |
             @Html.ActionLink("Delete", "DeleteUser", new { id = item.UserId })
         </td>

@@ -133,6 +133,7 @@
     <Compile Include="Controllers\CandidateController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\JobPostsController.cs" />
     <Compile Include="Controllers\StaffController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -261,6 +262,7 @@
     <Content Include="Views\Account\SignUp.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Company\Index.cshtml" />
+    <Content Include="Views\JobPosts\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

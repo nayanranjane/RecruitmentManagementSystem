@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using RecruitmentAdministrationSystemProject.Models;
 
 namespace RecruitmentAdministrationSystemProject.Controllers
 {
+    [Authorize]
     public class CompanyController : Controller
     {
         RecruitmentManagementSystemEntities dbAccess = new RecruitmentManagementSystemEntities();
@@ -16,6 +18,9 @@ namespace RecruitmentAdministrationSystemProject.Controllers
             var Companies = (from user in dbAccess.Users
                              join company in dbAccess.Companies
                              on user.UserId equals company.UserId
+                             join role in dbAccess.Roles
+                             on user.RoleId equals role.RoleId
+                             where role.RoleName.ToLower()=="company".ToLower()
                              select new CompanyDetails
                              {
                                  UserId = user.UserId,
