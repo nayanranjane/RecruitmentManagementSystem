@@ -1,0 +1,81 @@
+﻿@model IEnumerable<RecruitmentAdministrationSystemProject.Models.Company>
+
+@{
+    ViewBag.Title = "Index2";
+}
+
+<h2>Index2</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.User.Img)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User.Location)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CompanyUrl)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmployeeCount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AboutCompany)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FoundDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User.Name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.Img)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.Location)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CompanyUrl)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmployeeCount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AboutCompany)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FoundDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.Name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.CompanyId }) |
+            @Html.ActionLink("Details", "Details", new { id = item.CompanyId }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.CompanyId })
+        </td>
+    </tr>
+}
+
+</table>

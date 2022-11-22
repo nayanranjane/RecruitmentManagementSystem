@@ -39,6 +39,13 @@ namespace RecruitmentAdministrationSystemProject.Controllers
             ViewBag.Companies = Companies;
             return View();
         }
+
+        public ActionResult Index2()
+        {
+            var candidates = dbAccess.Companies.ToList();
+            return View(candidates);
+
+        }
         public ActionResult DeleteCompany(int? id)
         {
             var result = dbAccess.Users.Find(id);
