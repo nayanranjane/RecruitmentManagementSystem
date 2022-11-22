@@ -6,100 +6,106 @@
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.SSC_Marks)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SSC_College)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SSC_PassingYear)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.HSC_Marks)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.HSC_College)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.HSC_PassingYear)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UG_Marks)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UG_College)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UG_PassingYear)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Skill_1)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Skill_2)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Skill_3)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.User.Name)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.SSC_Marks)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SSC_College)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SSC_PassingYear)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.HSC_Marks)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.HSC_College)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.HSC_PassingYear)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UG_Marks)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UG_College)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UG_PassingYear)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Skill_1)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Skill_2)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Skill_3)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.User.Name)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.CandidateId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.CandidateId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.CandidateId })
-        </td>
-    </tr>
+@if (Model != null)
+{
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SSC_Marks)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SSC_College)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SSC_PassingYear)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HSC_Marks)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HSC_College)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HSC_PassingYear)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UG_Marks)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UG_College)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UG_PassingYear)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Skill_1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Skill_2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Skill_3)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User.Name)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SSC_Marks)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SSC_College)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SSC_PassingYear)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HSC_Marks)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HSC_College)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HSC_PassingYear)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UG_Marks)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UG_College)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UG_PassingYear)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Skill_1)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Skill_2)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Skill_3)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.Name)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.CandidateId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.CandidateId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.CandidateId })
+                </td>
+            </tr>
+        }
+
+    </table>
 }
-
-</table>
+else
+            {
+                <h4>No Education Details Found</h4>
+            }

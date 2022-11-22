@@ -6,116 +6,123 @@
 
 <h2>CandidateDetails</h2>
 
-<div>
-    <h4>CandidateInfo</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.SSC_Marks)
-        </dt>
+@if (Model.UserId != null)
+{
+    <div>
+        <h4>CandidateInfo</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.SSC_Marks)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.SSC_Marks)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.SSC_Marks)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.SSC_College)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.SSC_College)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.SSC_College)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.SSC_College)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.SSC_PassingYear)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.SSC_PassingYear)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.SSC_PassingYear)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.SSC_PassingYear)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.HSC_Marks)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.HSC_Marks)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.HSC_Marks)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.HSC_Marks)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.HSC_College)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.HSC_College)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.HSC_College)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.HSC_College)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.HSC_PassingYear)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.HSC_PassingYear)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.HSC_PassingYear)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.HSC_PassingYear)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.UG_Marks)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.UG_Marks)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.UG_Marks)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.UG_Marks)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.UG_College)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.UG_College)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.UG_College)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.UG_College)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.UG_PassingYear)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.UG_PassingYear)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.UG_PassingYear)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.UG_PassingYear)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Skill_1)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Skill_1)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Skill_1)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Skill_1)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Skill_2)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Skill_2)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Skill_2)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Skill_2)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Skill_3)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Skill_3)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Skill_3)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Skill_3)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.User.Name)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.User.Name)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.User.Name)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.User.Name)
+            </dd>
 
-    </dl>
-</div>
+        </dl>
+    </div>
+}
+else
+            {
+                <h4>No Details Found</h4>
+            }
 <p>
     @Html.ActionLink("Back to List", "Index")
 </p>

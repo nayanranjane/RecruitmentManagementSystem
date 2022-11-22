@@ -19,7 +19,8 @@ namespace RecruitmentAdministrationSystemProject.Controllers
         {
             var candidates = dbAccess.CandidateInfoes.ToList().Where(candidateUser => candidateUser.UserId == id).ToList();
             var Candidate = new CandidateInfo();
-            Candidate = candidates.First();
+            if(candidates.Count()!=0)
+                Candidate = candidates.First();
             return View(Candidate);
 
         }
