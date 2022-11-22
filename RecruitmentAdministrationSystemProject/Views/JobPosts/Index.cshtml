@@ -1,0 +1,107 @@
+﻿@model IEnumerable<RecruitmentAdministrationSystemProject.Models.JobPost>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CTC)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NoOfOpening)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Location)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PostDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RequiredBatch)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SSCMarks)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HSCMarks)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UGMarks)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RequiredExperience)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Company.CompanyUrl)
+        </th>
+        <th></th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CTC)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NoOfOpening)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Location)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PostDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RequiredBatch)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SSCMarks)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HSCMarks)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UGMarks)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RequiredExperience)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Company.CompanyUrl)
+        </td>
+        <td>@Html.ActionLink("Apply","Apply",new {id = item.JobId})</td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.JobId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.JobId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.JobId })
+        </td>
+    </tr>
+}
+
+</table>
