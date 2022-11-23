@@ -11,11 +11,41 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
+            @Html.DisplayNameFor(model => model.Company.User.Img)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Company.User.Img)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Company.User.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Company.User.Name)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.Title)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Company.CompanyUrl)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Company.CompanyUrl)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Company.EmployeeCount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Company.EmployeeCount)
         </dd>
 
         <dt>
@@ -141,6 +171,7 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.JobId }) |
+   
     @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Apply","Apply", new {id =Model.JobId})
 </p>

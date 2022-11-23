@@ -71,8 +71,7 @@
             @Html.DisplayFor(modelItem => item.ApplicationDate)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.ApplicationId }) |
-            @Html.ActionLink("Details", "Details", new { id = item.ApplicationId }) |
+            @Html.ActionLink("Details", "ApplicationDetails", new { id = item.ApplicationId }) |
             @Html.ActionLink("Delete", "Delete", new { id = item.ApplicationId })
         </td>
     </tr>

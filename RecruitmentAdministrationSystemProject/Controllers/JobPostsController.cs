@@ -10,8 +10,10 @@ using RecruitmentAdministrationSystemProject.Models;
 
 namespace RecruitmentAdministrationSystemProject.Views
 {
+    [Authorize]
     public class JobPostsController : Controller
     {
+      
         // GET: JobPosts
         RecruitmentManagementSystemEntities dbAccess = new RecruitmentManagementSystemEntities();
         public ActionResult Index(int? id)
@@ -36,7 +38,7 @@ namespace RecruitmentAdministrationSystemProject.Views
                       on user.UserId equals companyinfo.UserId
                       where user.UserName == userName
                       select companyinfo).FirstOrDefault();
-            JobPost jobPost = new JobPost() { CompanyID = id.CompanyId };
+            JobPost jobPost = new JobPost() { CompanyID = id.CompanyId ,PostDate=DateTime.Now};
             return View(jobPost);
         }
         [HttpPost]
@@ -67,7 +69,7 @@ namespace RecruitmentAdministrationSystemProject.Views
             if(id != null && Session["Uname"]!=null)
             {
                 var candidate = dbAccess.Users.ToList().Where(users => users.UserName == Session["Uname"].ToString()).FirstOrDefault();
-                JobApplication jobApplication = new JobApplication() { JobId = id, UserId = candidate.UserId };
+                JobApplication jobApplication = new JobApplication() { JobId = id, UserId = candidate.UserId ,ApplicationDate=DateTime.Now};
                 return View(jobApplication);
             }
             return RedirectToAction("Index");
@@ -79,10 +81,17 @@ namespace RecruitmentAdministrationSystemProject.Views
             dbAccess.SaveChanges();
             return RedirectToAction("JobApplicationIndex");
         }
+        [Authorize(Roles ="Admin,Company")]
         public ActionResult JobApplicationIndex(int? id)
         {
             var jobApplication = dbAccess.JobApplications.ToList();
             return View(jobApplication);
+        }
+        public ActionResult ApplicationDetails(int? id)
+        {
+            var jobApplication = dbAccess.JobApplications.ToList().Where(jobApp=>jobApp.ApplicationId==id).FirstOrDefault();
+            return View(jobApplication);
+
         }
 
     }

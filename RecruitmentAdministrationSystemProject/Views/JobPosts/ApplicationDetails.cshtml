@@ -1,0 +1,121 @@
+﻿@model RecruitmentAdministrationSystemProject.Models.JobApplication
+
+@{
+    ViewBag.Title = "ApplicationDetails";
+}
+
+<h2>ApplicationDetails</h2>
+
+<div>
+    <h4>JobApplication</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.User.Img)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.Img)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.MobileNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.MobileNo)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User.Location)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.Location)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.JobPost.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.JobPost.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.JobPost.Company.User.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.JobPost.Company.User.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AbleToReallocation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AbleToReallocation)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PrevCompanyName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PrevCompanyName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WorkExperience)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WorkExperience)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NoticePeriod)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NoticePeriod)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Resume)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Resume)
+        </dd>
+        
+
+
+
+
+    </dl>
+</div>
+ @if (User.Identity.IsAuthenticated && ((Session["Role"]).ToString() == "Company" || (Session["Role"]).ToString() == "Admin" || (Session["Role"]).ToString() == "Staff"))
+        { 
+
+        }
+<div>
+    @Html.ActionLink("Edit Status", "EditStatus", new {id=Model.JobId})
+</div>
+<p>
+   
+    @Html.ActionLink("Back to List", "Index")
+</p>

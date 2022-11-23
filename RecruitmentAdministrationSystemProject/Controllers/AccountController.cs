@@ -5,6 +5,7 @@ using System.Web;
 using RecruitmentAdministrationSystemProject.Models;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Configuration;
 
 namespace RecruitmentAdministrationSystemProject.Controllers
 {
@@ -56,6 +57,12 @@ namespace RecruitmentAdministrationSystemProject.Controllers
                 {
                     FormsAuthentication.SetAuthCookie(user.UserName, false);
                     Session["Uname"] = user.UserName.ToString();
+                    var role = (from userInfo in dbAccess.Users.ToList()
+                                   join roles in dbAccess.Roles.ToList()
+                                   on userInfo.RoleId equals roles.RoleId
+                                   where userInfo.UserName == user.UserName
+                                   select roles).FirstOrDefault();
+                    Session["Role"] = role.RoleName.ToString();
                     if (ReturnUrl != null)
                     {
                         return Redirect(ReturnUrl);
