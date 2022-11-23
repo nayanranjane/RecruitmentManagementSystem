@@ -13,7 +13,7 @@ namespace RecruitmentAdministrationSystemProject.Controllers
     {
         RecruitmentManagementSystemEntities dbAccess = new RecruitmentManagementSystemEntities();
 
-        [Authorize(Roles ="Admin")]
+        [Authorize(Roles ="Admin,Company")]
         public ActionResult Index()
         {
             var Companies = (from user in dbAccess.Users

@@ -6,6 +6,7 @@ using RecruitmentAdministrationSystemProject.Models;
 using System.Web.Mvc;
 using System.Web.Security;
 using System.Configuration;
+using System.IO;
 
 namespace RecruitmentAdministrationSystemProject.Controllers
 {
@@ -23,6 +24,12 @@ namespace RecruitmentAdministrationSystemProject.Controllers
         [HttpPost]
         public ActionResult SignUp(User user)
         {
+            string filename = Path.GetFileNameWithoutExtension(user.ImageFile.FileName); // .FleName Contain the name of the file with the directory
+            string extension = Path.GetExtension(user.ImageFile.FileName);
+            filename = filename + DateTime.Now.ToString("yymmssff") + extension;
+            user.Img = "~/Image/" + filename;
+            filename = Path.Combine(Server.MapPath("~/Image/"), filename);
+            user.ImageFile.SaveAs(filename);
             var result = dbAccess.Users.Add(user);
             dbAccess.SaveChanges();
             dbAccess.SaveChanges();

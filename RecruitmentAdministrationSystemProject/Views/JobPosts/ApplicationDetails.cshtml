@@ -2,6 +2,8 @@
 
 @{
     ViewBag.Title = "ApplicationDetails";
+    var jobDetails = (RecruitmentAdministrationSystemProject.Models.JobPost)ViewBag.JobDetails;
+    var educationalDetails = (RecruitmentAdministrationSystemProject.Models.CandidateInfo)ViewBag.EducationalDetails;
 }
 
 <h2>ApplicationDetails</h2>
@@ -47,14 +49,6 @@
         <dd>
             @Html.DisplayFor(model => model.User.Location)
         </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.JobPost.Title)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.JobPost.Title)
-        </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.JobPost.Company.User.Name)
         </dt>

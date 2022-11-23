@@ -11,7 +11,8 @@ namespace RecruitmentAdministrationSystemProject.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Web;
+
     public partial class User
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -31,6 +32,7 @@ namespace RecruitmentAdministrationSystemProject.Models
         public string Password { get; set; }
         public string Email { get; set; }
         public string Img { get; set; }
+        public HttpPostedFileBase ImageFile { get; set; }
         public string MobileNo { get; set; }
         public string Location { get; set; }
         public Nullable<int> RoleId { get; set; }

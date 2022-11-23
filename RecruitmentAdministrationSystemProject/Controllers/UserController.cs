@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -27,8 +28,13 @@ namespace RecruitmentAdministrationSystemProject.Controllers
         [HttpPost]
         public ActionResult Create(User user)
         {
+            string filename = Path.GetFileNameWithoutExtension(user.ImageFile.FileName); // .FleName Contain the name of the file with the directory
+            string extension = Path.GetExtension(user.ImageFile.FileName);
+            filename = filename + DateTime.Now.ToString("yymmssff") + extension;
+            user.Img = "~/Image/" + filename;
+            filename = Path.Combine(Server.MapPath("~/Image/"), filename);
+            user.ImageFile.SaveAs(filename);
             var result = dbAccess.Users.Add(user);
-            dbAccess.SaveChanges();
             dbAccess.SaveChanges();
             switch (user.RoleId)
             {

@@ -29,7 +29,7 @@ namespace RecruitmentAdministrationSystemProject.Views
             }
             return View(jobPosts);
         }
-        [Authorize]
+        [Authorize(Roles ="Admin,Company")]
         public ActionResult Create()
         {
             string userName = Session["Uname"].ToString();
@@ -89,7 +89,13 @@ namespace RecruitmentAdministrationSystemProject.Views
         }
         public ActionResult ApplicationDetails(int? id)
         {
+            var jobDetails = new JobPost();
+            var educationalDetails = new CandidateInfo();
             var jobApplication = dbAccess.JobApplications.ToList().Where(jobApp=>jobApp.ApplicationId==id).FirstOrDefault();
+            jobDetails = dbAccess.JobPosts.ToList().Where(job => job.JobId == jobApplication.JobId).FirstOrDefault();
+            educationalDetails = dbAccess.CandidateInfoes.ToList().Where(user => user.UserId == jobApplication.UserId).FirstOrDefault();
+            ViewBag.JobDetails = jobDetails;
+            ViewBag.EducationalDetails = educationalDetails;
             return View(jobApplication);
 
         }
