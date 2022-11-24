@@ -21,11 +21,30 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    @if (User.Identity.IsAuthenticated)
+                    @*<li>@Html.ActionLink("About", "About", "Home")</li>
+        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
+                    @if (User.Identity.IsAuthenticated && Session["Role"] != null)
                     {
-                        <li>Dear @User.Identity.Name</li>
+
+                        if (Session["Role"].ToString() == "Admin")
+                        {
+                            <li>@Html.ActionLink("Companies", "Index", "Company")</li>
+                            <li>@Html.ActionLink("JobPosts", "Index", "JobPosts")</li>
+                            <li>@Html.ActionLink("JobApplication", "JobApplicationIndex", "JobPosts")</li>
+                            <li>@Html.ActionLink("Candidate", "Index", "Candidate")</li>
+                        }
+                        else if (Session["Role"].ToString() == "Candidate")
+                        {
+                            <li>@Html.ActionLink("JobPosts", "Index", "JobPosts")</li>
+                            <li>@Html.ActionLink("Applied Jobs", "About", "Home")</li>
+
+                        }
+                        else if (Session["Role"].ToString() == "Company")
+                        {
+                            <li>@Html.ActionLink("JobApplication", "JobApplicationIndex", "JobPosts")</li>
+
+                        }
+                        <li><div text-danger>Dear @User.Identity.Name</div></li>
                         <li>@Html.ActionLink("Logout", "Logout", "Account")</li>
 
 
@@ -38,7 +57,6 @@
 
 
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Company", "Index", "Company")</li>
                 </ul>
             </div>
         </div>

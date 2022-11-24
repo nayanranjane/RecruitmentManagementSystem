@@ -53,7 +53,7 @@
             @Html.DisplayFor(modelItem => item.Email)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Img)
+            <img src="@Url.Content(item.Img)" height="20px" width="20px"/>
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.MobileNo)

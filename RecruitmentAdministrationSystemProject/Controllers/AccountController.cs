@@ -63,7 +63,9 @@ namespace RecruitmentAdministrationSystemProject.Controllers
                 if (result != null)
                 {
                     FormsAuthentication.SetAuthCookie(user.UserName, false);
-                    Session["Uname"] = user.UserName.ToString();
+                    Session["Uname"] = result.UserName.ToString();
+                    Session["UID"] = result.UserId.ToString();
+                    Session["User"] = result;
                     var role = (from userInfo in dbAccess.Users.ToList()
                                    join roles in dbAccess.Roles.ToList()
                                    on userInfo.RoleId equals roles.RoleId

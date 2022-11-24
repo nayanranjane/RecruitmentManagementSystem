@@ -9,6 +9,10 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+@if (TempData["ErrorMessage"] != null)
+            {
+                @Html.Raw(TempData["ErrorMessage"]);
+            }
 <table class="table">
     <tr>
         <th></th>
@@ -39,7 +43,7 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Company.User.Img)
+            <img src="@Url.Content(item.Company.User.Img)" height="25px" width="25px">
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Title)

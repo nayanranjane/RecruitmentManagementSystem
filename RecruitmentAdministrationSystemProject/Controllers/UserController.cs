@@ -62,7 +62,7 @@ namespace RecruitmentAdministrationSystemProject.Controllers
         {
             var result = dbAccess.CandidateInfoes.Add(info);
             dbAccess.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Login","Account");
         }
         public ActionResult CreateCompanyInformation(int id)
         {
@@ -74,7 +74,7 @@ namespace RecruitmentAdministrationSystemProject.Controllers
         {
             var result = dbAccess.Companies.Add(info);
             dbAccess.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Login", "Account");
         }
         public ActionResult CreateStaffInformation(int id)
         {
@@ -88,7 +88,7 @@ namespace RecruitmentAdministrationSystemProject.Controllers
         {
             var result = dbAccess.Companies.Add(info);
             dbAccess.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Login", "Account");
         }
         public ActionResult DeleteUser(int? id)
         {
