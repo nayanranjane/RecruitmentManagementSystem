@@ -95,6 +95,7 @@ namespace RecruitmentAdministrationSystemProject.Controllers
         {
             FormsAuthentication.SignOut();
             Session["Uname"] = null;
+
             return RedirectToAction("Login");
         }
     }

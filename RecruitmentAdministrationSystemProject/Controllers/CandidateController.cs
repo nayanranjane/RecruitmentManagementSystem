@@ -24,5 +24,15 @@ namespace RecruitmentAdministrationSystemProject.Controllers
             return View(Candidate);
 
         }
+
+        public ActionResult DeleteCandidate(int? id)
+        {
+            var result = dbAccess.Users.Find(id);
+            var isDeleted = dbAccess.Users.Remove(result);
+            dbAccess.SaveChanges();
+            return RedirectToAction("index");
+
+        }
+
     }
 }

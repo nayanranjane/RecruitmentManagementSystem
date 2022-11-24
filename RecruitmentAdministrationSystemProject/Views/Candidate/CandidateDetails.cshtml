@@ -13,13 +13,42 @@
         <hr />
         <dl class="dl-horizontal">
             <dt>
-                @Html.DisplayNameFor(model => model.SSC_Marks)
+                Img
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.SSC_Marks)
+                <img src="@Url.Content(Model.User.Img)" height="25px" width="25px" />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.User.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.User.Name)
             </dd>
 
+            <dt>
+                @Html.DisplayNameFor(model => model.User.Email)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.User.Email)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.User.MobileNo)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.User.MobileNo)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.User.Location)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.User.Location)
+            </dd>
             <dt>
                 @Html.DisplayNameFor(model => model.SSC_College)
             </dt>

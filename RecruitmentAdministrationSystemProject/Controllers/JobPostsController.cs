@@ -46,7 +46,7 @@ namespace RecruitmentAdministrationSystemProject.Views
         {
             var result = dbAccess.JobPosts.Add(jobPost);
             dbAccess.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index","Home");
         }
         public ActionResult Delete(int? id)
         {
