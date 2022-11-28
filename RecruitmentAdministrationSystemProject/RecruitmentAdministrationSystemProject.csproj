@@ -300,6 +300,7 @@
     <Content Include="Views\Staff\Index.cshtml" />
     <Content Include="Views\User\MyProfile.cshtml" />
     <Content Include="Views\User\EditMyProfile.cshtml" />
+    <Content Include="Views\JobPosts\Index2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

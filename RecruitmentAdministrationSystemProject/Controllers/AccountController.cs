@@ -10,6 +10,7 @@ using System.IO;
 
 namespace RecruitmentAdministrationSystemProject.Controllers
 {
+
     public class AccountController : Controller
     {
         RecruitmentManagementSystemEntities dbAccess = new RecruitmentManagementSystemEntities();

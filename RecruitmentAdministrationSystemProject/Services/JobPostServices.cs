@@ -117,5 +117,49 @@ namespace RecruitmentAdministrationSystemProject.Services
                 throw ex;
             }
         }
+        public IEnumerable<JobPost> SearchJob(string searchString)
+        {
+            var m = searchString.Split(' ');
+            var j = m.ToList();
+            List<List<JobPost>> postList = new List<List<JobPost>>();
+
+            var posts = dbAccess.JobPosts.ToList();
+            var result = new List<JobPost>();
+            foreach (var item in j)
+            {
+                var temp = (from post in posts
+                            where (post.Company.User.Name.ToString().ToLower().Contains(item.ToLower()))
+                            || (post.Company.AboutCompany.ToString().ToLower().Contains(item.ToLower()))
+                            || (post.Title.ToString().ToLower().Contains(item.ToLower()))
+                            || (post.CTC.ToString().Contains(item.ToLower()))
+                            || (post.Location.ToString().ToLower().Contains(item.ToLower()))
+                            || (post.RequiredBatch.ToString().Contains(item.ToLower()))
+                            select post).ToList();
+                postList.Add(temp);
+            }
+            switch (postList.Count())
+            {
+                case 0:
+                    result = null;
+                    break;
+                case 1:
+                    result = postList[0];
+                    break;
+                case 2:
+                    result = (postList[0].Intersect(postList[1])).ToList();
+                    break;
+                case 3:
+                    result = (postList[0].Intersect(postList[1]).Intersect(postList[2])).ToList();
+                    break;
+                case 4:
+                    result = (postList[0].Intersect(postList[1]).Intersect(postList[2]).Intersect(postList[3])).ToList();
+                    break;
+                case 5:
+                    result = (postList[0].Intersect(postList[1]).Intersect(postList[2]).Intersect(postList[3]).Intersect(postList[4])).ToList();
+                    break;
+            }
+            return result;
+
+        }
     }
 }

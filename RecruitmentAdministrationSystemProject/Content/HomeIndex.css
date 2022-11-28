@@ -1,1 +1,5 @@
-﻿
+﻿body {
+    background-image: url("https://images.pexels.com/photos/4342127/pexels-photo-4342127.jpeg?auto=compress&cs=tinysrgb&w=600");
+    font-family: sans-serif;
+    background-size: cover;
+}

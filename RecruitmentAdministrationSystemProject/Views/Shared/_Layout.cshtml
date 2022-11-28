@@ -44,7 +44,7 @@
                         {
                             <li>@Html.ActionLink("MyPosts", "MyJobPosts", "JobPosts", new { username = User.Identity.Name }, null)</li>
                             <li>@Html.ActionLink("Job Application", "Index", "JobApplication")</li>
-                            <li>@Html.ActionLink("Staff", "Index", "Staff", new { username = User.Identity.Name }, null)</li>
+                            <li>@Html.ActionLink("Staff", "Index", "Staff", new { id = Convert.ToInt32(Session["UID"]) }, null)</li>
 
 
                         }

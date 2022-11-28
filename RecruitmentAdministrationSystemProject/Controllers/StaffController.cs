@@ -28,26 +28,25 @@ namespace RecruitmentAdministrationSystemProject.Controllers
             dbAccess.SaveChanges();
             return RedirectToAction("Login", "Account");
         }
-        public ActionResult Index(string username)
+        public ActionResult Index(int id)
         {
             var staffs = dbAccess.Staffs.ToList();
-            var result = dbAccess.Staffs.ToList().Where(staff => staff.Company.User.UserName == username);
+            var result = dbAccess.Staffs.ToList().Where(staff => staff.Company.User.UserId == id);
             return View(result);
         }
         public ActionResult Authenticate(int id)
         {
             var staff = dbAccess.Staffs.Find(id);
-            if (staff.isAuthenticated == true)
-            {
-                staff.isAuthenticated = false;
-            }
-            else
-            {
-                staff.isAuthenticated = true;
-            }
-            
+            staff.isAuthenticated = true;
             dbAccess.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new {id=staff.Company.User.UserId});
+        }
+        public ActionResult Disapprove(int id)
+        {
+            var staff = dbAccess.Staffs.Find(id);
+            staff.isAuthenticated = false;
+            dbAccess.SaveChanges();
+            return RedirectToAction("Index", new {id=staff.Company.User.UserId });
         }
             
     }

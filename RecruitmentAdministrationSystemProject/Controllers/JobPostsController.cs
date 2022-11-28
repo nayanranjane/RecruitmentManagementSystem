@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.Ajax.Utilities;
@@ -75,7 +76,28 @@ namespace RecruitmentAdministrationSystemProject.Views
             return View(jobList);
 
         }
-      
+
+        [HttpPost]
+        public ActionResult Index2(string search)
+        {
+            List<JobPost> jobPosts = new List<JobPost>();
+            if (search != null)
+            {
+                 jobPosts = jobPostServices.SearchJob(search).ToList();
+            }
+            else
+            {
+                jobPosts = jobPostServices.GetJobPost().ToList() ;
+            }
+
+            return View(jobPosts);
+        }
+        public ActionResult ShowDetails(int? id)
+        {
+            return RedirectToAction("Index", new { id = id });
+
+        }
+
 
     }
 }

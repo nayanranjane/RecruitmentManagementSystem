@@ -44,9 +44,8 @@
                     @Html.DisplayFor(modelItem => item.User.Name)
                 </td>
                 <td>
-                    @Html.ActionLink("Authenticate", "Authenticate", new { id = item.StaffId }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.StaffId }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.StaffId })
+                    <button type="button" class="btn btn-success text-light">@Html.ActionLink("Aprove", "Authenticate", new { id = item.StaffId })</button>
+                    <button type="button" class="btn btn-danger text-light"> @Html.ActionLink("Disaprove", "Disapprove", new { id = item.StaffId })</button>
                 </td>
             </tr>
         }
