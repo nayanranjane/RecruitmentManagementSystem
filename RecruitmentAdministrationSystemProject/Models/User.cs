@@ -35,12 +35,12 @@ namespace RecruitmentAdministrationSystemProject.Models
         [Required(AllowEmptyStrings = false, ErrorMessage = "Username is required")]
         public string UserName { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Password is required")]
-        [DataType(DataType.Password)]
-        [MinLength(6, ErrorMessage = " 6 character Required")]
+        //[DataType(DataType.Password)]
+        //[MinLength(6, ErrorMessage = " 6 character Required")]
         public string Password { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Confirm Password is required")]
-        [DataType(DataType.Password)]
-        [MinLength(6, ErrorMessage = "6 character Required")]
+      //  [Required(AllowEmptyStrings = false, ErrorMessage = "Confirm Password is required")]
+     //   [DataType(DataType.Password)]
+       // [MinLength(6, ErrorMessage = "6 character Required")]
       //  [Compare("Password", ErrorMessage = "Password are not matching")]
         public string ConfirmPassword { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Email is required")]

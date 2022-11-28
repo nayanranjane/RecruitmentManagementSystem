@@ -3,3 +3,7 @@
 .Sample{
     height=100px;
 }
+.row{
+    margin:20px;
+    padding:5px;
+}

@@ -56,3 +56,8 @@ textarea {
         border-bottom-right-radius: .3rem;
     }
 }
+
+div.imgclass{
+    width:100vw;
+    height:300px;
+}

@@ -63,7 +63,7 @@ namespace RecruitmentAdministrationSystemProject.Controllers
         [HttpPost]
         public ActionResult Login(User user, string ReturnUrl)
         {
-            if (ModelState.IsValid)
+            if (true)
             {
                 var result = dbAccess.Users.ToList().Where(u => u.UserName == user.UserName && u.Password == user.Password).FirstOrDefault();
                 if (result != null)

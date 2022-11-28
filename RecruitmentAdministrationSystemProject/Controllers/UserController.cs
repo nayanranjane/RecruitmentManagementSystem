@@ -77,7 +77,25 @@ namespace RecruitmentAdministrationSystemProject.Controllers
             return RedirectToAction("CandidateDetails", "Candidate", new {id=id});
 
         }
-       
+        public ActionResult MyProfile(int? id)
+        {
+            User user = new User();
+            user = dbAccess.Users.Find(id);
+            return View(user);
+        }
+        public ActionResult EditMyProfile(int? id)
+        {
+            User user = new User();
+            user = dbAccess.Users.Find(id);
+            return View(user);
+        }
+        [HttpPost]
+        public ActionResult EditMyProfile(User user)
+        {
+            var result = userServices.UpdateUser(user, user.UserId);
+            return RedirectToAction("Index", "Home");
+        }
+
 
     }
 }
