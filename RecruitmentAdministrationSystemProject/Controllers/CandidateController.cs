@@ -1,4 +1,5 @@
 ﻿using RecruitmentAdministrationSystemProject.Models;
+using RecruitmentAdministrationSystemProject.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,8 @@ namespace RecruitmentAdministrationSystemProject.Controllers
     public class CandidateController : Controller
     {
         RecruitmentManagementSystemEntities dbAccess = new RecruitmentManagementSystemEntities();
+        SkillsServices skillsServices = new SkillsServices();
+       
         public ActionResult Index()
         {
             var candidates = dbAccess.CandidateInfoes.ToList();
@@ -32,6 +35,21 @@ namespace RecruitmentAdministrationSystemProject.Controllers
             dbAccess.SaveChanges();
             return RedirectToAction("index");
 
+        }
+        public ActionResult CreateCandidateInfo(int id)
+        {
+            CandidateInfo info = new CandidateInfo() { UserId = id };
+            var skills = skillsServices.GetAllSkills();
+            ViewBag.Skills = skills;
+            return View(info);
+        }
+        [HttpPost]
+        public ActionResult CreateCandidateInfo(CandidateInfo info)
+        {
+            var result = dbAccess.CandidateInfoes.Add(info);
+          
+            dbAccess.SaveChanges();
+            return RedirectToAction("Login", "Account");
         }
 
     }

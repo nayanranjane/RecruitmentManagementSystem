@@ -1,0 +1,44 @@
+﻿img#logo {
+    border-radius: 26px;
+    justify-content: flex-end;
+    left: 2px;
+}
+
+div.navclass {
+    display: flex;
+    width: 400px;
+}
+
+.container-custom {
+    width: 100vw;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+}
+
+.action-container {
+    overflow: hidden;
+}
+
+    .action-container:hover {
+        overflow: visible;
+    }
+
+.actions {
+    position: absolute;
+    background: #808080;
+    right: 1rem;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.63);
+    z-index: 2;
+    color: #ffff;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-top: 1rem;
+}
+
+    .actions > * {
+        padding: 0.5rem 2rem;
+        color: #ffff;
+        border-bottom: thin solid black;
+    }

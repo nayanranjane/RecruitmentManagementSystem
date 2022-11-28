@@ -1,0 +1,60 @@
+﻿@model IEnumerable<RecruitmentAdministrationSystemProject.Models.Staff>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@if (Model.Count() != 0)
+{
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Designation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.isAuthenticated)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Company.CompanyUrl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User.Name)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Designation)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.isAuthenticated)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Company.CompanyUrl)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.Name)
+                </td>
+                <td>
+                    @Html.ActionLink("Authenticate", "Authenticate", new { id = item.StaffId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.StaffId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.StaffId })
+                </td>
+            </tr>
+        }
+
+    </table>
+
+}
+else
+            {
+                <h4>No record Found</h4>
+            }

@@ -24,28 +24,34 @@ namespace RecruitmentAdministrationSystemProject.Controllers
         [HttpPost]
         public ActionResult SignUp(User user)
         {
-            string filename = Path.GetFileNameWithoutExtension(user.ImageFile.FileName); // .FleName Contain the name of the file with the directory
-            string extension = Path.GetExtension(user.ImageFile.FileName);
-            filename = filename + DateTime.Now.ToString("yymmssff") + extension;
-            user.Img = "~/Image/" + filename;
-            filename = Path.Combine(Server.MapPath("~/Image/"), filename);
-            user.ImageFile.SaveAs(filename);
-            var result = dbAccess.Users.Add(user);
-            dbAccess.SaveChanges();
-            dbAccess.SaveChanges();
-            switch (user.RoleId)
+            if (ModelState.IsValid)
             {
-                case 2:
-                    return RedirectToAction("CreateCandidateInfo","User", new { id = user.UserId });
-                    break;
-                case 3:
-                    return RedirectToAction("CreateCompanyInformation","User", new { id = user.UserId });
-                    break;
-                case 4:
-                    return RedirectToAction("CreateStaffInformation","User", new { id = user.UserId });
-                    break;
+                string filename = Path.GetFileNameWithoutExtension(user.ImageFile.FileName); // .FleName Contain the name of the file with the directory
+                string extension = Path.GetExtension(user.ImageFile.FileName);
+                filename = filename + DateTime.Now.ToString("yymmssff") + extension;
+                user.Img = "~/Image/" + filename;
+                filename = Path.Combine(Server.MapPath("~/Image/"), filename);
+                user.ImageFile.SaveAs(filename);
+                var result = dbAccess.Users.Add(user);
+                dbAccess.SaveChanges();
+                switch (user.RoleId)
+                {
+                    case 2:
+                        return RedirectToAction("CreateCandidateInfo", "Candidate", new { id = user.UserId });
+                        break;
+                    case 3:
+                        return RedirectToAction("CreateCompanyInformation", "Company", new { id = user.UserId });
+                        break;
+                    case 4:
+                        return RedirectToAction("CreateStaffInformation", "Staff", new { id = user.UserId });
+                        break;
+                }
+                return RedirectToAction("SignUp");
             }
-            return RedirectToAction("Index");
+            else
+            {
+                return RedirectToAction("SignUp");
+            }
 
         }
 
@@ -59,13 +65,14 @@ namespace RecruitmentAdministrationSystemProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = dbAccess.Users.Where(u => (u.UserName == user.UserName && u.Password == user.Password)).FirstOrDefault();
+                var result = dbAccess.Users.ToList().Where(u => u.UserName == user.UserName && u.Password == user.Password).FirstOrDefault();
                 if (result != null)
                 {
-                    FormsAuthentication.SetAuthCookie(user.UserName, false);
+                    FormsAuthentication.SetAuthCookie(result.UserName, false);
                     Session["Uname"] = result.UserName.ToString();
                     Session["UID"] = result.UserId.ToString();
                     Session["User"] = result;
+                    Session["Img"] = result.Img;
                     var role = (from userInfo in dbAccess.Users.ToList()
                                    join roles in dbAccess.Roles.ToList()
                                    on userInfo.RoleId equals roles.RoleId

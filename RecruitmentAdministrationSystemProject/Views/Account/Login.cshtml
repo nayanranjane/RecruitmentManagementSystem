@@ -4,47 +4,59 @@
     ViewBag.Title = "Login";
 }
 
-<h2>Login</h2>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <link href="@Url.Content("~/Content/Login.css")" rel="stylesheet" />
+</head>
 
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Login</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<body>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-page">
+            <div class="form-container">
+                <h2>Login</h2>
+                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-input-field", @placeHolder = "User Name" } })
+
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-input-field", @placeHolder = "Your Password", @type = "password" } })
 
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+                <button class="form-input-button login" type="submit">Login</button>
+
+               @*<button class="form-input-button singup" type="button">
+                </button>*@
+                @Html.ActionLink("Sign Up", "signup",null,  new { @class = "form-input-button singup"  })
+
+            </div>
+
+        </div>
+
+        <!--<div action="index.html" class="box">
+            <h1>Login</h1>
+            <div class="input-box">
+                <i class="fa fa-user-secret" aria-hidden="true"></i>
                 @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                <span></span>
             </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="input-box">-->
+        @*  *@
+        <!--<i class="fa fa-lock" aria-hidden="true"></i>
                 @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                <span></span>
             </div>
-        </div>
-
-      
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Login" class="btn btn-default" />
+            <button type="submit">Login</button>
+            <div class="signup_link">
+                <button type="button" id="submit">
+                    @Html.ActionLink("SignUp", "SignUp");
+                </button>
             </div>
-        </div>
-    </div>
-}
+        </div>-->
+    }
+</body>
+</html>
 
-<div>
-    @Html.ActionLink("SignUp", "SignUp")
-</div>
 
 
 

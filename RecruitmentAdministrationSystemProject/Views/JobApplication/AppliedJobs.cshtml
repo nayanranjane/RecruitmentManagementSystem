@@ -1,0 +1,80 @@
+﻿@model IEnumerable<RecruitmentAdministrationSystemProject.Models.JobApplication>
+
+@{
+    ViewBag.Title = "AppliedJobs";
+}
+
+<h2>AppliedJobs</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ApplicationDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AbleToReallocation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PrevCompanyName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WorkExperience)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NoticePeriod)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Resume)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.JobPost.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User.Name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ApplicationDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AbleToReallocation)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PrevCompanyName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WorkExperience)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NoticePeriod)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Resume)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.JobPost.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.Name)
+        </td>
+        <td>
+            @*@Html.ActionLink("Details", "Details", new { id=item.ApplicationId }) |*@
+            @Html.ActionLink("Delete", "Delete", new { id=item.ApplicationId })
+        </td>
+    </tr>
+}
+
+</table>

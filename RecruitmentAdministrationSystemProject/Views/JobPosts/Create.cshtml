@@ -75,7 +75,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Skill_1, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Skill_1, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.DropDownListFor(model => model.Skill_1, new SelectList(ViewBag.Skills, "SkillsID", "SkillName"), "Select skills", new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.Skill_1, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -83,7 +83,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Skill_2, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Skill_2, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.DropDownListFor(model => model.Skill_2, new SelectList(ViewBag.Skills, "SkillsID", "SkillName"), "Select skills", new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.Skill_2, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -91,7 +91,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Skill_3, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Skill_3, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.DropDownListFor(model => model.Skill_3, new SelectList(ViewBag.Skills, "SkillsID", "SkillName"), "Select skills", new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.Skill_3, "", new { @class = "text-danger" })
         </div>
     </div>

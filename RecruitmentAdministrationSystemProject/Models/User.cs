@@ -11,7 +11,9 @@ namespace RecruitmentAdministrationSystemProject.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Web;
+    using System.Xml.Linq;
 
     public partial class User
     {
@@ -27,14 +29,31 @@ namespace RecruitmentAdministrationSystemProject.Models
         }
     
         public int UserId { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Name is required")]
         public string Name { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Username is required")]
         public string UserName { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Password is required")]
+        [DataType(DataType.Password)]
+        [MinLength(6, ErrorMessage = " 6 character Required")]
         public string Password { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Confirm Password is required")]
+        [DataType(DataType.Password)]
+        [MinLength(6, ErrorMessage = "6 character Required")]
+      //  [Compare("Password", ErrorMessage = "Password are not matching")]
+        public string ConfirmPassword { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Email is required")]
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
+        //[Required(AllowEmptyStrings = false, ErrorMessage = "Image is required")]
         public string Img { get; set; }
         public HttpPostedFileBase ImageFile { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Mobile No is required")]
         public string MobileNo { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Location is required")]
         public string Location { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Role is required")]
         public Nullable<int> RoleId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

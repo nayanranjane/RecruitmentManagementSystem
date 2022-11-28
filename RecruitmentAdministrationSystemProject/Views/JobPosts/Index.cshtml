@@ -6,13 +6,15 @@
 
 <h2>Index</h2>
 
+@if(User.IsInRole("Company")){
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-@if (TempData["ErrorMessage"] != null)
-            {
-                @Html.Raw(TempData["ErrorMessage"]);
             }
+@if (TempData["ErrorMessage"] != null)
+{
+    @Html.Raw(TempData["ErrorMessage"]);
+}
 <table class="table">
     <tr>
         <th></th>
@@ -28,11 +30,11 @@
         <th>
             @Html.DisplayNameFor(model => model.Location)
         </th>
-       
+
         <th>
             @Html.DisplayNameFor(model => model.RequiredBatch)
         </th>
-   
+
         <th>
             @Html.DisplayNameFor(model => model.Company.CompanyUrl)
         </th>
@@ -40,44 +42,45 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            <img src="@Url.Content(item.Company.User.Img)" height="25px" width="25px">
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CTC)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NoOfOpening)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Location)
-        </td>
-
-        <td>
-            @Html.DisplayFor(modelItem => item.RequiredBatch)
-        </td>
-   
-        <td>
-            @Html.DisplayFor(modelItem => item.Company.CompanyUrl)
-        </td>
-
-        @if (User.Identity.IsAuthenticated && ((Session["Role"]).ToString() == "Company" || (Session["Role"]).ToString() == "Admin"))
-        {
+    @foreach (var item in Model)
+    {
+        <tr>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.JobId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.JobId })
+                <img src="@Url.Content(item.Company.User.Img)" height="25px" width="25px">
             </td>
-        }
-        else
-        {
-    <td> @Html.ActionLink("Details", "Details", new { id = item.JobId }) |@Html.ActionLink("Apply", "Apply", new { id = item.JobId })</td>
-        }
-    </tr>
-}
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CTC)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NoOfOpening)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Location)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.RequiredBatch)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Company.CompanyUrl)
+            </td>
+
+            @if (User.Identity.IsAuthenticated && (User.IsInRole("Company") || User.IsInRole("Company")))
+            {
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.JobId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.JobId })
+                </td>
+            }
+            else
+            {
+                <td> @Html.ActionLink("Details", "Details", new { id = item.JobId }) |@Html.ActionLink("Apply", "Apply","JobApplication", new { id = item.JobId },null)</td>
+            }
+        </tr>
+    }
 
 </table>

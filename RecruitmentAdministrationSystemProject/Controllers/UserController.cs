@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using RecruitmentAdministrationSystemProject.Models;
+using RecruitmentAdministrationSystemProject.Services;
 
 namespace RecruitmentAdministrationSystemProject.Controllers
 {
@@ -12,84 +13,52 @@ namespace RecruitmentAdministrationSystemProject.Controllers
     {
         // GET: User
         RecruitmentManagementSystemEntities dbAccess = new RecruitmentManagementSystemEntities();
+        UserServices userServices = new UserServices(); 
+        RoleServices roleServices = new RoleServices();
         public ActionResult Index()
         {
-            var Users = dbAccess.Users.ToList();
+            var Users = userServices.GetUsers();
             return View(Users);
 
         }
+
+
         public ActionResult Create()
         {
             User user = new User();
-            var roles = dbAccess.Roles.ToList().Skip(1).ToList();
+            var roles = roleServices.GetRole().Skip(1).ToList();
             ViewBag.roles = roles;
             return View(user);
         }
         [HttpPost]
         public ActionResult Create(User user)
         {
+            if (user.ImageFile!=null)
+            {
             string filename = Path.GetFileNameWithoutExtension(user.ImageFile.FileName); // .FleName Contain the name of the file with the directory
             string extension = Path.GetExtension(user.ImageFile.FileName);
             filename = filename + DateTime.Now.ToString("yymmssff") + extension;
             user.Img = "~/Image/" + filename;
             filename = Path.Combine(Server.MapPath("~/Image/"), filename);
             user.ImageFile.SaveAs(filename);
-            var result = dbAccess.Users.Add(user);
-            dbAccess.SaveChanges();
+            }
+            var result = userServices.CreateUser(user);
             switch (user.RoleId)
             {
                 case 2:
-                    return RedirectToAction("CreateCandidateInfo", new { id = user.UserId });
+                    return RedirectToAction("CreateCandidateInfo","Candidate", new { id = user.UserId });
                     break;
                 case 3:
-                    return RedirectToAction("CreateCompanyInformation", new { id = user.UserId });
+                    return RedirectToAction("CreateCompanyInformation","Company", new { id = user.UserId });
                     break;
                 case 4:
-                    return RedirectToAction("CreateStaffInformation", new { id = user.UserId });
+                    return RedirectToAction("CreateStaffInformation", "Staff",new { id = user.UserId });
                     break;
             }
             return RedirectToAction("Index");
 
         }
 
-        public ActionResult CreateCandidateInfo(int id)
-        {
-            CandidateInfo info = new CandidateInfo() { UserId = id };
-            return View(info);
-        }
-        [HttpPost]
-        public ActionResult CreateCandidateInfo(CandidateInfo info)
-        {
-            var result = dbAccess.CandidateInfoes.Add(info);
-            dbAccess.SaveChanges();
-            return RedirectToAction("Login","Account");
-        }
-        public ActionResult CreateCompanyInformation(int id)
-        {
-            Company info = new Company() { UserId = id };
-            return View(info);
-        }
-        [HttpPost]
-        public ActionResult CreateCompanyInformation(Company info)
-        {
-            var result = dbAccess.Companies.Add(info);
-            dbAccess.SaveChanges();
-            return RedirectToAction("Login", "Account");
-        }
-        public ActionResult CreateStaffInformation(int id)
-        {
-            Staff info = new Staff() { UserID = id };
-            var companies = dbAccess.Companies.ToList();
-            ViewBag.companies = companies;
-            return View(info);
-        }
-        [HttpPost]
-        public ActionResult CreateStaffInformation(Company info)
-        {
-            var result = dbAccess.Companies.Add(info);
-            dbAccess.SaveChanges();
-            return RedirectToAction("Login", "Account");
-        }
         public ActionResult DeleteUser(int? id)
         {
             var result = dbAccess.Users.Find(id);
@@ -108,6 +77,7 @@ namespace RecruitmentAdministrationSystemProject.Controllers
             return RedirectToAction("CandidateDetails", "Candidate", new {id=id});
 
         }
+       
 
     }
 }

@@ -133,6 +133,8 @@
     <Compile Include="Controllers\CandidateController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InterviewController.cs" />
+    <Compile Include="Controllers\JobApplicationController.cs" />
     <Compile Include="Controllers\JobPostsController.cs" />
     <Compile Include="Controllers\StaffController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -196,12 +198,27 @@
     </Compile>
     <Compile Include="Models\UserRoleProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\CandidateInfoServices.cs" />
+    <Compile Include="Services\CompanyServices.cs" />
+    <Compile Include="Services\JobApplicationServices.cs" />
+    <Compile Include="Services\JobPostServices.cs" />
+    <Compile Include="Services\RoleServices.cs" />
+    <Compile Include="Services\SkillsServices.cs" />
+    <Compile Include="Services\UserServices.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\CompanySignIn.css" />
+    <Content Include="Content\HomeIndex.css" />
+    <Content Include="Content\layout.css" />
+    <Content Include="Content\Login.css" />
+    <Content Include="Content\loginPage.css" />
+    <Content Include="Content\SignIn.css" />
+    <Content Include="Content\Signup.css" />
+    <Content Include="Content\CandidateDetails.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -269,12 +286,20 @@
     <Content Include="Views\JobPosts\JobApplicationIndex.cshtml" />
     <Content Include="Views\Company\Index2.cshtml" />
     <Content Include="Views\JobPosts\ApplicationDetails.cshtml" />
+    <Content Include="Views\Candidate\CreateCandidateInfo.cshtml" />
+    <Content Include="Views\Company\CreateCompanyInformation.cshtml" />
+    <Content Include="Views\Staff\CreateStaffInformation.cshtml" />
+    <Content Include="Views\JobApplication\Apply.cshtml" />
+    <Content Include="Views\JobApplication\Index.cshtml" />
+    <Content Include="Views\JobApplication\Details.cshtml" />
+    <Content Include="Views\JobApplication\AppliedJobs.cshtml" />
+    <Content Include="Views\JobPosts\MyJobPosts.cshtml" />
+    <Content Include="Views\Staff\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Image\" />
-    <Folder Include="Services\" />
-    <Folder Include="Views\Staff\" />
+    <Folder Include="Views\Interview\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

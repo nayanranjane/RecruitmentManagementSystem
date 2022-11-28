@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.Ajax.Utilities;
 using RecruitmentAdministrationSystemProject.Models;
+using RecruitmentAdministrationSystemProject.Services;
 
 namespace RecruitmentAdministrationSystemProject.Views
 {
@@ -16,6 +17,8 @@ namespace RecruitmentAdministrationSystemProject.Views
       
         // GET: JobPosts
         RecruitmentManagementSystemEntities dbAccess = new RecruitmentManagementSystemEntities();
+        JobPostServices jobPostServices = new JobPostServices();
+        SkillsServices skillsServices = new SkillsServices();   
         public ActionResult Index(int? id)
         {
             List<JobPost> jobPosts = new List<JobPost>();
@@ -29,7 +32,7 @@ namespace RecruitmentAdministrationSystemProject.Views
             }
             return View(jobPosts);
         }
-        [Authorize(Roles ="Admin,Company")]
+        [Authorize(Roles ="Company")]
         public ActionResult Create()
         {
             string userName = Session["Uname"].ToString();
@@ -38,6 +41,8 @@ namespace RecruitmentAdministrationSystemProject.Views
                       on user.UserId equals companyinfo.UserId
                       where user.UserName == userName
                       select companyinfo).FirstOrDefault();
+            var skills = skillsServices.GetAllSkills();
+            ViewBag.Skills = skills;
             JobPost jobPost = new JobPost() { CompanyID = id.CompanyId ,PostDate=DateTime.Now};
             return View(jobPost);
         }
@@ -53,7 +58,7 @@ namespace RecruitmentAdministrationSystemProject.Views
             var result = dbAccess.JobPosts.Find(id);
             dbAccess.JobPosts.Remove(result);
             dbAccess.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index","Home");
         }
         public ActionResult Details(int? id)
         {
@@ -64,70 +69,13 @@ namespace RecruitmentAdministrationSystemProject.Views
             }
             return RedirectToAction("Index");
         }
-        public ActionResult Apply(int? id, string ReturnUrl)
+        public ActionResult MyJobPosts(string username)
         {
-            if(id != null && Session["Uname"]!=null)
-            { 
-                
-                var candidate = dbAccess.Users.ToList().Where(users => users.UserName == Session["Uname"].ToString()).FirstOrDefault();
-                if (dbAccess.JobApplications.ToList().Where(jobApp => jobApp.JobId == id&& jobApp.UserId == candidate.UserId).FirstOrDefault()!=null)
-                {
-                    TempData["ErrorMessage"] = "<script>alert('Already applied for this job');</script>";
-                    if (ReturnUrl!=null)
-                        return RedirectToAction(ReturnUrl);
-                    return RedirectToAction("Index", "JobPosts");
-                }
-                    JobApplication jobApplication = new JobApplication() { JobId = id, UserId = candidate.UserId ,ApplicationDate=DateTime.Now};
-                return View(jobApplication);
-            }
-            return RedirectToAction("Index");
-        }
-        [HttpPost]
-        public ActionResult Apply(JobApplication jobApplication)
-        {
-            var result = dbAccess.JobApplications.Add(jobApplication);
-            dbAccess.SaveChanges();
-            return RedirectToAction("Index","JobPosts");
-        }
-        [Authorize(Roles ="Admin,Company")]
-        public ActionResult JobApplicationIndex(int? id)
-        {
-            List<JobApplication> jobApplication = new List<JobApplication>();
-            if (Convert.ToInt32(Session["UID"])!=null && Session["Role"].ToString()!="Admin")
-            {
-                id = Convert.ToInt32(Session["UID"]);
-                var jobPosts = dbAccess.JobPosts.ToList().Where(job => job.Company.UserId == id).ToList();
-                var jobApplications = dbAccess.JobApplications.ToList();
-                jobApplication = (from post in jobPosts
-                                  join app in jobApplications
-                                  on post.JobId equals app.JobId
-                                  select app).ToList();
-            }
-            else
-            {
-                jobApplication = dbAccess.JobApplications.ToList();
-            }
-            return View(jobApplication);
-        }
-        public ActionResult ApplicationDetails(int? id)
-        {
-            var jobDetails = new JobPost();
-            var educationalDetails = new CandidateInfo();
-            var jobApplication = dbAccess.JobApplications.ToList().Where(jobApp=>jobApp.ApplicationId==id).FirstOrDefault();
-            jobDetails = dbAccess.JobPosts.ToList().Where(job => job.JobId == jobApplication.JobId).FirstOrDefault();
-            educationalDetails = dbAccess.CandidateInfoes.ToList().Where(user => user.UserId == jobApplication.UserId).FirstOrDefault();
-            ViewBag.JobDetails = jobDetails;
-            ViewBag.EducationalDetails = educationalDetails;
-            return View(jobApplication);
+            var jobList = jobPostServices.GetJobPost().Where(post => post.Company.User.UserName == username);
+            return View(jobList);
 
         }
-        public ActionResult ApplicationDelete(int? id)
-        {
-            var result = dbAccess.JobApplications.Find(id);
-            var isdeleted = dbAccess.JobApplications.Remove(result);
-            dbAccess.SaveChanges();
-            return RedirectToAction("JobApplicationIndex", "JobPosts");
-        }
+      
 
     }
 }

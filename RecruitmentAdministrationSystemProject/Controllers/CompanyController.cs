@@ -8,12 +8,25 @@ using RecruitmentAdministrationSystemProject.Models;
 
 namespace RecruitmentAdministrationSystemProject.Controllers
 {
-    [Authorize]
     public class CompanyController : Controller
     {
         RecruitmentManagementSystemEntities dbAccess = new RecruitmentManagementSystemEntities();
 
-        [Authorize(Roles ="Admin,Company")]
+        public ActionResult CreateCompanyInformation(int id)
+        {
+            Company info = new Company() { UserId = id };
+            return View(info);
+        }
+        [HttpPost]
+        public ActionResult CreateCompanyInformation(Company info)
+        {
+            var result = dbAccess.Companies.Add(info);
+            dbAccess.SaveChanges();
+            return RedirectToAction("Login", "Account");
+        }
+
+
+
         public ActionResult Index()
         {
             var Companies = (from user in dbAccess.Users
