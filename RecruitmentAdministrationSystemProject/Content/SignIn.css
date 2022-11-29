@@ -4,7 +4,8 @@
 }
 
 body {
-    background-image: url("https://img.freepik.com/free-photo/beautiful-shot-sea-with-mountain-distance-clear-sky_181624-2248.jpg?w=2000");
+    background-image: url("https://localhost:44390/Image/login2.jpg");
+    background-size: cover;
 }
 
 div.main {
@@ -36,17 +37,15 @@ h2 {
     font-size: 18px;
     border-radius: 10px;
     border: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: -12px -5px 5px rgba(128, 128, 128, 0.63);
     color: #fff;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin-top: 6rem;
 }
-/*
-div#register {
-    margin: 40px;
-}*/
+
 
 label {
     font-family: sans-serif;
@@ -79,8 +78,11 @@ input#submit {
     transition:all 0.5s ease;
     margin-bottom:1rem;
 }
-    input#submit:hover{
-        scale:105%;
+    input#submit:hover {
+        scale: 105%;
+        background-color: greenyellow;
+        box-shadow: -12px -5px 5px rgba(128, 128, 128, 0.63);
+        color: black;
     }
 
 
@@ -100,15 +102,20 @@ input#submit {
         
     }
 
-
-
         .singup-form > * > label {
             width: 10rem;
+            font-size:1.5rem;
         }
 
-        .singup-form > * > input {
-            width: 25rem;
+        .singup-form > * > div {
+            min-height:6rem;
         }
+
+            .singup-form > * > div > input {
+                width: 25rem;
+            }
+
+
 
 .radio-container{
     width:20rem;
@@ -125,4 +132,13 @@ input#submit {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.input-container{
+    min-height: 4rem;
+    height: 4rem;
+}
+
+.hiddenContent{
+    display:none;
 }

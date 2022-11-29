@@ -1,0 +1,29 @@
+﻿body {
+    background-image: url("https://localhost:44390/Image/login1.jpg");
+    background-size: cover;
+}
+.UserContainer {
+    height: max-content;
+    width: 400px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 6rem;
+    background-color: rgb(192, 174, 14, 0.40);
+    box-shadow: -12px -5px 5px rgba(128, 128, 128, 0.63);
+    padding:2rem;
+    border-radius:2rem;
+}
+.UserMenu{
+    font-weight:600;
+    font-style:italic;
+}
+.divImg{
+    height:200px;
+    width:200px;
+    border-radius:100px;
+    margin-top:8rem;
+}
+.profileImg {
+    border-radius: 100px;
+    box-shadow: -12px -5px 5px rgba(128, 128, 128, 0.63);
+}

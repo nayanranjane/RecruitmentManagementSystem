@@ -2,6 +2,7 @@
 using RecruitmentAdministrationSystemProject.Services;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -33,6 +34,12 @@ namespace RecruitmentAdministrationSystemProject.Controllers
         [HttpPost]
         public ActionResult Apply(JobApplication jobApplication)
         {
+            string filename = Path.GetFileNameWithoutExtension(jobApplication.File.FileName); // .FleName Contain the name of the file with the directory
+            string extension = Path.GetExtension(jobApplication.File.FileName);
+            filename = filename + DateTime.Now.ToString("yymmssff") + extension;
+            jobApplication.Resume = "~/Documents/" + filename;
+            filename = Path.Combine(Server.MapPath("~/Documents/"), filename);
+            jobApplication.File.SaveAs(filename);
             var result = dbAccess.JobApplications.Add(jobApplication);
             dbAccess.SaveChanges();
             return RedirectToAction("Index", "JobPosts");

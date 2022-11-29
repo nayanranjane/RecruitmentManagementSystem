@@ -27,12 +27,19 @@ namespace RecruitmentAdministrationSystemProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                string filename = Path.GetFileNameWithoutExtension(user.ImageFile.FileName); // .FleName Contain the name of the file with the directory
-                string extension = Path.GetExtension(user.ImageFile.FileName);
-                filename = filename + DateTime.Now.ToString("yymmssff") + extension;
-                user.Img = "~/Image/" + filename;
-                filename = Path.Combine(Server.MapPath("~/Image/"), filename);
-                user.ImageFile.SaveAs(filename);
+                if (user.ImageFile != null)
+                {
+                    string filename = Path.GetFileNameWithoutExtension(user.ImageFile.FileName); // .FleName Contain the name of the file with the directory
+                    string extension = Path.GetExtension(user.ImageFile.FileName);
+                    filename = filename + DateTime.Now.ToString("yymmssff") + extension;
+                    user.Img = "~/Image/" + filename;
+                    filename = Path.Combine(Server.MapPath("~/Image/"), filename);
+                    user.ImageFile.SaveAs(filename);
+                }
+                else
+                {
+                    user.Img = "~/Image/" + "User.jfif";
+                }
                 var result = dbAccess.Users.Add(user);
                 dbAccess.SaveChanges();
                 switch (user.RoleId)
@@ -75,10 +82,10 @@ namespace RecruitmentAdministrationSystemProject.Controllers
                     Session["User"] = result;
                     Session["Img"] = result.Img;
                     var role = (from userInfo in dbAccess.Users.ToList()
-                                   join roles in dbAccess.Roles.ToList()
-                                   on userInfo.RoleId equals roles.RoleId
-                                   where userInfo.UserName == user.UserName
-                                   select roles).FirstOrDefault();
+                                join roles in dbAccess.Roles.ToList()
+                                on userInfo.RoleId equals roles.RoleId
+                                where userInfo.UserName == user.UserName
+                                select roles).FirstOrDefault();
                     Session["Role"] = role.RoleName.ToString();
                     if (ReturnUrl != null)
                     {

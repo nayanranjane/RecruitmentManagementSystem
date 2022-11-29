@@ -42,6 +42,10 @@ namespace RecruitmentAdministrationSystemProject.Controllers
             filename = Path.Combine(Server.MapPath("~/Image/"), filename);
             user.ImageFile.SaveAs(filename);
             }
+            else
+            {
+                user.Img = "~/Image/" + "User.jfif";
+            }
             var result = userServices.CreateUser(user);
             switch (user.RoleId)
             {

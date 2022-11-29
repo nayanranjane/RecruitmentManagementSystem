@@ -15,7 +15,7 @@
 {
     @Html.Raw(TempData["ErrorMessage"]);
 }
-@*<form method="post" asp-controller="JobPosts" asp-action="Index2">*@
+
     @using (Html.BeginForm("Index2", "JobPosts"))
     {
         <span class="align-content-lg-center">Search :  </span><input type="text" placeholder="Search Jobs.." name="search" />
@@ -23,7 +23,7 @@
         <br />
         <br />
     }
-@*</form>*@
+
 <table class="table table-striped table-bordered">
     <tr>
         <th></th>

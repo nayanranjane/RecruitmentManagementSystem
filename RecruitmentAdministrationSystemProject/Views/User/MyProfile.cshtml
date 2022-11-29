@@ -4,78 +4,55 @@
     ViewBag.Title = "MyProfile";
 }
 
-<h2>MyProfile</h2>
 
-<div>
-    <h4>User</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            Img
-        </dt>
+<header>
+    <link href="~/Content/MyProfile.css" rel="stylesheet" />
+</header>
 
-        <dd>
-            <img src="@Url.Content(Model.Img)" height="25px" width="25px">
-        </dd>
+<body>
+    <div class="divImg">
+        <img src="@Url.Content(Model.Img)" height="200px" width="200" class="profileImg" />
+    </div>
+    <div class="UserContainer">
+        <div class="UserMenu">
+            UserName
+        </div>
+        <div class="UserData">
+            @Model.UserName
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+        <div class="UserMenu">
+            Name
+        </div>
+        <div class="UserData">
+            @Model.Name
 
-        <dt>
-            @Html.DisplayNameFor(model => model.UserName)
-        </dt>
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.UserName)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Password)
-        </dt>
+        <div class="UserMenu">
+            Mobile Number
+        </div>
+        <div class="UserData">
+            @Model.MobileNo
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Password)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
+        <div class="UserMenu">
+            Email
+        </div>
+        <div class="UserData">
+            @Model.Email
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.MobileNo)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.MobileNo)
-        </dd>
+        <div class="UserMenu">
+            Location
+        </div>
+        <div class="UserData">
+            @Model.Location
+        </div>
+    </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Location)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Location)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Role.RoleName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Role.RoleName)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.UserId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+</body>

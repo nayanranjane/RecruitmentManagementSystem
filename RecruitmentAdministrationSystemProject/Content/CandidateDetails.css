@@ -7,3 +7,17 @@
     margin:20px;
     padding:5px;
 }
+
+.score-name {
+    display: inline-block;
+    min-width: 10rem;
+    padding: 0.25rem  1rem;
+    border-right: thin solid grey;
+    text-align: center;
+}
+.score-value {
+    display: inline-block;
+    min-width: 10rem;
+    padding: 0.25rem 1rem;
+    text-align: center;
+}

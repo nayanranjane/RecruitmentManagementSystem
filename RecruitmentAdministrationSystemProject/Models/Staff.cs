@@ -11,7 +11,8 @@ namespace RecruitmentAdministrationSystemProject.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Staff
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,6 +24,7 @@ namespace RecruitmentAdministrationSystemProject.Models
         public int StaffId { get; set; }
         public Nullable<int> UserID { get; set; }
         public Nullable<int> CompanyId { get; set; }
+        [Required(ErrorMessage = "Designationn is required")]
         public string Designation { get; set; }
         public Nullable<bool> isAuthenticated { get; set; }
     

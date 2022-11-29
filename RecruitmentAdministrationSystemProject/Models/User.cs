@@ -35,8 +35,8 @@ namespace RecruitmentAdministrationSystemProject.Models
         [Required(AllowEmptyStrings = false, ErrorMessage = "Username is required")]
         public string UserName { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Password is required")]
-        //[DataType(DataType.Password)]
-        //[MinLength(6, ErrorMessage = " 6 character Required")]
+        [DataType(DataType.Password)]
+        [MinLength(6, ErrorMessage = " 6 character Required")]
         public string Password { get; set; }
       //  [Required(AllowEmptyStrings = false, ErrorMessage = "Confirm Password is required")]
      //   [DataType(DataType.Password)]
@@ -44,12 +44,13 @@ namespace RecruitmentAdministrationSystemProject.Models
       //  [Compare("Password", ErrorMessage = "Password are not matching")]
         public string ConfirmPassword { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Email is required")]
-        [DataType(DataType.EmailAddress)]
+        [DataType(DataType.EmailAddress,ErrorMessage="E-mail is not valid")]
         public string Email { get; set; }
         //[Required(AllowEmptyStrings = false, ErrorMessage = "Image is required")]
         public string Img { get; set; }
         public HttpPostedFileBase ImageFile { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Mobile No is required")]
+        [RegularExpression("^([0-9]{10})$", ErrorMessage = "Invalid Mobile Number.")]
         public string MobileNo { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Location is required")]
         public string Location { get; set; }

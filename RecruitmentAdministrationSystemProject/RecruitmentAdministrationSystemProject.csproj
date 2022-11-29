@@ -212,10 +212,13 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\CompanySignIn.css" />
+    <Content Include="Content\CreateCandidate.css" />
+    <Content Include="Content\CreateStaff.css" />
     <Content Include="Content\HomeIndex.css" />
     <Content Include="Content\layout.css" />
     <Content Include="Content\Login.css" />
     <Content Include="Content\loginPage.css" />
+    <Content Include="Content\MyProfile.css" />
     <Content Include="Content\SignIn.css" />
     <Content Include="Content\Signup.css" />
     <Content Include="Content\CandidateDetails.css" />
@@ -226,6 +229,12 @@
     <Content Include="Image\j1.jpg" />
     <Content Include="Image\j2.jpg" />
     <Content Include="Image\j3.jpg" />
+    <Content Include="Image\login1.jpg" />
+    <Content Include="Image\login2.jpg" />
+    <Content Include="Image\login3.jpg" />
+    <Content Include="Image\User.jfif" />
+    <Content Include="Image\wallpaper1.jpg" />
+    <Content Include="Image\wallpaper2.jpg" />
     <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Model1.Context.cs</LastGenOutput>
@@ -304,6 +313,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Documents\" />
     <Folder Include="Views\Interview\" />
   </ItemGroup>
   <ItemGroup>

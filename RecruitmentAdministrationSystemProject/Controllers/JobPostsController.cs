@@ -20,17 +20,11 @@ namespace RecruitmentAdministrationSystemProject.Views
         RecruitmentManagementSystemEntities dbAccess = new RecruitmentManagementSystemEntities();
         JobPostServices jobPostServices = new JobPostServices();
         SkillsServices skillsServices = new SkillsServices();   
-        public ActionResult Index(int? id)
+        public ActionResult Index()
         {
             List<JobPost> jobPosts = new List<JobPost>();
-            if(id == null)
-            {
-                jobPosts = dbAccess.JobPosts.ToList();
-            }
-            else
-            {
-                jobPosts = dbAccess.JobPosts.Where(post => post.CompanyID == id).ToList();
-            }
+            jobPosts = dbAccess.JobPosts.ToList();
+           
             return View(jobPosts);
         }
         [Authorize(Roles ="Company")]
