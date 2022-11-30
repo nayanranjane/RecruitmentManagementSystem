@@ -13,7 +13,6 @@ namespace RecruitmentAdministrationSystemProject.Models
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Web;
-    using System.Xml.Linq;
 
     public partial class User
     {
@@ -27,7 +26,9 @@ namespace RecruitmentAdministrationSystemProject.Models
             this.JobApplications = new HashSet<JobApplication>();
             this.Staffs = new HashSet<Staff>();
         }
-    
+
+
+
         public int UserId { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Name is required")]
         public string Name { get; set; }
@@ -38,13 +39,13 @@ namespace RecruitmentAdministrationSystemProject.Models
         [DataType(DataType.Password)]
         [MinLength(6, ErrorMessage = " 6 character Required")]
         public string Password { get; set; }
-      //  [Required(AllowEmptyStrings = false, ErrorMessage = "Confirm Password is required")]
-     //   [DataType(DataType.Password)]
-       // [MinLength(6, ErrorMessage = "6 character Required")]
-      //  [Compare("Password", ErrorMessage = "Password are not matching")]
+        //  [Required(AllowEmptyStrings = false, ErrorMessage = "Confirm Password is required")]
+        //   [DataType(DataType.Password)]
+        // [MinLength(6, ErrorMessage = "6 character Required")]
+        //  [Compare("Password", ErrorMessage = "Password are not matching")]
         public string ConfirmPassword { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Email is required")]
-        [DataType(DataType.EmailAddress,ErrorMessage="E-mail is not valid")]
+        [DataType(DataType.EmailAddress, ErrorMessage = "E-mail is not valid")]
         public string Email { get; set; }
         //[Required(AllowEmptyStrings = false, ErrorMessage = "Image is required")]
         public string Img { get; set; }
@@ -56,6 +57,7 @@ namespace RecruitmentAdministrationSystemProject.Models
         public string Location { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Role is required")]
         public Nullable<int> RoleId { get; set; }
+        public Nullable<System.DateTime> CreatedOn { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AptitudeAnswer> AptitudeAnswers { get; set; }

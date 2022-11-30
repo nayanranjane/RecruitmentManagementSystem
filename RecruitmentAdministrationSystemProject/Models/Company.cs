@@ -23,7 +23,6 @@ namespace RecruitmentAdministrationSystemProject.Models
     
         public int CompanyId { get; set; }
         public Nullable<int> UserId { get; set; }
-
         public string CompanyUrl { get; set; }
         public Nullable<long> EmployeeCount { get; set; }
         public string AboutCompany { get; set; }

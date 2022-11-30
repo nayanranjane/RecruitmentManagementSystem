@@ -37,6 +37,8 @@ namespace RecruitmentAdministrationSystemProject.Views
                       where user.UserName == userName
                       select companyinfo).FirstOrDefault();
             var skills = skillsServices.GetAllSkills();
+            var locations = dbAccess.Locations.ToList();
+            ViewBag.location = locations;
             ViewBag.Skills = skills;
             JobPost jobPost = new JobPost() { CompanyID = id.CompanyId ,PostDate=DateTime.Now};
             return View(jobPost);
@@ -86,11 +88,12 @@ namespace RecruitmentAdministrationSystemProject.Views
 
             return View(jobPosts);
         }
-        public ActionResult ShowDetails(int? id)
-        {
-            return RedirectToAction("Index", new { id = id });
+        //public ActionResult ShowDetails(int? id)
+        //{
+        //    return RedirectToAction("Index", new { id = id });
 
-        }
+        //}
+
 
 
     }

@@ -2,6 +2,7 @@
 using RecruitmentAdministrationSystemProject.Services;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -77,9 +78,11 @@ namespace RecruitmentAdministrationSystemProject.Controllers
             var educationalDetails = new CandidateInfo();
             var jobApplication = dbAccess.JobApplications.ToList().Where(jobApp => jobApp.ApplicationId == id).FirstOrDefault();
             jobDetails = dbAccess.JobPosts.ToList().Where(job => job.JobId == jobApplication.JobId).FirstOrDefault();
+            var status = dbAccess.Status.ToList();
             educationalDetails = dbAccess.CandidateInfoes.ToList().Where(user => user.UserId == jobApplication.UserId).FirstOrDefault();
             ViewBag.JobDetails = jobDetails;
             ViewBag.EducationalDetails = educationalDetails;
+            ViewBag.Status = status;
             return View(jobApplication);
 
         }
@@ -96,6 +99,31 @@ namespace RecruitmentAdministrationSystemProject.Controllers
             var applicationList = jobApplicationServices.GetJobApplication().Where(application => application.User.UserName==userName);
             return View(applicationList);
         }
-        
+        public ActionResult EditStatus(string newstatus,int id)
+        {
+            
+            try
+            {
+                var result = dbAccess.JobApplications.Find(id);
+                result.Status = newstatus;
+                dbAccess.SaveChanges();
+                //return RedirectToAction("Details", new { id = id });
+                return RedirectToAction("Index");
+            }
+            catch (DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+                throw;
+            }
+        }
     }
 }

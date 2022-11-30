@@ -4,7 +4,7 @@
 }
 
 body {
-    background-image: url("https://localhost:44390/Image/login2.jpg");
+    background-image: url("https://localhost:44390/Image/background.jpg");
     background-size: cover;
 }
 
@@ -33,8 +33,7 @@ h2 {
 .register {
     background-color: rgba(0, 0, 0, 0.63);
     width: 980px;
-    padding: 0.3rem 4rem;
-    margin-top: 40px;
+    padding: 2rem 4rem;
     font-size: 18px;
     border-radius: 10px;
     border: 1px solid rgba(255, 255, 255, 0.3);
@@ -44,6 +43,7 @@ h2 {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin-top: 36rem;
 }
 
 
@@ -76,13 +76,14 @@ input#submit {
     border: 1px solid rgba(255, 255, 255, 0.3);
     box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
     transition: all 0.5s ease;
+    margin-bottom: 1rem;
 }
 
     input#submit:hover {
-        scale: 110%;
+        scale: 105%;
         background-color: greenyellow;
         box-shadow: -12px -5px 5px rgba(128, 128, 128, 0.63);
-        color:black;
+        color: black;
     }
 
 
@@ -125,7 +126,7 @@ input#submit {
 
 .submit-btn-container {
     border-top: thin solid black;
-    margin-top: -2rem;
+    margin-top: -4rem;
     padding-top: 2rem;
     width: 100%;
     display: flex;
@@ -138,10 +139,14 @@ input#submit {
     height: 4rem;
 }
 
-.selectlist{
-    width:249px;
+.hiddenContent {
+    display: none;
 }
-
-.userIdHidden{
-    display:none;
+.selectlist {
+    width: 249px;
+    margin-left:4rem;
+}
+.selectLocation {
+    width: 249px;
+    margin-left: 1rem;
 }

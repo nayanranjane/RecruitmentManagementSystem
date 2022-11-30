@@ -1,0 +1,104 @@
+﻿body {
+    background-image: url("https://localhost:44390/Image/wallpaper1.jpg");
+    background-size: cover;
+}
+
+.UserContainer {
+    height: max-content;
+    width: 400px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 4rem;
+    background-color: rgb(192, 174, 14, 0.40);
+    box-shadow: -12px -5px 5px rgba(128, 128, 128, 0.63);
+    padding: 2rem;
+    border-radius: 2rem;
+}
+
+.UserMenu {
+    font-weight: 600;
+    font-style: italic;
+}
+
+.divImg {
+    height: 200px;
+    width: 200px;
+    border-radius: 100px;
+    margin-top: 8rem;
+}
+
+.profileImg {
+    border-radius: 100px;
+    box-shadow: -12px -5px 5px rgba(128, 128, 128, 0.63);
+}
+
+.UserContainer2 {
+    height: 38rem;
+    width: 558px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-top: -22rem;
+    background-color: rgb(79, 246, 148);
+    box-shadow: -12px -5px 5px rgba(128, 128, 128, 0.63);
+    padding: 2rem;
+    border-radius: 2rem;
+    margin-left:23rem;
+}
+
+.mycontainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.buttonDiv {
+    width: 50rem;
+    margin-left: 68rem;
+    box-shadow: -12px -5px 5px rgba(128, 128, 128, 0.63);
+}
+.singup {
+    display: flex;
+    justify-content: center;
+    background-color: greenyellow;
+    width:30rem;
+}
+
+    .singup:hover {
+        background: tomato;
+        scale: 102%;
+        font-size: large;
+        box-shadow: -12px -5px 5px rgba(128, 128, 128, 0.63);
+    }
+    }
+
+
+
+
+
+.submit {
+    background: none;
+    width: 100%;
+    border: 3px solid rgb(32, 136, 75);
+    color: white;
+    font-size: 19px;
+    cursor: pointer;
+    padding: 7px;
+    margin-top: 40px;
+    border-radius: 10px;
+}
+
+    .submit:hover {
+        background: rgb(247, 0, 0, 0.63);
+        border: 3px solid rgb(47, 216, 117);
+    }
+
+
+.form-input-button {
+    padding: 0.5rem;
+    width: 100%;
+    outline: none;
+    border: 1px solid grey;
+    border-radius: 0.5rem;
+    transition: all 0.5s ease;
+    background-color: greenyellow;
+    text-align: center;
+    color: black;
+}

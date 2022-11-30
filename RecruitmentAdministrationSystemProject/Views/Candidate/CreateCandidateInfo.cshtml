@@ -16,6 +16,13 @@
             {
                 @Html.AntiForgeryToken()
         <div class="singup-form">
+            <div class="userIdHidden">
+                <label for="Name">UserId</label>
+                <div class="input-container">
+                    @Html.EditorFor(model => model.UserId, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
+                </div>
+            </div>
             <div>
                 <label for="Name">SSC Marks</label>
                 <div class="input-container">
@@ -64,6 +71,15 @@
             </div>
 
             <div>
+                <label for="Name">HSC Passing Year</label>
+                <div class="input-container">
+                    @Html.EditorFor(model => model.HSC_PassingYear, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.HSC_PassingYear, "", new { @class = "text-danger" })
+
+                </div>
+            </div>
+
+            <div>
                 <label for="Name">UG Passing Year</label>
                 <div class="input-container">
                     @Html.EditorFor(model => model.UG_PassingYear, new { htmlAttributes = new { @class = "form-control" } })
@@ -80,7 +96,7 @@
             <div>
                 <label for="Name">Skill 1</label>
                 <div class="input-container">
-                    @Html.DropDownListFor(model => model.Skill_1, new SelectList(ViewBag.Skills, "SkillsID", "SkillName"), "Select skills", new { @class = "form-control selectlist" })                   
+                    @Html.DropDownListFor(model => model.Skill_1, new SelectList(ViewBag.Skills, "SkillName", "SkillName"), "Select skills", new { @class = "form-control selectlist" })
                     @Html.ValidationMessageFor(model => model.Skill_1, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -88,14 +104,14 @@
             <div>
                 <label for="Name">Skill 2</label>
                 <div class="input-container">
-                    @Html.DropDownListFor(model => model.Skill_2, new SelectList(ViewBag.Skills, "SkillsID", "SkillName"), "Select skills", new { @class = "form-control selectlist" })                   
+                    @Html.DropDownListFor(model => model.Skill_2, new SelectList(ViewBag.Skills, "SkillName", "SkillName"), "Select skills", new { @class = "form-control selectlist" })
                     @Html.ValidationMessageFor(model => model.Skill_2, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div>
                 <label for="Name">Skill 3</label>
                 <div class="input-container">
-                    @Html.DropDownListFor(model => model.Skill_3, new SelectList(ViewBag.Skills, "SkillsID", "SkillName"), "Select skills", new { @class = "form-control selectlist" })                   
+                    @Html.DropDownListFor(model => model.Skill_3, new SelectList(ViewBag.Skills, "SkillName", "SkillName"), "Select skills", new { @class = "form-control selectlist" })
                     @Html.ValidationMessageFor(model => model.Skill_3, "", new { @class = "text-danger" })
                 </div>
             </div>

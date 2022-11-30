@@ -24,7 +24,7 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
 
                     @*<li>@Html.ActionLink("About", "About", "Home")</li>
-                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
+        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
                     @if (User.Identity.IsAuthenticated && Session["Role"] != null)
                     {
 
@@ -47,6 +47,10 @@
                             <li>@Html.ActionLink("Staff", "Index", "Staff", new { id = Convert.ToInt32(Session["UID"]) }, null)</li>
 
 
+                        }
+                        else if (User.IsInRole("Staff"))
+                        {
+                            <li>@Html.ActionLink("Interviews", "InterviewList", "Interview", new { id = Convert.ToInt32(Session["UID"]) }, null)</li>
                         }
                         <li class="action-container">
                             <img src="@Url.Content(Session["Img"].ToString())" id="logo" height="52px" width="52px" />

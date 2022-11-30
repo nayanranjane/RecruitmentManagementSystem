@@ -4,32 +4,33 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="124c8e918e564b85b9bb394c5a0b4117" Name="Diagram1">
-        <EntityTypeShape EntityType="RecruitmentManagementSystemModel.AptitudeAnswer" Width="1.5" PointX="8.25" PointY="8.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="RecruitmentManagementSystemModel.AptitudeQuestion" Width="1.5" PointX="6" PointY="4.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="RecruitmentManagementSystemModel.CandidateInfo" Width="1.5" PointX="5.25" PointY="8.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="RecruitmentManagementSystemModel.Company" Width="1.5" PointX="5.25" PointY="14" IsExpanded="true" />
-        <EntityTypeShape EntityType="RecruitmentManagementSystemModel.Interview" Width="1.5" PointX="12.75" PointY="8.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="RecruitmentManagementSystemModel.JobApplication" Width="1.5" PointX="9.75" PointY="12" IsExpanded="true" />
-        <EntityTypeShape EntityType="RecruitmentManagementSystemModel.JobPost" Width="1.5" PointX="7.5" PointY="13" IsExpanded="true" />
-        <EntityTypeShape EntityType="RecruitmentManagementSystemModel.Role" Width="1.5" PointX="0.75" PointY="8.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="RecruitmentManagementSystemModel.Skill" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="RecruitmentManagementSystemModel.Staff" Width="1.5" PointX="10.5" PointY="7.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="RecruitmentManagementSystemModel.Status" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="RecruitmentManagementSystemModel.sysdiagram" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="RecruitmentManagementSystemModel.User" Width="1.5" PointX="3" PointY="7.625" IsExpanded="true" />
-        <AssociationConnector Association="RecruitmentManagementSystemModel.FK__AptitudeA__QueID__5070F446" ManuallyRouted="false" />
-        <AssociationConnector Association="RecruitmentManagementSystemModel.FK__AptitudeA__UserI__4F7CD00D" ManuallyRouted="false" />
-        <AssociationConnector Association="RecruitmentManagementSystemModel.FK__Candidate__UserI__300424B4" ManuallyRouted="false" />
-        <AssociationConnector Association="RecruitmentManagementSystemModel.FK__Company__UserId__2C3393D0" ManuallyRouted="false" />
-        <AssociationConnector Association="RecruitmentManagementSystemModel.FK__JobPost__Company__47DBAE45" ManuallyRouted="false" />
-        <AssociationConnector Association="RecruitmentManagementSystemModel.FK__Staff__CompanyId__3D5E1FD2" ManuallyRouted="false" />
-        <AssociationConnector Association="RecruitmentManagementSystemModel.FK__Interview__Staff__59063A47" ManuallyRouted="false" />
-        <AssociationConnector Association="RecruitmentManagementSystemModel.FK__Interview__UserI__59FA5E80" ManuallyRouted="false" />
-        <AssociationConnector Association="RecruitmentManagementSystemModel.FK__JobApplic__JobId__5441852A" ManuallyRouted="false" />
-        <AssociationConnector Association="RecruitmentManagementSystemModel.FK__JobApplic__UserI__534D60F1" ManuallyRouted="false" />
-        <AssociationConnector Association="RecruitmentManagementSystemModel.FK__Users__RoleId__29572725" ManuallyRouted="false" />
-        <AssociationConnector Association="RecruitmentManagementSystemModel.FK__Staff__UserID__3C69FB99" ManuallyRouted="false" />
+      <Diagram DiagramId="b7d65ec8b152437fb6a57a3602576439" Name="Diagram1">
+        <EntityTypeShape EntityType="RecruitmentManagementSystemModel1.AptitudeAnswer" Width="1.5" PointX="8.25" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RecruitmentManagementSystemModel1.AptitudeQuestion" Width="1.5" PointX="6" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RecruitmentManagementSystemModel1.CandidateInfo" Width="1.5" PointX="5.25" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RecruitmentManagementSystemModel1.Company" Width="1.5" PointX="5.25" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RecruitmentManagementSystemModel1.Interview" Width="1.5" PointX="12.75" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RecruitmentManagementSystemModel1.JobApplication" Width="1.5" PointX="9.75" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RecruitmentManagementSystemModel1.JobPost" Width="1.5" PointX="7.5" PointY="13.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RecruitmentManagementSystemModel1.Location" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RecruitmentManagementSystemModel1.Role" Width="1.5" PointX="0.75" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RecruitmentManagementSystemModel1.Skill" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RecruitmentManagementSystemModel1.Staff" Width="1.5" PointX="10.5" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RecruitmentManagementSystemModel1.Status" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RecruitmentManagementSystemModel1.sysdiagram" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RecruitmentManagementSystemModel1.User" Width="1.5" PointX="3" PointY="7.75" IsExpanded="true" />
+        <AssociationConnector Association="RecruitmentManagementSystemModel1.FK__AptitudeA__QueID__5070F446" ManuallyRouted="false" />
+        <AssociationConnector Association="RecruitmentManagementSystemModel1.FK__AptitudeA__UserI__4F7CD00D" ManuallyRouted="false" />
+        <AssociationConnector Association="RecruitmentManagementSystemModel1.FK__Candidate__UserI__300424B4" ManuallyRouted="false" />
+        <AssociationConnector Association="RecruitmentManagementSystemModel1.FK__Company__UserId__2C3393D0" ManuallyRouted="false" />
+        <AssociationConnector Association="RecruitmentManagementSystemModel1.FK__JobPost__Company__6B24EA82" ManuallyRouted="false" />
+        <AssociationConnector Association="RecruitmentManagementSystemModel1.FK__Staff__CompanyId__3D5E1FD2" ManuallyRouted="false" />
+        <AssociationConnector Association="RecruitmentManagementSystemModel1.FK__Interview__Staff__59063A47" ManuallyRouted="false" />
+        <AssociationConnector Association="RecruitmentManagementSystemModel1.FK__Interview__UserI__59FA5E80" ManuallyRouted="false" />
+        <AssociationConnector Association="RecruitmentManagementSystemModel1.FK__JobApplic__JobId__6EF57B66" ManuallyRouted="false" />
+        <AssociationConnector Association="RecruitmentManagementSystemModel1.FK__JobApplic__UserI__6E01572D" ManuallyRouted="false" />
+        <AssociationConnector Association="RecruitmentManagementSystemModel1.FK__Users__RoleId__29572725" ManuallyRouted="false" />
+        <AssociationConnector Association="RecruitmentManagementSystemModel1.FK__Staff__UserID__3C69FB99" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

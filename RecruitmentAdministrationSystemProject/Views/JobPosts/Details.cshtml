@@ -3,174 +3,136 @@
 @{
     ViewBag.Title = "Details";
 }
+<header>
+    <link href="~/Content/JobDetails.css" rel="stylesheet"/>
+</header>
 
-<h2>Details</h2>
 
-<div>
-    <h4>JobPost</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Company.User.Img)
-        </dt>
+<body>
+    <div class="divImg">
+        <img src="@Url.Content(Model.Company.User.Img)" height="200px" width="200" class="profileImg" />
+    </div>
+    <div class="mycontainer">
+        <div class="UserContainer">
+            <div class="UserMenu">
+                Company Name
+            </div>
+            <div class="UserData">
+                @Model.Company.User.Name
+            </div>
 
-        <dd>
-            <img src="@Url.Content(Model.Company.User.Img)" height="60px" width="60px" />
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Company.User.Name)
-        </dt>
+            <div class="UserMenu">
+                Email
+            </div>
+            <div class="UserData">
+                @Model.Company.User.Email
 
-        <dd>
-            @Html.DisplayFor(model => model.Company.User.Name)
-        </dd>
+            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Company.CompanyUrl)
-        </dt>
+            <div class="UserMenu">
+                Company URL
+            </div>
+            <div class="UserData">
+                @Model.Company.CompanyUrl
+            </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Company.CompanyUrl)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Company.EmployeeCount)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Company.EmployeeCount)
-        </dd>
+            <div class="UserMenu">
+                Employee Count
+            </div>
+            <div class="UserData">
+                @Model.Company.EmployeeCount
+            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CTC)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.CTC)
-        </dd>
+            <div class="UserMenu">
+                Company Location
+            </div>
+            <div class="UserData">
+                @Model.Location
+            </div>
+        </div>
+        <div class="UserContainer2">
+            <div class="UserMenu">
+                Job Profile
+            </div>
+            <div class="UserData">
+                @Model.Title
+            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.NoOfOpening)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.NoOfOpening)
-        </dd>
+            <div class="UserMenu">
+                Required Experience
+            </div>
+            <div class="UserData">
+                @Model.RequiredExperience
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Location)
-        </dt>
+            </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Location)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PostDate)
-        </dt>
+            <div class="UserMenu">
+                CTC
+            </div>
+            <div class="UserData">
+                @Model.CTC
+            </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.PostDate)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.LastDate)
-        </dt>
+            <div class="UserMenu">
+                SKILL-1
+            </div>
+            <div class="UserData">
+                @Model.Skill_1
+            </div>
+            <div class="UserMenu">
+                SKILL-2
+            </div>
+            <div class="UserData">
+                @Model.Skill_3
+            </div>
+            <div class="UserMenu">
+                SKILL-3
+            </div>
+            <div class="UserData">
+                @Model.Skill_3
+            </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.LastDate)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Skill_1)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Skill_1)
-        </dd>
+            <div class="UserMenu">
+                Job Location
+            </div>
+            <div class="UserData">
+                @Model.Location
+            </div>
+            <div class="UserMenu">
+                SSC Marks
+            </div>
+            <div class="UserData">
+                @Model.SSCMarks
+            </div>
+            <div class="UserMenu">
+                HSC Marks
+            </div>
+            <div class="UserData">
+                @Model.HSCMarks
+            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Skill_2)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Skill_2)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Skill_3)
-        </dt>
+            <div class="UserMenu">
+                UG Marks
+            </div>
+            <div class="UserData">
+                @Model.UGMarks
+            </div>
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Skill_3)
-        </dd>
+    </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.RequiredBatch)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.RequiredBatch)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SSCMarks)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SSCMarks)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.HSCMarks)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.HSCMarks)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.UGMarks)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UGMarks)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.RequiredExperience)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.RequiredExperience)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Company.CompanyUrl)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Company.CompanyUrl)
-        </dd>
-
-    </dl>
-</div>
-<p>
-
-    @Html.ActionLink("Apply","Apply","JobApplication", new {id =Model.JobId},null)
-</p>
+    <div class="buttonDiv">
+        @Html.ActionLink("Apply", "signup", null, new { @class = "form-input-button singup" })
+    </div>
+</body>

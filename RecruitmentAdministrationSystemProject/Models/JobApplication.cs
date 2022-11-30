@@ -29,11 +29,10 @@ namespace RecruitmentAdministrationSystemProject.Models
         [Required(ErrorMessage = "Notice period is required")]
         [Range(typeof(int), "0", "12", ErrorMessage = "Notice Period can only be between 0 and 12")]
         public Nullable<int> NoticePeriod { get; set; }
-        [Required(ErrorMessage = "Resume is required")]
         public HttpPostedFileBase File { get; set; }
 
         public string Resume { get; set; }
-    
+
         public virtual JobPost JobPost { get; set; }
         public virtual User User { get; set; }
     }

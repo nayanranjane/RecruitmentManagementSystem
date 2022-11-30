@@ -28,9 +28,9 @@ namespace RecruitmentAdministrationSystemProject.Models
         public string Location { get; set; }
         public Nullable<System.DateTime> PostDate { get; set; }
         public Nullable<System.DateTime> LastDate { get; set; }
-        public Nullable<int> Skill_1 { get; set; }
-        public Nullable<int> Skill_2 { get; set; }
-        public Nullable<int> Skill_3 { get; set; }
+        public string Skill_1 { get; set; }
+        public string Skill_2 { get; set; }
+        public string Skill_3 { get; set; }
         public Nullable<int> RequiredBatch { get; set; }
         public string Description { get; set; }
         public Nullable<int> SSCMarks { get; set; }

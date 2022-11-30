@@ -97,7 +97,7 @@ namespace RecruitmentAdministrationSystemProject.Services
                     postResult.Skill_1 = post.Skill_1;
                     postResult.Skill_2 = post.Skill_2;
                     postResult.Skill_3 = post.Skill_3;
-                    postResult.RequiredBatch = post.Skill_3;
+                    postResult.RequiredBatch = post.RequiredBatch;
                     postResult.Description = post.Description;
                     postResult.HSCMarks = post.HSCMarks;
                     postResult.SSCMarks = post.SSCMarks;
@@ -134,6 +134,9 @@ namespace RecruitmentAdministrationSystemProject.Services
                             || (post.CTC.ToString().Contains(item.ToLower()))
                             || (post.Location.ToString().ToLower().Contains(item.ToLower()))
                             || (post.RequiredBatch.ToString().Contains(item.ToLower()))
+                            || (post.Skill_1.ToString().ToLower().Contains(item.ToLower()))
+                               || (post.Skill_2.ToString().ToLower().Contains(item.ToLower()))
+                                  || (post.Skill_3.ToString().ToLower().Contains(item.ToLower()))
                             select post).ToList();
                 postList.Add(temp);
             }

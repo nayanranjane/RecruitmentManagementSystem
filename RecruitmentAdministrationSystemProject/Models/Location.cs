@@ -12,18 +12,9 @@ namespace RecruitmentAdministrationSystemProject.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Interview
+    public partial class Location
     {
-        public int InterviewID { get; set; }
-        public Nullable<int> StaffID { get; set; }
-        public Nullable<int> UserId { get; set; }
-        public string MettingId { get; set; }
-        public string Description { get; set; }
-        public string StatusId { get; set; }
-        public string Remark { get; set; }
-        public Nullable<System.DateTime> InterviewDate { get; set; }
-    
-        public virtual Staff Staff { get; set; }
-        public virtual User User { get; set; }
+        public int LocationId { get; set; }
+        public string Name { get; set; }
     }
 }

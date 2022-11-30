@@ -32,6 +32,7 @@ namespace RecruitmentAdministrationSystemProject.Models
         public virtual DbSet<Interview> Interviews { get; set; }
         public virtual DbSet<JobApplication> JobApplications { get; set; }
         public virtual DbSet<JobPost> JobPosts { get; set; }
+        public virtual DbSet<Location> Locations { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<Skill> Skills { get; set; }
         public virtual DbSet<Staff> Staffs { get; set; }

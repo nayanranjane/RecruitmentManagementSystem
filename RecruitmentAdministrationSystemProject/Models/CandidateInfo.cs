@@ -12,7 +12,7 @@ namespace RecruitmentAdministrationSystemProject.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    
+
     public partial class CandidateInfo
     {
         public int CandidateId { get; set; }
@@ -40,9 +40,10 @@ namespace RecruitmentAdministrationSystemProject.Models
         [Required(ErrorMessage = "Passing Year is required")]
         [Range(typeof(int), "1900", "2100", ErrorMessage = "Enter Valid Year")]
         public Nullable<int> UG_PassingYear { get; set; }
-        public Nullable<int> Skill_1 { get; set; }
-        public Nullable<int> Skill_2 { get; set; }
-        public Nullable<int> Skill_3 { get; set; }
+        public string Skill_1 { get; set; }
+        public string Skill_2 { get; set; }
+        public string Skill_3 { get; set; }
+        public string Gender { get; set; }
     
         public virtual User User { get; set; }
     }

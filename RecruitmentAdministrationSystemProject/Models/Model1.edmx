@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="RecruitmentManagementSystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="RecruitmentManagementSystemModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AptitudeAnswer">
           <Key>
             <PropertyRef Name="AnsSheetId" />
@@ -43,9 +43,10 @@
           <Property Name="UG_Marks" Type="int" />
           <Property Name="UG_College" Type="varchar" MaxLength="100" />
           <Property Name="UG_PassingYear" Type="int" />
-          <Property Name="Skill_1" Type="int" />
-          <Property Name="Skill_2" Type="int" />
-          <Property Name="Skill_3" Type="int" />
+          <Property Name="Skill_1" Type="varchar" MaxLength="50" />
+          <Property Name="Skill_2" Type="varchar" MaxLength="50" />
+          <Property Name="Skill_3" Type="varchar" MaxLength="50" />
+          <Property Name="Gender" Type="varchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="Company">
           <Key>
@@ -69,6 +70,7 @@
           <Property Name="Description" Type="varchar" MaxLength="200" />
           <Property Name="StatusId" Type="varchar" MaxLength="100" />
           <Property Name="Remark" Type="varchar" MaxLength="250" />
+          <Property Name="InterviewDate" Type="datetime" />
         </EntityType>
         <EntityType Name="JobApplication">
           <Key>
@@ -97,15 +99,22 @@
           <Property Name="Location" Type="varchar" MaxLength="50" />
           <Property Name="PostDate" Type="datetime" />
           <Property Name="LastDate" Type="datetime" />
-          <Property Name="Skill_1" Type="int" />
-          <Property Name="Skill_2" Type="int" />
-          <Property Name="Skill_3" Type="int" />
+          <Property Name="Skill_1" Type="varchar" MaxLength="50" />
+          <Property Name="Skill_2" Type="varchar" MaxLength="50" />
+          <Property Name="Skill_3" Type="varchar" MaxLength="50" />
           <Property Name="RequiredBatch" Type="int" />
           <Property Name="Description" Type="varchar" MaxLength="50" />
           <Property Name="SSCMarks" Type="int" />
           <Property Name="HSCMarks" Type="int" />
           <Property Name="UGMarks" Type="int" />
           <Property Name="RequiredExperience" Type="int" />
+        </EntityType>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="LocationId" />
+          </Key>
+          <Property Name="LocationId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="70" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -163,6 +172,7 @@
           <Property Name="MobileNo" Type="varchar" MaxLength="10" />
           <Property Name="Location" Type="varchar" MaxLength="100" />
           <Property Name="RoleId" Type="int" />
+          <Property Name="CreatedOn" Type="datetime" />
         </EntityType>
         <Association Name="FK__AptitudeA__QueID__5070F446">
           <End Role="AptitudeQuestion" Type="Self.AptitudeQuestion" Multiplicity="0..1" />
@@ -240,7 +250,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__JobApplic__JobId__5441852A">
+        <Association Name="FK__JobApplic__JobId__6EF57B66">
           <End Role="JobPost" Type="Self.JobPost" Multiplicity="0..1" />
           <End Role="JobApplication" Type="Self.JobApplication" Multiplicity="*" />
           <ReferentialConstraint>
@@ -252,7 +262,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__JobApplic__UserI__534D60F1">
+        <Association Name="FK__JobApplic__UserI__6E01572D">
           <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
           <End Role="JobApplication" Type="Self.JobApplication" Multiplicity="*" />
           <ReferentialConstraint>
@@ -264,7 +274,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__JobPost__Company__47DBAE45">
+        <Association Name="FK__JobPost__Company__6B24EA82">
           <End Role="Company" Type="Self.Company" Multiplicity="0..1" />
           <End Role="JobPost" Type="Self.JobPost" Multiplicity="*" />
           <ReferentialConstraint>
@@ -314,7 +324,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="RecruitmentManagementSystemModelStoreContainer">
+        <EntityContainer Name="RecruitmentManagementSystemModel1StoreContainer">
           <EntitySet Name="AptitudeAnswer" EntityType="Self.AptitudeAnswer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AptitudeQuestion" EntityType="Self.AptitudeQuestion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CandidateInfo" EntityType="Self.CandidateInfo" Schema="dbo" store:Type="Tables" />
@@ -322,6 +332,7 @@
           <EntitySet Name="Interview" EntityType="Self.Interview" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="JobApplication" EntityType="Self.JobApplication" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="JobPost" EntityType="Self.JobPost" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Location" EntityType="Self.Location" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Skills" EntityType="Self.Skills" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Staff" EntityType="Self.Staff" Schema="dbo" store:Type="Tables" />
@@ -352,15 +363,15 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Interview" EntitySet="Interview" />
           </AssociationSet>
-          <AssociationSet Name="FK__JobApplic__JobId__5441852A" Association="Self.FK__JobApplic__JobId__5441852A">
+          <AssociationSet Name="FK__JobApplic__JobId__6EF57B66" Association="Self.FK__JobApplic__JobId__6EF57B66">
             <End Role="JobPost" EntitySet="JobPost" />
             <End Role="JobApplication" EntitySet="JobApplication" />
           </AssociationSet>
-          <AssociationSet Name="FK__JobApplic__UserI__534D60F1" Association="Self.FK__JobApplic__UserI__534D60F1">
+          <AssociationSet Name="FK__JobApplic__UserI__6E01572D" Association="Self.FK__JobApplic__UserI__6E01572D">
             <End Role="Users" EntitySet="Users" />
             <End Role="JobApplication" EntitySet="JobApplication" />
           </AssociationSet>
-          <AssociationSet Name="FK__JobPost__Company__47DBAE45" Association="Self.FK__JobPost__Company__47DBAE45">
+          <AssociationSet Name="FK__JobPost__Company__6B24EA82" Association="Self.FK__JobPost__Company__6B24EA82">
             <End Role="Company" EntitySet="Company" />
             <End Role="JobPost" EntitySet="JobPost" />
           </AssociationSet>
@@ -381,7 +392,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="RecruitmentManagementSystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="RecruitmentManagementSystemModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="AptitudeAnswer">
           <Key>
             <PropertyRef Name="AnsSheetId" />
@@ -423,9 +434,10 @@
           <Property Name="UG_Marks" Type="Int32" />
           <Property Name="UG_College" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="UG_PassingYear" Type="Int32" />
-          <Property Name="Skill_1" Type="Int32" />
-          <Property Name="Skill_2" Type="Int32" />
-          <Property Name="Skill_3" Type="Int32" />
+          <Property Name="Skill_1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Skill_2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Skill_3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="User" Relationship="Self.FK__Candidate__UserI__300424B4" FromRole="CandidateInfo" ToRole="Users" />
         </EntityType>
         <EntityType Name="Company">
@@ -439,7 +451,7 @@
           <Property Name="AboutCompany" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="FoundDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="User" Relationship="Self.FK__Company__UserId__2C3393D0" FromRole="Company" ToRole="Users" />
-          <NavigationProperty Name="JobPosts" Relationship="Self.FK__JobPost__Company__47DBAE45" FromRole="Company" ToRole="JobPost" />
+          <NavigationProperty Name="JobPosts" Relationship="Self.FK__JobPost__Company__6B24EA82" FromRole="Company" ToRole="JobPost" />
           <NavigationProperty Name="Staffs" Relationship="Self.FK__Staff__CompanyId__3D5E1FD2" FromRole="Company" ToRole="Staff" />
         </EntityType>
         <EntityType Name="Interview">
@@ -453,6 +465,7 @@
           <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="StatusId" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Remark" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="InterviewDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Staff" Relationship="Self.FK__Interview__Staff__59063A47" FromRole="Interview" ToRole="Staff" />
           <NavigationProperty Name="User" Relationship="Self.FK__Interview__UserI__59FA5E80" FromRole="Interview" ToRole="Users" />
         </EntityType>
@@ -470,8 +483,8 @@
           <Property Name="WorkExperience" Type="Int32" />
           <Property Name="NoticePeriod" Type="Int32" />
           <Property Name="Resume" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="JobPost" Relationship="Self.FK__JobApplic__JobId__5441852A" FromRole="JobApplication" ToRole="JobPost" />
-          <NavigationProperty Name="User" Relationship="Self.FK__JobApplic__UserI__534D60F1" FromRole="JobApplication" ToRole="Users" />
+          <NavigationProperty Name="JobPost" Relationship="Self.FK__JobApplic__JobId__6EF57B66" FromRole="JobApplication" ToRole="JobPost" />
+          <NavigationProperty Name="User" Relationship="Self.FK__JobApplic__UserI__6E01572D" FromRole="JobApplication" ToRole="Users" />
         </EntityType>
         <EntityType Name="JobPost">
           <Key>
@@ -485,17 +498,24 @@
           <Property Name="Location" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="PostDate" Type="DateTime" Precision="3" />
           <Property Name="LastDate" Type="DateTime" Precision="3" />
-          <Property Name="Skill_1" Type="Int32" />
-          <Property Name="Skill_2" Type="Int32" />
-          <Property Name="Skill_3" Type="Int32" />
+          <Property Name="Skill_1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Skill_2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Skill_3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="RequiredBatch" Type="Int32" />
           <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="SSCMarks" Type="Int32" />
           <Property Name="HSCMarks" Type="Int32" />
           <Property Name="UGMarks" Type="Int32" />
           <Property Name="RequiredExperience" Type="Int32" />
-          <NavigationProperty Name="Company" Relationship="Self.FK__JobPost__Company__47DBAE45" FromRole="JobPost" ToRole="Company" />
-          <NavigationProperty Name="JobApplications" Relationship="Self.FK__JobApplic__JobId__5441852A" FromRole="JobPost" ToRole="JobApplication" />
+          <NavigationProperty Name="Company" Relationship="Self.FK__JobPost__Company__6B24EA82" FromRole="JobPost" ToRole="Company" />
+          <NavigationProperty Name="JobApplications" Relationship="Self.FK__JobApplic__JobId__6EF57B66" FromRole="JobPost" ToRole="JobApplication" />
+        </EntityType>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="LocationId" />
+          </Key>
+          <Property Name="LocationId" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -557,11 +577,12 @@
           <Property Name="MobileNo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="Location" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="RoleId" Type="Int32" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
           <NavigationProperty Name="AptitudeAnswers" Relationship="Self.FK__AptitudeA__UserI__4F7CD00D" FromRole="Users" ToRole="AptitudeAnswer" />
           <NavigationProperty Name="CandidateInfoes" Relationship="Self.FK__Candidate__UserI__300424B4" FromRole="Users" ToRole="CandidateInfo" />
           <NavigationProperty Name="Companies" Relationship="Self.FK__Company__UserId__2C3393D0" FromRole="Users" ToRole="Company" />
           <NavigationProperty Name="Interviews" Relationship="Self.FK__Interview__UserI__59FA5E80" FromRole="Users" ToRole="Interview" />
-          <NavigationProperty Name="JobApplications" Relationship="Self.FK__JobApplic__UserI__534D60F1" FromRole="Users" ToRole="JobApplication" />
+          <NavigationProperty Name="JobApplications" Relationship="Self.FK__JobApplic__UserI__6E01572D" FromRole="Users" ToRole="JobApplication" />
           <NavigationProperty Name="Role" Relationship="Self.FK__Users__RoleId__29572725" FromRole="Users" ToRole="Role" />
           <NavigationProperty Name="Staffs" Relationship="Self.FK__Staff__UserID__3C69FB99" FromRole="Users" ToRole="Staff" />
         </EntityType>
@@ -617,7 +638,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__JobPost__Company__47DBAE45">
+        <Association Name="FK__JobPost__Company__6B24EA82">
           <End Role="Company" Type="Self.Company" Multiplicity="0..1" />
           <End Role="JobPost" Type="Self.JobPost" Multiplicity="*" />
           <ReferentialConstraint>
@@ -665,7 +686,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__JobApplic__JobId__5441852A">
+        <Association Name="FK__JobApplic__JobId__6EF57B66">
           <End Role="JobPost" Type="Self.JobPost" Multiplicity="0..1" />
           <End Role="JobApplication" Type="Self.JobApplication" Multiplicity="*" />
           <ReferentialConstraint>
@@ -677,7 +698,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__JobApplic__UserI__534D60F1">
+        <Association Name="FK__JobApplic__UserI__6E01572D">
           <End Role="Users" Type="Self.User" Multiplicity="0..1" />
           <End Role="JobApplication" Type="Self.JobApplication" Multiplicity="*" />
           <ReferentialConstraint>
@@ -723,6 +744,7 @@
           <EntitySet Name="Interviews" EntityType="Self.Interview" />
           <EntitySet Name="JobApplications" EntityType="Self.JobApplication" />
           <EntitySet Name="JobPosts" EntityType="Self.JobPost" />
+          <EntitySet Name="Locations" EntityType="Self.Location" />
           <EntitySet Name="Roles" EntityType="Self.Role" />
           <EntitySet Name="Skills" EntityType="Self.Skill" />
           <EntitySet Name="Staffs" EntityType="Self.Staff" />
@@ -745,7 +767,7 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Company" EntitySet="Companies" />
           </AssociationSet>
-          <AssociationSet Name="FK__JobPost__Company__47DBAE45" Association="Self.FK__JobPost__Company__47DBAE45">
+          <AssociationSet Name="FK__JobPost__Company__6B24EA82" Association="Self.FK__JobPost__Company__6B24EA82">
             <End Role="Company" EntitySet="Companies" />
             <End Role="JobPost" EntitySet="JobPosts" />
           </AssociationSet>
@@ -761,11 +783,11 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Interview" EntitySet="Interviews" />
           </AssociationSet>
-          <AssociationSet Name="FK__JobApplic__JobId__5441852A" Association="Self.FK__JobApplic__JobId__5441852A">
+          <AssociationSet Name="FK__JobApplic__JobId__6EF57B66" Association="Self.FK__JobApplic__JobId__6EF57B66">
             <End Role="JobPost" EntitySet="JobPosts" />
             <End Role="JobApplication" EntitySet="JobApplications" />
           </AssociationSet>
-          <AssociationSet Name="FK__JobApplic__UserI__534D60F1" Association="Self.FK__JobApplic__UserI__534D60F1">
+          <AssociationSet Name="FK__JobApplic__UserI__6E01572D" Association="Self.FK__JobApplic__UserI__6E01572D">
             <End Role="Users" EntitySet="Users" />
             <End Role="JobApplication" EntitySet="JobApplications" />
           </AssociationSet>
@@ -783,9 +805,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="RecruitmentManagementSystemModelStoreContainer" CdmEntityContainer="RecruitmentManagementSystemEntities">
+        <EntityContainerMapping StorageEntityContainer="RecruitmentManagementSystemModel1StoreContainer" CdmEntityContainer="RecruitmentManagementSystemEntities">
           <EntitySetMapping Name="AptitudeAnswers">
-            <EntityTypeMapping TypeName="RecruitmentManagementSystemModel.AptitudeAnswer">
+            <EntityTypeMapping TypeName="RecruitmentManagementSystemModel1.AptitudeAnswer">
               <MappingFragment StoreEntitySet="AptitudeAnswer">
                 <ScalarProperty Name="AnsSheetId" ColumnName="AnsSheetId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -797,7 +819,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AptitudeQuestions">
-            <EntityTypeMapping TypeName="RecruitmentManagementSystemModel.AptitudeQuestion">
+            <EntityTypeMapping TypeName="RecruitmentManagementSystemModel1.AptitudeQuestion">
               <MappingFragment StoreEntitySet="AptitudeQuestion">
                 <ScalarProperty Name="QueId" ColumnName="QueId" />
                 <ScalarProperty Name="Que" ColumnName="Que" />
@@ -810,7 +832,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CandidateInfoes">
-            <EntityTypeMapping TypeName="RecruitmentManagementSystemModel.CandidateInfo">
+            <EntityTypeMapping TypeName="RecruitmentManagementSystemModel1.CandidateInfo">
               <MappingFragment StoreEntitySet="CandidateInfo">
                 <ScalarProperty Name="CandidateId" ColumnName="CandidateId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -826,11 +848,12 @@
                 <ScalarProperty Name="Skill_1" ColumnName="Skill_1" />
                 <ScalarProperty Name="Skill_2" ColumnName="Skill_2" />
                 <ScalarProperty Name="Skill_3" ColumnName="Skill_3" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Companies">
-            <EntityTypeMapping TypeName="RecruitmentManagementSystemModel.Company">
+            <EntityTypeMapping TypeName="RecruitmentManagementSystemModel1.Company">
               <MappingFragment StoreEntitySet="Company">
                 <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -842,7 +865,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Interviews">
-            <EntityTypeMapping TypeName="RecruitmentManagementSystemModel.Interview">
+            <EntityTypeMapping TypeName="RecruitmentManagementSystemModel1.Interview">
               <MappingFragment StoreEntitySet="Interview">
                 <ScalarProperty Name="InterviewID" ColumnName="InterviewID" />
                 <ScalarProperty Name="StaffID" ColumnName="StaffID" />
@@ -851,11 +874,12 @@
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="StatusId" ColumnName="StatusId" />
                 <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="InterviewDate" ColumnName="InterviewDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="JobApplications">
-            <EntityTypeMapping TypeName="RecruitmentManagementSystemModel.JobApplication">
+            <EntityTypeMapping TypeName="RecruitmentManagementSystemModel1.JobApplication">
               <MappingFragment StoreEntitySet="JobApplication">
                 <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -871,7 +895,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="JobPosts">
-            <EntityTypeMapping TypeName="RecruitmentManagementSystemModel.JobPost">
+            <EntityTypeMapping TypeName="RecruitmentManagementSystemModel1.JobPost">
               <MappingFragment StoreEntitySet="JobPost">
                 <ScalarProperty Name="JobId" ColumnName="JobId" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
@@ -893,8 +917,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Locations">
+            <EntityTypeMapping TypeName="RecruitmentManagementSystemModel1.Location">
+              <MappingFragment StoreEntitySet="Location">
+                <ScalarProperty Name="LocationId" ColumnName="LocationId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Roles">
-            <EntityTypeMapping TypeName="RecruitmentManagementSystemModel.Role">
+            <EntityTypeMapping TypeName="RecruitmentManagementSystemModel1.Role">
               <MappingFragment StoreEntitySet="Role">
                 <ScalarProperty Name="RoleId" ColumnName="RoleId" />
                 <ScalarProperty Name="RoleName" ColumnName="RoleName" />
@@ -902,7 +934,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Skills">
-            <EntityTypeMapping TypeName="RecruitmentManagementSystemModel.Skill">
+            <EntityTypeMapping TypeName="RecruitmentManagementSystemModel1.Skill">
               <MappingFragment StoreEntitySet="Skills">
                 <ScalarProperty Name="SkillsID" ColumnName="SkillsID" />
                 <ScalarProperty Name="SkillName" ColumnName="SkillName" />
@@ -911,7 +943,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Staffs">
-            <EntityTypeMapping TypeName="RecruitmentManagementSystemModel.Staff">
+            <EntityTypeMapping TypeName="RecruitmentManagementSystemModel1.Staff">
               <MappingFragment StoreEntitySet="Staff">
                 <ScalarProperty Name="StaffId" ColumnName="StaffId" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
@@ -922,7 +954,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Status">
-            <EntityTypeMapping TypeName="RecruitmentManagementSystemModel.Status">
+            <EntityTypeMapping TypeName="RecruitmentManagementSystemModel1.Status">
               <MappingFragment StoreEntitySet="Status">
                 <ScalarProperty Name="StatusID" ColumnName="StatusID" />
                 <ScalarProperty Name="Status1" ColumnName="Status" />
@@ -931,7 +963,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="RecruitmentManagementSystemModel.sysdiagram">
+            <EntityTypeMapping TypeName="RecruitmentManagementSystemModel1.sysdiagram">
               <MappingFragment StoreEntitySet="sysdiagrams">
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="principal_id" ColumnName="principal_id" />
@@ -942,7 +974,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="RecruitmentManagementSystemModel.User">
+            <EntityTypeMapping TypeName="RecruitmentManagementSystemModel1.User">
               <MappingFragment StoreEntitySet="Users">
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -953,6 +985,7 @@
                 <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
                 <ScalarProperty Name="Location" ColumnName="Location" />
                 <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
