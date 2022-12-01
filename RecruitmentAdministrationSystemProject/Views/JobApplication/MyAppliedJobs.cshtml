@@ -1,0 +1,51 @@
+﻿@model IEnumerable<RecruitmentAdministrationSystemProject.Models.sp_ApplicationDetails_Result>
+@{
+    ViewBag.Title = "MyAppliedJobs";
+}
+<header>
+    <link href="~/Content/all.css" rel="stylesheet"/>
+</header>
+
+<h2>MyAppliedJobs</h2>
+
+<table class="table table-bordered">
+    <tr>
+        <th>
+            Application Dat4e
+        </th>
+        <th>
+           Job Title
+        </th>
+        <th>
+            CTC
+        </th>
+        <th>
+            Location
+        </th>
+        <th>
+            Status
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ApplicationDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CTC)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Location)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+        </tr>
+    }
+
+</table>

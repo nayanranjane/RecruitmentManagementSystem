@@ -1,0 +1,103 @@
+﻿table {
+    box-shadow: -12px -5px 5px rgba(128, 128, 128, 0.63);
+  //  background-color:rgb(82, 224, 79);
+    border-radius:2px;
+}
+tr:hover{
+    background-color:rgb(240, 186, 19);
+    color:black;
+}
+body {
+    
+}
+
+.mainContainer{
+    display: grid;
+    grid-template-columns:1fr 1fr 1fr 1fr;
+    grid-row-gap:1rem;
+
+}
+.cardContainer {
+    width: 287px;
+    height: 345px;
+    margin: .5rem;
+    background-color: rgb(195, 164, 2);
+    box-shadow: -12px -5px 5px rgba(128, 128, 128, 0.63);
+    border-radius:1rem;
+}
+
+.myCardImg{
+    height:150px;
+    width:150px;
+    border-radius:75px;
+}
+.cardBody{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    height:135px;
+}
+.cardBodyItem{
+    display:flex;
+    align-items:center;
+}
+.card{
+    height:265px;
+    padding:1rem;
+    margin:1rem;
+}
+.imgClass{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    border-radius:72rem;
+}
+.buttonDiv {
+    width: 11rem;
+    margin-left:0;
+    box-shadow: -12px -5px 5px rgba(128, 128, 128, 0.63);
+}
+
+.singup {
+    display: flex;
+    justify-content: center;
+    background-color: greenyellow;
+    width: 11rem;
+}
+
+    .singup:hover {
+        background: tomato;
+        scale: 102%;
+        font-size: large;
+        box-shadow: -12px -5px 5px rgba(128, 128, 128, 0.63);
+    }
+
+.HeadingClass {
+    padding: 1rem;
+    background-color: antiquewhite;
+    border-radius: 1rem;
+    margin-top: 2rem;
+    box-shadow: -12px -5px 5px rgba(128, 128, 128, 0.63);
+    width: 1174px;
+    display: flex;
+    flex-direction:column;
+}
+h2{
+    align-self:center;
+}
+.search{
+    margin-top:1.5rem;
+}
+.searchInput{
+    width:800px;
+    border-radius:1rem;
+}
+.searchButton {
+    background-color: rgb(198, 147, 233);
+    border-radius: 1rem;
+    margin-left:3rem;
+}
+    .searchButton:hover {
+        background-color: rgb(65, 198, 0);
+        scale: 105%;
+        box-shadow: -12px -5px 5px rgba(128, 128, 128, 0.63);
+    }

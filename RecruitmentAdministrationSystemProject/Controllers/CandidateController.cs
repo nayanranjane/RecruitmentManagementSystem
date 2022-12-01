@@ -47,8 +47,11 @@ namespace RecruitmentAdministrationSystemProject.Controllers
         public ActionResult CreateCandidateInfo(CandidateInfo info)
         {
             var result = dbAccess.CandidateInfoes.Add(info);
-          
-            dbAccess.SaveChanges();
+            var isCreated = dbAccess.SaveChanges();
+            if (isCreated > 0)
+            {
+                TempData["UserCreated"] = "UserCreated";
+            }
             return RedirectToAction("Login", "Account");
         }
 

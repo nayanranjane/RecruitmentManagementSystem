@@ -20,7 +20,8 @@ namespace RecruitmentAdministrationSystemProject.Controllers
         {
             Interview interview = new Interview() { UserId=id};
             var list = dbAccess.Staffs.ToList();
-            var staffList = dbAccess.Users.ToList().Join(dbAccess.Staffs.ToList(), user => user.UserId, staff => staff.UserID, (user, staff) => new { Name = user.Name, Id = staff.StaffId ,isauthenticated = staff.isAuthenticated}).Where(staff=>staff.isauthenticated==true).ToList();
+            var staffList = dbAccess.sp_MyAuthenticatedStaff(companyId).ToList();
+        //    var staffList = dbAccess.Users.ToList().Join(dbAccess.Staffs.ToList(), user => user.UserId, staff => staff.UserID, (user, staff) => new { Name = user.Name, Id = staff.StaffId ,isauthenticated = staff.isAuthenticated}).Where(staff=>staff.isauthenticated==true).ToList();
             ViewBag.staffList = staffList;
             return View(interview);
         }
@@ -44,6 +45,11 @@ namespace RecruitmentAdministrationSystemProject.Controllers
             var interviews = dbAccess.Interviews.ToList().Where(inter => inter.Staff.UserID == user.UserId);
             return View(interviews);
         }
+        public ActionResult AllInterviews()
+        {
+          var interviewList = dbAccess.Interviews.ToList();
+          return View(interviewList);
+         }
 
     }
 }

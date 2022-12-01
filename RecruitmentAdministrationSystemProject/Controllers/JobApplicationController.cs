@@ -2,6 +2,7 @@
 using RecruitmentAdministrationSystemProject.Services;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Validation;
 using System.IO;
 using System.Linq;
@@ -16,9 +17,6 @@ namespace RecruitmentAdministrationSystemProject.Controllers
         JobApplicationServices jobApplicationServices = new JobApplicationServices();
         public ActionResult Apply(int? id, string ReturnUrl)
         {
-            if (id != null && Session["Uname"] != null)
-            {
-
                 var candidate = dbAccess.Users.ToList().Where(users => users.UserName == Session["Uname"].ToString()).FirstOrDefault();
                 if (dbAccess.JobApplications.ToList().Where(jobApp => jobApp.JobId == id && jobApp.UserId == candidate.UserId).FirstOrDefault() != null)
                 {
@@ -29,21 +27,29 @@ namespace RecruitmentAdministrationSystemProject.Controllers
                 }
                 JobApplication jobApplication = new JobApplication() { JobId = id, UserId = candidate.UserId, ApplicationDate = DateTime.Now };
                 return View(jobApplication);
-            }
-            return RedirectToAction("Index");
+      
         }
         [HttpPost]
         public ActionResult Apply(JobApplication jobApplication)
         {
-            string filename = Path.GetFileNameWithoutExtension(jobApplication.File.FileName); // .FleName Contain the name of the file with the directory
-            string extension = Path.GetExtension(jobApplication.File.FileName);
-            filename = filename + DateTime.Now.ToString("yymmssff") + extension;
-            jobApplication.Resume = "~/Documents/" + filename;
-            filename = Path.Combine(Server.MapPath("~/Documents/"), filename);
-            jobApplication.File.SaveAs(filename);
-            var result = dbAccess.JobApplications.Add(jobApplication);
-            dbAccess.SaveChanges();
-            return RedirectToAction("Index", "JobPosts");
+            if (ModelState.IsValid)
+            {
+                string filename = Path.GetFileNameWithoutExtension(jobApplication.File.FileName); // .FleName Contain the name of the file with the directory
+                string extension = Path.GetExtension(jobApplication.File.FileName);
+                filename = filename + DateTime.Now.ToString("yymmssff") + extension;
+                jobApplication.Resume = "~/Documents/" + filename;
+                filename = Path.Combine(Server.MapPath("~/Documents/"), filename);
+                jobApplication.File.SaveAs(filename);
+                var result = dbAccess.JobApplications.Add(jobApplication);
+                dbAccess.SaveChanges();
+                TempData["Applied"] = "Applied";
+                return RedirectToAction("Index", "JobPosts");
+            }
+            else
+            {
+                return RedirectToAction("Apply", new { id = jobApplication.JobId });
+            }
+            
         }
         [Authorize(Roles = "Admin,Company")]
         public ActionResult Index(int? id)
@@ -70,6 +76,12 @@ namespace RecruitmentAdministrationSystemProject.Controllers
         public ActionResult GetMyApplication(int? id)
         {
             var jobApplication = dbAccess.JobApplications.ToList().Where(user => user.UserId == id);
+            return View(jobApplication);
+        }
+
+        public ActionResult MyAppliedJobs(int id)
+        {
+            var jobApplication = dbAccess.sp_ApplicationDetails(id).ToList();
             return View(jobApplication);
         }
         public ActionResult Details(int? id)
@@ -101,29 +113,17 @@ namespace RecruitmentAdministrationSystemProject.Controllers
         }
         public ActionResult EditStatus(string newstatus,int id)
         {
-            
-            try
-            {
                 var result = dbAccess.JobApplications.Find(id);
                 result.Status = newstatus;
-                dbAccess.SaveChanges();
+                int ischanged = dbAccess.SaveChanges();
+            if (ischanged > 0)
+            {
+                TempData["StatusChange"] = "Status Change";
+            }
                 //return RedirectToAction("Details", new { id = id });
                 return RedirectToAction("Index");
-            }
-            catch (DbEntityValidationException e)
-            {
-                foreach (var eve in e.EntityValidationErrors)
-                {
-                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                    foreach (var ve in eve.ValidationErrors)
-                    {
-                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-                            ve.PropertyName, ve.ErrorMessage);
-                    }
-                }
-                throw;
-            }
+
+           
         }
     }
 }

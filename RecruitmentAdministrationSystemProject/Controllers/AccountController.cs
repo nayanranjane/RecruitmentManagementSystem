@@ -93,13 +93,14 @@ namespace RecruitmentAdministrationSystemProject.Controllers
                     }
                     else
                     {
+                        TempData["SuccessMessage"] = "Login SuccessFull";
                         return RedirectToAction("index", "home");
 
                     }
                 }
                 else
                 {
-                    ViewBag.LoginError = "Login Failed";
+                    TempData["ErrorMessage"] = "Login Failed";
                     return RedirectToAction("login", "Account");
 
                 }

@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="b7d65ec8b152437fb6a57a3602576439" Name="Diagram1">
+      <Diagram DiagramId="b7d65ec8b152437fb6a57a3602576439" Name="Diagram1" ZoomLevel="55">
         <EntityTypeShape EntityType="RecruitmentManagementSystemModel1.AptitudeAnswer" Width="1.5" PointX="8.25" PointY="8.625" IsExpanded="true" />
         <EntityTypeShape EntityType="RecruitmentManagementSystemModel1.AptitudeQuestion" Width="1.5" PointX="6" PointY="4.625" IsExpanded="true" />
         <EntityTypeShape EntityType="RecruitmentManagementSystemModel1.CandidateInfo" Width="1.5" PointX="5.25" PointY="8.5" IsExpanded="true" />

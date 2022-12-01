@@ -61,3 +61,7 @@ div.imgclass{
     width:100vw;
     height:300px;
 }
+
+table{
+    border-radius:0.5rem;
+}

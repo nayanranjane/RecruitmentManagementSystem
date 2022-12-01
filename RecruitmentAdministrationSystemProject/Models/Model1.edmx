@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="RecruitmentManagementSystemModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RecruitmentManagementSystemModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AptitudeAnswer">
           <Key>
             <PropertyRef Name="AnsSheetId" />
@@ -71,6 +71,7 @@
           <Property Name="StatusId" Type="varchar" MaxLength="100" />
           <Property Name="Remark" Type="varchar" MaxLength="250" />
           <Property Name="InterviewDate" Type="datetime" />
+          <Property Name="InterviewTime" Type="datetime" />
         </EntityType>
         <EntityType Name="JobApplication">
           <Key>
@@ -250,20 +251,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__JobApplic__JobId__6EF57B66">
-          <End Role="JobPost" Type="Self.JobPost" Multiplicity="0..1" />
-          <End Role="JobApplication" Type="Self.JobApplication" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="JobPost">
-              <PropertyRef Name="JobId" />
-            </Principal>
-            <Dependent Role="JobApplication">
-              <PropertyRef Name="JobId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__JobApplic__UserI__6E01572D">
-          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="JobApplication" Type="Self.JobApplication" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Users">
@@ -275,7 +266,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__JobPost__Company__6B24EA82">
-          <End Role="Company" Type="Self.Company" Multiplicity="0..1" />
+          <End Role="Company" Type="Self.Company" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="JobPost" Type="Self.JobPost" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Company">
@@ -324,6 +317,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="sp_ApplicationDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_AuthenticateStaff" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CompanyId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_MyAuthenticatedStaff" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CompanyId" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="RecruitmentManagementSystemModel1StoreContainer">
           <EntitySet Name="AptitudeAnswer" EntityType="Self.AptitudeAnswer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AptitudeQuestion" EntityType="Self.AptitudeQuestion" Schema="dbo" store:Type="Tables" />
@@ -363,10 +365,6 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Interview" EntitySet="Interview" />
           </AssociationSet>
-          <AssociationSet Name="FK__JobApplic__JobId__6EF57B66" Association="Self.FK__JobApplic__JobId__6EF57B66">
-            <End Role="JobPost" EntitySet="JobPost" />
-            <End Role="JobApplication" EntitySet="JobApplication" />
-          </AssociationSet>
           <AssociationSet Name="FK__JobApplic__UserI__6E01572D" Association="Self.FK__JobApplic__UserI__6E01572D">
             <End Role="Users" EntitySet="Users" />
             <End Role="JobApplication" EntitySet="JobApplication" />
@@ -388,8 +386,7 @@
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="RecruitmentManagementSystemModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -468,6 +465,7 @@
           <Property Name="InterviewDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Staff" Relationship="Self.FK__Interview__Staff__59063A47" FromRole="Interview" ToRole="Staff" />
           <NavigationProperty Name="User" Relationship="Self.FK__Interview__UserI__59FA5E80" FromRole="Interview" ToRole="Users" />
+          <Property Name="InterviewTime" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="JobApplication">
           <Key>
@@ -799,7 +797,35 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Staff" EntitySet="Staffs" />
           </AssociationSet>
+          <FunctionImport Name="sp_AuthenticateStaff" ReturnType="Collection(RecruitmentManagementSystemModel1.sp_AuthenticateStaff_Result)">
+          <Parameter Name="CompanyId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_MyAuthenticatedStaff" ReturnType="Collection(RecruitmentManagementSystemModel1.sp_MyAuthenticatedStaff_Result)">
+          <Parameter Name="CompanyId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ApplicationDetails" ReturnType="Collection(RecruitmentManagementSystemModel1.sp_ApplicationDetails_Result)">
+          <Parameter Name="UserId" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="sp_AuthenticateStaff_Result">
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="200" />
+          <Property Type="Int32" Name="UserId" Nullable="false" />
+          <Property Type="String" Name="Designation" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="sp_MyAuthenticatedStaff_Result">
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="200" />
+          <Property Type="Int32" Name="UserId" Nullable="false" />
+          <Property Type="String" Name="Designation" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="StaffId" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_ApplicationDetails_Result">
+          <Property Type="String" Name="Title" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="CTC" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Location" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="ApplicationDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Status" Nullable="true" MaxLength="100" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -867,6 +893,7 @@
           <EntitySetMapping Name="Interviews">
             <EntityTypeMapping TypeName="RecruitmentManagementSystemModel1.Interview">
               <MappingFragment StoreEntitySet="Interview">
+                <ScalarProperty Name="InterviewTime" ColumnName="InterviewTime" />
                 <ScalarProperty Name="InterviewID" ColumnName="InterviewID" />
                 <ScalarProperty Name="StaffID" ColumnName="StaffID" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -989,6 +1016,37 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_AuthenticateStaff" FunctionName="RecruitmentManagementSystemModel1.Store.sp_AuthenticateStaff">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RecruitmentManagementSystemModel1.sp_AuthenticateStaff_Result">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Designation" ColumnName="Designation" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_MyAuthenticatedStaff" FunctionName="RecruitmentManagementSystemModel1.Store.sp_MyAuthenticatedStaff">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RecruitmentManagementSystemModel1.sp_MyAuthenticatedStaff_Result">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Designation" ColumnName="Designation" />
+                <ScalarProperty Name="StaffId" ColumnName="StaffId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ApplicationDetails" FunctionName="RecruitmentManagementSystemModel1.Store.sp_ApplicationDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RecruitmentManagementSystemModel1.sp_ApplicationDetails_Result">
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="CTC" ColumnName="CTC" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ApplicationDate" ColumnName="ApplicationDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

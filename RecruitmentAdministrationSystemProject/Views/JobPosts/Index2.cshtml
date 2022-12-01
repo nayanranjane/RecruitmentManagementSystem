@@ -1,85 +1,58 @@
 ﻿@model IEnumerable<RecruitmentAdministrationSystemProject.Models.JobPost>
 
 @{
-    ViewBag.Title = "Index2";
+    ViewBag.Title = "Index";
 }
+<header>
+    <link href="~/Content/all.css" rel="stylesheet" />
+</header>
+<div class="HeadingClass"><h2>Job Posts</h2></div>
 
-<h2>Index2</h2>
-
-@using (Html.BeginForm("Index2", "JobPosts"))
+@if (User.IsInRole("Company"))
 {
-    <span class="align-content-lg-center">Search :  </span>
-    <input type="text" placeholder="Search Jobs.." name="search" />
-    <input type="submit" value="Search" />
-    <br />
-    <br />
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
 }
-<table class="table table-striped table-bordered">
-    <tr>
-        <th></th>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CTC)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NoOfOpening)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Location)
-        </th>
+@if (TempData["ErrorMessage"] != null)
+{
+    @Html.Raw(TempData["ErrorMessage"]);
+}
 
-        <th>
-            @Html.DisplayNameFor(model => model.RequiredBatch)
-        </th>
-
-        <th>
-            @Html.DisplayNameFor(model => model.Company.CompanyUrl)
-        </th>
-        <th></th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
+<div class="search">
+    @using (Html.BeginForm("Index2", "JobPosts"))
     {
-        <tr>
-            <td>
-                <img src="@Url.Content(item.Company.User.Img)" height="25px" width="25px">
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CTC)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NoOfOpening)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Location)
-            </td>
+        <span class="align-content-lg-center">Search :  </span>
+        <input type="text" placeholder="Search Jobs.." name="search" class="searchInput" />
+        <input type="submit" value="Search" class="buttonDiv searchButton" />
+        <br />
+        <br />
+    }
+</div>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.RequiredBatch)
-            </td>
+<div class="mainContainer">
 
-            <td>
-                @Html.DisplayFor(modelItem => item.Company.CompanyUrl)
-            </td>
+    @foreach (var job in Model)
+    {
+        <div class="cardContainer">
+            <div class="card" style="width: 24rem">
+                <div class="imgClass"><div><img class="myCardImg card-img-top " src="@Url.Content(job.Company.User.Img)" alt="Card image cap"></div></div>
+                <div class="card-body cardBody">
+                    <div class="cardBodyItem"><h4>Company</h4></div>
+                    <div class="cardBodyItem">@job.Company.User.Name</div>
+                    <div class="cardBodyItem"><h4>Title</h4></div>
+                    <div class="cardBodyItem">@job.Title</div>
+                    <div class="cardBodyItem"><h4>Location</h4></div>
+                    <div class="cardBodyItem">@job.Location</div>
 
-            @if (User.Identity.IsAuthenticated && (User.IsInRole("Company") || User.IsInRole("Company")))
-            {
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.JobId }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.JobId })
-                </td>
-            }
-            else
-            {
-                <td> @Html.ActionLink("Details", "Details", new { id = item.JobId }) |@Html.ActionLink("Apply", "Apply", "JobApplication", new { id = item.JobId }, null)</td>
-            }
-        </tr>
+                </div>
+                <div class="buttonDiv">
+                    @Html.ActionLink("Details", "Details", new { id = job.JobId }, new { @class = "form-input-button singup" })
+                </div>
+            </div>
+        </div>
     }
 
-</table>
+</div>
+
+

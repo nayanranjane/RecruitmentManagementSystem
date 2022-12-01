@@ -46,9 +46,16 @@ namespace RecruitmentAdministrationSystemProject.Views
         [HttpPost]
         public ActionResult Create(JobPost jobPost)
         {
-            var result = dbAccess.JobPosts.Add(jobPost);
-            dbAccess.SaveChanges();
-            return RedirectToAction("Index","Home");
+            if (ModelState.IsValid)
+            {
+                var result = dbAccess.JobPosts.Add(jobPost);
+                dbAccess.SaveChanges();
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return RedirectToAction("Create");
+            }
         }
         public ActionResult Delete(int? id)
         {

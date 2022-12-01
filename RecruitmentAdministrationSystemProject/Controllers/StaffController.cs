@@ -25,7 +25,11 @@ namespace RecruitmentAdministrationSystemProject.Controllers
         public ActionResult CreateStaffInformation(Staff info)
         {
             var result = dbAccess.Staffs.Add(info);
-            dbAccess.SaveChanges();
+            var isCreated = dbAccess.SaveChanges();
+            if (isCreated > 0)
+            {
+                TempData["UserCreated"] = "UserCreated";
+            }
             return RedirectToAction("Login", "Account");
         }
         public ActionResult Index(int id)

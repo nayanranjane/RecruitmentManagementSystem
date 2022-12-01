@@ -19,7 +19,7 @@
                 </button>
                 @Html.ActionLink("Recruitment Administration System", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
-            <div class="navbar-collapse collapse container-navigation">
+            <div class="navbar-collapse collapse container-navigation margin-right">
                 <ul class="nav navbar-nav ">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
 
@@ -38,7 +38,7 @@
                         else if (User.IsInRole("Candidate"))
                         {
                             <li>@Html.ActionLink("JobPosts", "Index", "JobPosts")</li>
-                            <li>@Html.ActionLink("Applied Jobs", "AppliedJobs", "JobApplication", new { username = User.Identity.Name }, null)</li>
+                            <li>@Html.ActionLink("Applied Jobs", "MyAppliedJobs", "JobApplication", new { id = Convert.ToInt32(Session["UID"]) }, null)</li>
                         }
                         else if (User.IsInRole("Company"))
                         {
@@ -50,7 +50,7 @@
                         }
                         else if (User.IsInRole("Staff"))
                         {
-                            <li>@Html.ActionLink("Interviews", "InterviewList", "Interview", new { id = Convert.ToInt32(Session["UID"]) }, null)</li>
+                            @*<li>@Html.ActionLink("Interviews", "InterviewList", "Interview", new { id = Convert.ToInt32(Session["UID"]) }, null)</li>*@
                         }
                         <li class="action-container">
                             <img src="@Url.Content(Session["Img"].ToString())" id="logo" height="52px" width="52px" />
@@ -79,7 +79,7 @@
     </div>
     <div class="container body-content">
         @RenderBody()
-        <hr />
+        @*<hr />*@
         @*<footer>
                 <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
             </footer>*@

@@ -22,6 +22,7 @@ namespace RecruitmentAdministrationSystemProject.Models
         public string StatusId { get; set; }
         public string Remark { get; set; }
         public Nullable<System.DateTime> InterviewDate { get; set; }
+        public Nullable<System.DateTime> InterviewTime { get; set; }
     
         public virtual Staff Staff { get; set; }
         public virtual User User { get; set; }

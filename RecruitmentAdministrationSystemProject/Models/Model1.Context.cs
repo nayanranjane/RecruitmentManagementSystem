@@ -12,6 +12,8 @@ namespace RecruitmentAdministrationSystemProject.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class RecruitmentManagementSystemEntities : DbContext
     {
@@ -39,5 +41,32 @@ namespace RecruitmentAdministrationSystemProject.Models
         public virtual DbSet<Status> Status { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<User> Users { get; set; }
+    
+        public virtual ObjectResult<sp_AuthenticateStaff_Result> sp_AuthenticateStaff(Nullable<int> companyId)
+        {
+            var companyIdParameter = companyId.HasValue ?
+                new ObjectParameter("CompanyId", companyId) :
+                new ObjectParameter("CompanyId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_AuthenticateStaff_Result>("sp_AuthenticateStaff", companyIdParameter);
+        }
+    
+        public virtual ObjectResult<sp_MyAuthenticatedStaff_Result> sp_MyAuthenticatedStaff(Nullable<int> companyId)
+        {
+            var companyIdParameter = companyId.HasValue ?
+                new ObjectParameter("CompanyId", companyId) :
+                new ObjectParameter("CompanyId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_MyAuthenticatedStaff_Result>("sp_MyAuthenticatedStaff", companyIdParameter);
+        }
+    
+        public virtual ObjectResult<sp_ApplicationDetails_Result> sp_ApplicationDetails(Nullable<int> userId)
+        {
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("UserId", userId) :
+                new ObjectParameter("UserId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ApplicationDetails_Result>("sp_ApplicationDetails", userIdParameter);
+        }
     }
 }

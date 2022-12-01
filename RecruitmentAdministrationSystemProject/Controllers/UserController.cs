@@ -96,8 +96,15 @@ namespace RecruitmentAdministrationSystemProject.Controllers
         [HttpPost]
         public ActionResult EditMyProfile(User user)
         {
-            var result = userServices.UpdateUser(user, user.UserId);
-            return RedirectToAction("Index", "Home");
+            if (ModelState.IsValid)
+            {
+                var result = userServices.UpdateUser(user, user.UserId);
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return RedirectToAction("EditMyProfile", new { id = user.UserId });
+            }
         }
 
 

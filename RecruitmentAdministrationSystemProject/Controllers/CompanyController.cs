@@ -21,7 +21,11 @@ namespace RecruitmentAdministrationSystemProject.Controllers
         public ActionResult CreateCompanyInformation(Company info)
         {
             var result = dbAccess.Companies.Add(info);
-            dbAccess.SaveChanges();
+            var isCreated = dbAccess.SaveChanges();
+            if (isCreated > 0)
+            {
+                TempData["UserCreated"] = "UserCreated";
+            }
             return RedirectToAction("Login", "Account");
         }
 

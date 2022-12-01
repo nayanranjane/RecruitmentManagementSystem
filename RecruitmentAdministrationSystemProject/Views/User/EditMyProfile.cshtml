@@ -13,7 +13,7 @@
     <div class="main">
         <div class="register">
             <h2>Edit Profile</h2>
-            @using (Html.BeginForm("EditMyProfile", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            @using (Html.BeginForm("EditMyProfile", "User"))
             {
                 @Html.AntiForgeryToken()
                 <div class="singup-form">
