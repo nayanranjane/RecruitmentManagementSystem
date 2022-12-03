@@ -3,32 +3,31 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
 namespace RecruitmentAdministrationSystemProject.Services
 {
-    public class RoleServices:IDataAccessService<Role,int>
+    public class InterviewServices : IDataAccessService<Interview, int>
     {
         RecruitmentManagementSystemEntities dbAccess;
-        public RoleServices(RecruitmentManagementSystemEntities dbAccess)
+        public InterviewServices(RecruitmentManagementSystemEntities dbAccess)
         {
             this.dbAccess = dbAccess;
         }
 
-        async Task<bool> IDataAccessService<Role, int>.Create(Role entity)
+        async Task<bool>  IDataAccessService<Interview, int>.Create(Interview entity)
         {
             try
             {
-                var result = dbAccess.Roles.Add(entity);
+                var result = dbAccess.Interviews.Add(entity);
                 var isAdded = await dbAccess.SaveChangesAsync();
                 if (isAdded > 0)
                 {
                     return true;
                 }
                 return false;
-               
+
             }
             catch (Exception ex)
             {
@@ -37,19 +36,19 @@ namespace RecruitmentAdministrationSystemProject.Services
             }
         }
 
-        async Task<bool> IDataAccessService<Role, int>.DeleteAsync(int id)
+        async Task<bool> IDataAccessService<Interview, int>.DeleteAsync(int id)
         {
             try
             {
-                var role =await dbAccess.Roles.FindAsync(id);
-                if (role == null)
+                var interview = await dbAccess.Roles.FindAsync(id);
+                if (interview == null)
                 {
                     throw new Exception("Role not found Enter Correct User ID");
                     return false;
                 }
                 else
                 {
-                    dbAccess.Roles.Remove(role);
+                    dbAccess.Roles.Remove(interview);
                     await dbAccess.SaveChangesAsync();
                     return true;
                 }
@@ -62,12 +61,12 @@ namespace RecruitmentAdministrationSystemProject.Services
             }
         }
 
-        async Task<List<Role>> IDataAccessService<Role, int>.GetDataAsync()
+        async Task<List<Interview>> IDataAccessService<Interview, int>.GetDataAsync()
         {
             try
             {
-                var roleList =await dbAccess.Roles.ToListAsync();
-                return roleList;
+                var interviewList = await dbAccess.Interviews.ToListAsync();
+                return interviewList;
             }
             catch (Exception ex)
             {
@@ -76,14 +75,14 @@ namespace RecruitmentAdministrationSystemProject.Services
             }
         }
 
-        async Task<Role> IDataAccessService<Role, int>.GetDataAsync(int id)
+        async Task<Interview> IDataAccessService<Interview, int>.GetDataAsync(int id)
         {
             try
             {
-                var roleResult =await dbAccess.Roles.FindAsync(id);
-                if (roleResult != null)
+                var interview = await dbAccess.Interviews.FindAsync(id);
+                if (interview != null)
                 {
-                    return roleResult;
+                    return interview;
                 }
                 else
                 {
@@ -98,16 +97,21 @@ namespace RecruitmentAdministrationSystemProject.Services
             }
         }
 
-        async Task<bool> IDataAccessService<Role, int>.UpdateAsync(Role entity, int id)
+        async Task<bool> IDataAccessService<Interview, int>.UpdateAsync(Interview entity, int id)
         {
             try
             {
-                var roleResult =await dbAccess.Roles.FindAsync(id);
-                if (roleResult != null)
+                var interview = await dbAccess.Interviews.FindAsync(id);
+                if (interview != null)
                 {
-                    roleResult.RoleName = entity.RoleName;
+                    interview.InterviewTime = entity.InterviewTime;
+                    interview.InterviewDate = entity.InterviewDate;
+                    interview.Description = entity.Description;
+                    interview.StatusId = entity.StatusId;
+                    interview.Remark = entity.Remark;
+                    interview.MettingId = entity.MettingId;
                 }
-                var isUpdated =await dbAccess.SaveChangesAsync();
+                var isUpdated = await dbAccess.SaveChangesAsync();
                 if (isUpdated > 0)
                 {
                     return true;

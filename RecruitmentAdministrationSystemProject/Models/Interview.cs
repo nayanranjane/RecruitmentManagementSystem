@@ -11,14 +11,19 @@ namespace RecruitmentAdministrationSystemProject.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Interview
     {
         public int InterviewID { get; set; }
+        [Required(ErrorMessage ="Staff is required")]
         public Nullable<int> StaffID { get; set; }
         public Nullable<int> UserId { get; set; }
+        [Required(ErrorMessage = "Venue is required")]
         public string MettingId { get; set; }
+        [Required(ErrorMessage = "Description is required")]
         public string Description { get; set; }
+
         public string StatusId { get; set; }
         public string Remark { get; set; }
         public Nullable<System.DateTime> InterviewDate { get; set; }

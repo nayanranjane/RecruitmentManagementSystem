@@ -65,15 +65,15 @@ namespace RecruitmentAdministrationSystemProject.Controllers
 
         public ActionResult Login()
         {
-            User user = new User();
-            return View(user);
+            //User user = new User();
+            return View();
         }
         [HttpPost]
-        public ActionResult Login(User user, string ReturnUrl)
+        public ActionResult Login(string username,string password)
         {
             if (true)
             {
-                var result = dbAccess.Users.ToList().Where(u => u.UserName == user.UserName && u.Password == user.Password).FirstOrDefault();
+                var result = dbAccess.Users.ToList().Where(u => u.UserName == username && u.Password == password).FirstOrDefault();
                 if (result != null)
                 {
                     FormsAuthentication.SetAuthCookie(result.UserName, false);
@@ -84,19 +84,12 @@ namespace RecruitmentAdministrationSystemProject.Controllers
                     var role = (from userInfo in dbAccess.Users.ToList()
                                 join roles in dbAccess.Roles.ToList()
                                 on userInfo.RoleId equals roles.RoleId
-                                where userInfo.UserName == user.UserName
+                                where userInfo.UserName == result.UserName
                                 select roles).FirstOrDefault();
                     Session["Role"] = role.RoleName.ToString();
-                    if (ReturnUrl != null)
-                    {
-                        return Redirect(ReturnUrl);
-                    }
-                    else
-                    {
+
                         TempData["SuccessMessage"] = "Login SuccessFull";
                         return RedirectToAction("index", "home");
-
-                    }
                 }
                 else
                 {
@@ -113,6 +106,14 @@ namespace RecruitmentAdministrationSystemProject.Controllers
             Session["Uname"] = null;
 
             return RedirectToAction("Login");
+        }
+        public JsonResult IsUserExist(string username)
+        {
+            return Json(!dbAccess.Users.Any(user => user.UserName == username), JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult isValidNumber(string number)
+        {
+            return Json(!dbAccess.Users.Any(user => user.MobileNo == number), JsonRequestBehavior.AllowGet);
         }
     }
 

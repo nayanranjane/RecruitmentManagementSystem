@@ -132,7 +132,11 @@
 
     </div>
 
-    <div class="buttonDiv">
-        @Html.ActionLink("Apply", "Apply", "JobApplication", new { id = Model.JobId }, new { @class = "form-input-button singup" })
-    </div>
+    
+    @if (User.IsInRole("Candidate"))
+    {
+       <div class="buttonDiv">
+           @Html.ActionLink("Apply", "Apply", "JobApplication", new { id = Model.JobId }, new { @class = "form-input-button singup" })
+       </div>
+    }
 </body>

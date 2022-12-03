@@ -1,0 +1,56 @@
+﻿@model IEnumerable<RecruitmentAdministrationSystemProject.Models.Interview>
+
+@{
+    ViewBag.Title = "MyInterviews";
+}
+<link href="~/Content/all.css" rel="stylesheet"/>
+
+<div class="HeadingClass"><h2>MyInterviews</h2></div>
+
+<table class="table table-bordered interview-Table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.User.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MettingId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InterviewDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InterviewTime)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MettingId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+    
+        <td>
+            @Html.DisplayFor(modelItem => item.InterviewDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InterviewTime)
+        </td>
+
+        @*<td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.InterviewID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.InterviewID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.InterviewID })
+        </td>*@
+    </tr>
+}
+
+</table>

@@ -1,22 +1,36 @@
 ﻿using RecruitmentAdministrationSystemProject.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
+using System.Web.Mvc;
+using System.Web.Services.Description;
 
 namespace RecruitmentAdministrationSystemProject.Services
 {
-    public class JobPostServices
+    [Authorize]
+    public class JobPostServices:IDataAccessService<JobPost,int>
     {
-        RecruitmentManagementSystemEntities dbAccess = new RecruitmentManagementSystemEntities();
+        RecruitmentManagementSystemEntities dbAccess;
+        public JobPostServices(RecruitmentManagementSystemEntities dbAccess)
+        {
+            this.dbAccess = dbAccess;
+        }
 
-        public JobPost CreateJobPost(JobPost jobPost)
+       
+        async Task<bool> IDataAccessService<JobPost, int>.Create(JobPost entity)
         {
             try
             {
-                var result = dbAccess.JobPosts.Add(jobPost);
-                dbAccess.SaveChanges();
-                return result;
+                var result = dbAccess.JobPosts.Add(entity);
+                var idAdded = await dbAccess.SaveChangesAsync();
+                if (idAdded > 0)
+                {
+                    return true;
+                }
+                return false;
             }
             catch (Exception ex)
             {
@@ -24,11 +38,12 @@ namespace RecruitmentAdministrationSystemProject.Services
                 throw ex;
             }
         }
-        public bool DeleteJobPost(int id)
+
+        async Task<bool> IDataAccessService<JobPost, int>.DeleteAsync(int id)
         {
             try
             {
-                var jobPost = dbAccess.JobPosts.Find(id);
+                var jobPost =await dbAccess.JobPosts.FindAsync(id);
                 if (jobPost == null)
                 {
                     throw new Exception("post not found Enter Correct User ID");
@@ -37,7 +52,7 @@ namespace RecruitmentAdministrationSystemProject.Services
                 else
                 {
                     dbAccess.JobPosts.Remove(jobPost);
-                    dbAccess.SaveChanges();
+                    var result = await dbAccess.SaveChangesAsync();
                     return true;
                 }
 
@@ -48,11 +63,12 @@ namespace RecruitmentAdministrationSystemProject.Services
                 throw ex;
             }
         }
-        public IEnumerable<JobPost> GetJobPost()
+
+        async Task<List<JobPost>> IDataAccessService<JobPost, int>.GetDataAsync()
         {
             try
             {
-                var postList = dbAccess.JobPosts.ToList();
+                var postList =await dbAccess.JobPosts.ToListAsync();
                 return postList;
             }
             catch (Exception ex)
@@ -61,11 +77,12 @@ namespace RecruitmentAdministrationSystemProject.Services
                 throw ex;
             }
         }
-        public JobPost GetJobPost(int id)
+
+        async Task<JobPost> IDataAccessService<JobPost, int>.GetDataAsync(int id)
         {
             try
             {
-                var postResult = dbAccess.JobPosts.Find(id);
+                var postResult = await dbAccess.JobPosts.FindAsync(id);
                 if (postResult != null)
                 {
                     return postResult;
@@ -82,27 +99,28 @@ namespace RecruitmentAdministrationSystemProject.Services
                 throw ex;
             }
         }
-        public bool UpdateJobPost(JobPost post, int id)
+
+        async Task<bool> IDataAccessService<JobPost, int>.UpdateAsync(JobPost entity, int id)
         {
             try
             {
-                var postResult = dbAccess.JobPosts.Find(id);
+                var postResult =await dbAccess.JobPosts.FindAsync(id);
                 if (postResult != null)
                 {
-                    postResult.Title = post.Title;
-                    postResult.CTC = post.CTC;
-                    postResult.NoOfOpening = post.NoOfOpening;
-                    postResult.Location = post.Location;
-                    postResult.LastDate = post.LastDate;
-                    postResult.Skill_1 = post.Skill_1;
-                    postResult.Skill_2 = post.Skill_2;
-                    postResult.Skill_3 = post.Skill_3;
-                    postResult.RequiredBatch = post.RequiredBatch;
-                    postResult.Description = post.Description;
-                    postResult.HSCMarks = post.HSCMarks;
-                    postResult.SSCMarks = post.SSCMarks;
-                    postResult.UGMarks = post.UGMarks;
-                    postResult.RequiredExperience = post.RequiredExperience;
+                    postResult.Title = entity.Title;
+                    postResult.CTC = entity.CTC;
+                    postResult.NoOfOpening = entity.NoOfOpening;
+                    postResult.Location = entity.Location;
+                    postResult.LastDate = entity.LastDate;
+                    postResult.Skill_1 = entity.Skill_1;
+                    postResult.Skill_2 = entity.Skill_2;
+                    postResult.Skill_3 = entity.Skill_3;
+                    postResult.RequiredBatch = entity.RequiredBatch;
+                    postResult.Description = entity.Description;
+                    postResult.HSCMarks = entity.HSCMarks;
+                    postResult.SSCMarks = entity.SSCMarks;
+                    postResult.UGMarks = entity.UGMarks;
+                    postResult.RequiredExperience = entity.RequiredExperience;
                 }
                 var isUpdated = dbAccess.SaveChanges();
                 if (isUpdated > 0)
@@ -116,53 +134,6 @@ namespace RecruitmentAdministrationSystemProject.Services
 
                 throw ex;
             }
-        }
-        public IEnumerable<JobPost> SearchJob(string searchString)
-        {
-            var m = searchString.Split(' ');
-            var j = m.ToList();
-            List<List<JobPost>> postList = new List<List<JobPost>>();
-
-            var posts = dbAccess.JobPosts.ToList();
-            var result = new List<JobPost>();
-            foreach (var item in j)
-            {
-                var temp = (from post in posts
-                            where (post.Company.User.Name.ToString().ToLower().Contains(item.ToLower()))
-                            || (post.Company.AboutCompany.ToString().ToLower().Contains(item.ToLower()))
-                            || (post.Title.ToString().ToLower().Contains(item.ToLower()))
-                            || (post.CTC.ToString().Contains(item.ToLower()))
-                            || (post.Location.ToString().ToLower().Contains(item.ToLower()))
-                            || (post.RequiredBatch.ToString().Contains(item.ToLower()))
-                            || (post.Skill_1.ToString().ToLower().Contains(item.ToLower()))
-                               || (post.Skill_2.ToString().ToLower().Contains(item.ToLower()))
-                                  || (post.Skill_3.ToString().ToLower().Contains(item.ToLower()))
-                            select post).ToList();
-                postList.Add(temp);
-            }
-            switch (postList.Count())
-            {
-                case 0:
-                    result = null;
-                    break;
-                case 1:
-                    result = postList[0];
-                    break;
-                case 2:
-                    result = (postList[0].Intersect(postList[1])).ToList();
-                    break;
-                case 3:
-                    result = (postList[0].Intersect(postList[1]).Intersect(postList[2])).ToList();
-                    break;
-                case 4:
-                    result = (postList[0].Intersect(postList[1]).Intersect(postList[2]).Intersect(postList[3])).ToList();
-                    break;
-                case 5:
-                    result = (postList[0].Intersect(postList[1]).Intersect(postList[2]).Intersect(postList[3]).Intersect(postList[4])).ToList();
-                    break;
-            }
-            return result;
-
         }
     }
 }

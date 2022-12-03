@@ -1,16 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using RecruitmentAdministrationSystemProject.Models;
+using RecruitmentAdministrationSystemProject.Services;
 
 namespace RecruitmentAdministrationSystemProject.Controllers
 {
     public class CompanyController : Controller
     {
-        RecruitmentManagementSystemEntities dbAccess = new RecruitmentManagementSystemEntities();
+
+        IDataAccessService<Company, int> companyService;
+        IDataAccessService<User, int> userService;
+        IDataAccessService<Role, int> roleService;
+
+        public CompanyController(IDataAccessService<Company, int> companyService,IDataAccessService<User, int> userService,IDataAccessService<Role, int> roleService)
+        {
+            this.companyService = companyService;
+            this.userService = userService;
+            this.roleService = roleService;
+        }
 
         public ActionResult CreateCompanyInformation(int id)
         {
@@ -18,11 +31,10 @@ namespace RecruitmentAdministrationSystemProject.Controllers
             return View(info);
         }
         [HttpPost]
-        public ActionResult CreateCompanyInformation(Company info)
+        public async Task<ActionResult> CreateCompanyInformation(Company info)
         {
-            var result = dbAccess.Companies.Add(info);
-            var isCreated = dbAccess.SaveChanges();
-            if (isCreated > 0)
+            var isCreated =await companyService.Create(info);
+            if (isCreated)
             {
                 TempData["UserCreated"] = "UserCreated";
             }
@@ -31,12 +43,12 @@ namespace RecruitmentAdministrationSystemProject.Controllers
 
 
 
-        public ActionResult Index()
+        async public Task<ActionResult> Index()
         {
-            var Companies = (from user in dbAccess.Users
-                             join company in dbAccess.Companies
+            var Companies = (from user in (await userService.GetDataAsync())
+                             join company in (await companyService.GetDataAsync())
                              on user.UserId equals company.UserId
-                             join role in dbAccess.Roles
+                             join role in (await roleService.GetDataAsync())
                              on user.RoleId equals role.RoleId
                              where role.RoleName.ToLower()=="company".ToLower()
                              select new CompanyDetails
@@ -57,17 +69,15 @@ namespace RecruitmentAdministrationSystemProject.Controllers
             return View();
         }
 
-        public ActionResult Index2()
+        public async Task<ActionResult> Index2()
         {
-            var candidates = dbAccess.Companies.ToList();
-            return View(candidates);
+            var companies = (await companyService.GetDataAsync());
+            return View(companies);
 
         }
-        public ActionResult DeleteCompany(int? id)
+        public async Task<ActionResult> DeleteCompany(int id)
         {
-            var result = dbAccess.Users.Find(id);
-            var isDeleted = dbAccess.Users.Remove(result);
-            dbAccess.SaveChanges();
+            var result = await companyService.DeleteAsync(id);
             return RedirectToAction("Index","Company");
         }
     }

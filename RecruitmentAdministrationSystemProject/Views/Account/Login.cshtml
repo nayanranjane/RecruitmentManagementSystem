@@ -29,9 +29,9 @@
         <div class="form-page">
             <div class="form-container">
                 <h2>Login</h2>
-                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-input-field", @placeHolder = "User Name" } })
+                @Html.Editor("username", new { htmlAttributes = new { @class = "form-input-field", @placeHolder = "User Name" } })
 
-                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-input-field", @placeHolder = "Your Password", @type = "password" } })
+                @Html.Editor("password", new { htmlAttributes = new { @class = "form-input-field", @placeHolder = "Your Password", @type = "password" } })
 
 
                 <button class="form-input-button login" type="submit">Login</button>
@@ -48,13 +48,13 @@
             <h1>Login</h1>
             <div class="input-box">
                 <i class="fa fa-user-secret" aria-hidden="true"></i>
-                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+          
                 <span></span>
             </div>
             <div class="input-box">-->
         @*  *@
         <!--<i class="fa fa-lock" aria-hidden="true"></i>
-                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+
                 <span></span>
             </div>
             <button type="submit">Login</button>

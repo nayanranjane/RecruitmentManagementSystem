@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -8,53 +9,21 @@ using RecruitmentAdministrationSystemProject.Models;
 
 namespace RecruitmentAdministrationSystemProject.Services
 {
-    public class UserServices
+    public class UserServices:IDataAccessService<User,int>
     {
-        RecruitmentManagementSystemEntities dbAccess = new RecruitmentManagementSystemEntities();
+        RecruitmentManagementSystemEntities dbAccess;
 
-        public User CreateUser(User user)
+        public UserServices(RecruitmentManagementSystemEntities dbAccess)
         {
-            try
-            {
-                var result = dbAccess.Users.Add(user);
-                dbAccess.SaveChanges();
-                return result;
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
+            this.dbAccess = dbAccess;
         }
-        public bool DeleteUser(int id)
+
+        async Task<List<User>> IDataAccessService<User, int>.GetDataAsync()
         {
+
             try
             {
-                var user = dbAccess.Users.Find(id);
-                if (user == null)
-                {
-                    throw new Exception("User not found Enter Correct User ID");
-                    return false;
-                }
-                else
-                {
-                    dbAccess.Users.Remove(user);
-                    dbAccess.SaveChanges();
-                    return true;
-                }
-
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-        }
-        public IEnumerable<User> GetUsers()
-        {
-            try
-            {
-                var userList = dbAccess.Users.ToList();
+                var userList =await dbAccess.Users.ToListAsync();
                 return userList;
             }
             catch (Exception ex)
@@ -63,11 +32,12 @@ namespace RecruitmentAdministrationSystemProject.Services
                 throw ex;
             }
         }
-        public User GetUser(int id)
+
+        async Task<User> IDataAccessService<User, int>.GetDataAsync(int id)
         {
             try
             {
-                var userResult = dbAccess.Users.Find(id);
+                var userResult =await dbAccess.Users.FindAsync(id);
                 if (userResult != null)
                 {
                     return userResult;
@@ -84,27 +54,76 @@ namespace RecruitmentAdministrationSystemProject.Services
                 throw ex;
             }
         }
-        public bool UpdateUser(User user,int id)
+
+        async Task<bool> IDataAccessService<User, int>.UpdateAsync(User entity, int id)
         {
             try
             {
-                var userResult = dbAccess.Users.Find(id);
-                if(userResult != null)
+                var userResult =await dbAccess.Users.FindAsync(id);
+                if (userResult != null)
                 {
-                    userResult.Name = user.Name;
-                    userResult.UserName = user.UserName;
-                    userResult.Password = user.Password;
-                    userResult.Email = user.Email;
-                    userResult.Img = user.Img;
-                    userResult.MobileNo = user.MobileNo;
-                    userResult.Location = user.Location;
+                    userResult.Name = entity.Name;
+                    userResult.UserName = entity.UserName;
+                    userResult.Password = entity.Password;
+                    userResult.Email = entity.Email;
+                    userResult.Img = entity.Img;
+                    userResult.MobileNo = entity.MobileNo;
+                    userResult.Location = entity.Location;
                 }
-                var isUpdated = dbAccess.SaveChanges();
+                var isUpdated =await dbAccess.SaveChangesAsync();
                 if (isUpdated > 0)
                 {
                     return true;
                 }
                 return false;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        async Task<bool> IDataAccessService<User, int>.Create(User entity)
+        {
+            try
+            {
+                var result = dbAccess.Users.Add(entity);
+                var isAdded = await dbAccess.SaveChangesAsync();
+                if (isAdded > 0)
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        async Task<bool> IDataAccessService<User, int>.DeleteAsync(int id)
+        {
+            try
+            {
+                var user =await dbAccess.Users.FindAsync(id);
+                if (user == null)
+                {
+                    throw new Exception("User not found Enter Correct User ID");
+                    return false;
+                }
+                else
+                {
+                    dbAccess.Users.Remove(user);
+                    var idDeleted = await dbAccess.SaveChangesAsync();
+                    if (idDeleted > 0)
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+
             }
             catch (Exception ex)
             {

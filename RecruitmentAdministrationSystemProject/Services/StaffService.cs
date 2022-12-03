@@ -3,32 +3,30 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
 namespace RecruitmentAdministrationSystemProject.Services
 {
-    public class RoleServices:IDataAccessService<Role,int>
+    public class StaffService : IDataAccessService<Staff, int>
     {
         RecruitmentManagementSystemEntities dbAccess;
-        public RoleServices(RecruitmentManagementSystemEntities dbAccess)
+        public StaffService(RecruitmentManagementSystemEntities dbAccess)
         {
             this.dbAccess = dbAccess;
         }
-
-        async Task<bool> IDataAccessService<Role, int>.Create(Role entity)
+        async Task<bool> IDataAccessService<Staff, int>.Create(Staff entity)
         {
             try
             {
-                var result = dbAccess.Roles.Add(entity);
+                var result = dbAccess.Staffs.Add(entity);
                 var isAdded = await dbAccess.SaveChangesAsync();
                 if (isAdded > 0)
                 {
                     return true;
                 }
                 return false;
-               
+
             }
             catch (Exception ex)
             {
@@ -37,19 +35,19 @@ namespace RecruitmentAdministrationSystemProject.Services
             }
         }
 
-        async Task<bool> IDataAccessService<Role, int>.DeleteAsync(int id)
+        async Task<bool> IDataAccessService<Staff, int>.DeleteAsync(int id)
         {
             try
             {
-                var role =await dbAccess.Roles.FindAsync(id);
-                if (role == null)
+                var staff = await dbAccess.Staffs.FindAsync(id);
+                if (staff == null)
                 {
-                    throw new Exception("Role not found Enter Correct User ID");
+                    throw new Exception("Staff not found Enter Correct User ID");
                     return false;
                 }
                 else
                 {
-                    dbAccess.Roles.Remove(role);
+                    dbAccess.Staffs.Remove(staff);
                     await dbAccess.SaveChangesAsync();
                     return true;
                 }
@@ -62,11 +60,11 @@ namespace RecruitmentAdministrationSystemProject.Services
             }
         }
 
-        async Task<List<Role>> IDataAccessService<Role, int>.GetDataAsync()
+        async Task<List<Staff>> IDataAccessService<Staff, int>.GetDataAsync()
         {
             try
             {
-                var roleList =await dbAccess.Roles.ToListAsync();
+                var roleList = await dbAccess.Staffs.ToListAsync();
                 return roleList;
             }
             catch (Exception ex)
@@ -76,14 +74,14 @@ namespace RecruitmentAdministrationSystemProject.Services
             }
         }
 
-        async Task<Role> IDataAccessService<Role, int>.GetDataAsync(int id)
+        async Task<Staff> IDataAccessService<Staff, int>.GetDataAsync(int id)
         {
             try
             {
-                var roleResult =await dbAccess.Roles.FindAsync(id);
-                if (roleResult != null)
+                var staffResult = await dbAccess.Staffs.FindAsync(id);
+                if (staffResult != null)
                 {
-                    return roleResult;
+                    return staffResult;
                 }
                 else
                 {
@@ -98,16 +96,18 @@ namespace RecruitmentAdministrationSystemProject.Services
             }
         }
 
-        async Task<bool> IDataAccessService<Role, int>.UpdateAsync(Role entity, int id)
+        async Task<bool> IDataAccessService<Staff, int>.UpdateAsync(Staff entity, int id)
         {
             try
             {
-                var roleResult =await dbAccess.Roles.FindAsync(id);
-                if (roleResult != null)
+                var staffResult = await dbAccess.Staffs.FindAsync(id);
+                if (staffResult != null)
                 {
-                    roleResult.RoleName = entity.RoleName;
+                    staffResult.CompanyId = entity.CompanyId;
+                    staffResult.isAuthenticated = entity.isAuthenticated;
+                    staffResult.Designation = entity.Designation;
                 }
-                var isUpdated =await dbAccess.SaveChangesAsync();
+                var isUpdated = await dbAccess.SaveChangesAsync();
                 if (isUpdated > 0)
                 {
                     return true;

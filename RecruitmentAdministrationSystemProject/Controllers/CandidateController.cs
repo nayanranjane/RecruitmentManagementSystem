@@ -3,6 +3,7 @@ using RecruitmentAdministrationSystemProject.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -10,45 +11,46 @@ namespace RecruitmentAdministrationSystemProject.Controllers
 {
     public class CandidateController : Controller
     {
-        RecruitmentManagementSystemEntities dbAccess = new RecruitmentManagementSystemEntities();
-        SkillsServices skillsServices = new SkillsServices();
-       
-        public ActionResult Index()
+        IDataAccessService<Skill, int> skillService;
+        IDataAccessService<CandidateInfo,int> candidateInfoService;
+        IDataAccessService<User,int> userService;
+        public CandidateController(IDataAccessService<Skill, int> skillService, IDataAccessService<CandidateInfo, int> candidateInfoService, IDataAccessService<User, int> userService)
         {
-            var candidates = dbAccess.CandidateInfoes.ToList();
+            this.skillService = skillService;
+            this.candidateInfoService = candidateInfoService;
+            this.userService = userService;
+        }
+        public async Task<ActionResult> Index()
+        {
+            var candidates = (await candidateInfoService.GetDataAsync()).ToList();
             return View(candidates);
         }
-        public ActionResult CandidateDetails(int? id)
+        public async Task<ActionResult> CandidateDetails(int? id)
         {
-            var candidates = dbAccess.CandidateInfoes.ToList().Where(candidateUser => candidateUser.UserId == id).ToList();
-            var Candidate = new CandidateInfo();
-            if(candidates.Count()!=0)
-                Candidate = candidates.First();
-            return View(Candidate);
+            var candidate = (await candidateInfoService.GetDataAsync()).ToList().Where(candidateUser => candidateUser.UserId == id).ToList().FirstOrDefault();
+            if (candidate != null) { return View(candidate); }
+            return RedirectToAction("Index", "Home");
 
         }
 
-        public ActionResult DeleteCandidate(int? id)
+        public async Task<ActionResult> DeleteCandidate(int id)
         {
-            var result = dbAccess.Users.Find(id);
-            var isDeleted = dbAccess.Users.Remove(result);
-            dbAccess.SaveChanges();
+            var result =(await candidateInfoService.DeleteAsync(id));
             return RedirectToAction("index");
 
         }
-        public ActionResult CreateCandidateInfo(int id)
+        public async Task<ActionResult> CreateCandidateInfo(int id)
         {
             CandidateInfo info = new CandidateInfo() { UserId = id };
-            var skills = skillsServices.GetAllSkills();
+            var skills = (await skillService.GetDataAsync()).ToList();
             ViewBag.Skills = skills;
             return View(info);
         }
         [HttpPost]
-        public ActionResult CreateCandidateInfo(CandidateInfo info)
+        public async Task<ActionResult> CreateCandidateInfo(CandidateInfo info)
         {
-            var result = dbAccess.CandidateInfoes.Add(info);
-            var isCreated = dbAccess.SaveChanges();
-            if (isCreated > 0)
+            var isCreated =await candidateInfoService.Create(info);
+            if (isCreated)
             {
                 TempData["UserCreated"] = "UserCreated";
             }

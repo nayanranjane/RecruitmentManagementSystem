@@ -5,6 +5,8 @@
 }
 <header>
     <link href="~/Content/all.css" rel="stylesheet" />
+    <link href="~/Content/JobPost.css" rel="stylesheet" />
+
 </header>
 <div class="HeadingClass"><h2>Job Posts</h2></div>
 
@@ -19,23 +21,29 @@
     @Html.Raw(TempData["ErrorMessage"]);
 }
 
-<div class="search">
-    @using (Html.BeginForm("Index2", "JobPosts"))
-    {
-        <span class="align-content-lg-center">Search :  </span>
-        <input type="text" placeholder="Search Jobs.." name="search" class="searchInput" />
-        <input type="submit" value="Search" class="buttonDiv searchButton" />
-        <br />
-        <br />
-    }
+<div class="JobHeadingClass">
+    <h2>Job Posts</h2>
+    <div class="Jobsearch">
+        @using (Html.BeginForm("Index2", "JobPosts"))
+        {
+            <div>
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+            <input type="text" placeholder="Search By Skill, Job Title & Company" name="search" class="JobsearchInput" />
+            <input type="submit" value="Find Now" class="@*buttonDiv*@ JobsearchButton" />
+            @*<br />
+                <br />*@
+        }
+    </div>
 </div>
 
-<div class="mainContainer">
+
+<div class="JobmainContainer">
 
     @foreach (var job in Model)
     {
-        <div class="cardContainer">
-            <div class="card" style="width: 24rem">
+        <div class="JobcardContainer">
+            <div class="JobCard">
                 <div class="imgClass"><div><img class="myCardImg card-img-top " src="@Url.Content(job.Company.User.Img)" alt="Card image cap"></div></div>
                 <div class="card-body cardBody">
                     <div class="cardBodyItem"><h4>Company</h4></div>
@@ -46,8 +54,8 @@
                     <div class="cardBodyItem">@job.Location</div>
 
                 </div>
-                <div class="buttonDiv">
-                    @Html.ActionLink("Details", "Details", new { id = job.JobId }, new { @class = "form-input-button singup" })
+                <div class="JobbuttonDiv">
+                    @Html.ActionLink("Details", "Details", new { id = job.JobId }, new { @class = "Jobsingup" })
                 </div>
             </div>
         </div>

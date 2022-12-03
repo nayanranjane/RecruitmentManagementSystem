@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data.Entity;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -17,39 +18,49 @@ namespace RecruitmentAdministrationSystemProject.Views
     {
       
         // GET: JobPosts
-        RecruitmentManagementSystemEntities dbAccess = new RecruitmentManagementSystemEntities();
-        JobPostServices jobPostServices = new JobPostServices();
-        SkillsServices skillsServices = new SkillsServices();   
-        public ActionResult Index()
+        //RecruitmentManagementSystemEntities dbAccess = new RecruitmentManagementSystemEntities();
+        IDataAccessService<JobPost, int> jobService;
+        IDataAccessService<Skill, int> skillService;
+        IDataAccessService<Location,int> locationService;
+        IDataAccessService<User, int> userService;
+        IDataAccessService<Company, int> companyService;
+
+        public JobPostsController(IDataAccessService<JobPost, int> jobService, IDataAccessService<Skill, int> skillService, IDataAccessService<Location, int> locationService, IDataAccessService<User, int> userService, IDataAccessService<Company, int> companyService)
+        {
+            this.jobService = jobService;
+            this.skillService = skillService;
+            this.locationService = locationService;
+            this.userService = userService;
+            this.companyService = companyService;
+        }
+        AdditionalServices addService = new AdditionalServices();
+        async public Task<ActionResult> Index()
         {
             List<JobPost> jobPosts = new List<JobPost>();
-            jobPosts = dbAccess.JobPosts.ToList();
-           
+            jobPosts = await jobService.GetDataAsync();
             return View(jobPosts);
         }
         [Authorize(Roles ="Company")]
-        public ActionResult Create()
+        async public Task<ActionResult> Create()
         {
-            string userName = Session["Uname"].ToString();
-            var id = (from user in dbAccess.Users.ToList()
-                      join companyinfo in dbAccess.Companies.ToList()
+            var id = (from user in await userService.GetDataAsync()
+                      join companyinfo in await companyService.GetDataAsync()
                       on user.UserId equals companyinfo.UserId
-                      where user.UserName == userName
-                      select companyinfo).FirstOrDefault();
-            var skills = skillsServices.GetAllSkills();
-            var locations = dbAccess.Locations.ToList();
+                      where user.UserName == (@User.Identity.Name).ToString()
+            select companyinfo).FirstOrDefault();
+            var skills = await skillService.GetDataAsync();
+            var locations =await locationService.GetDataAsync();
             ViewBag.location = locations;
             ViewBag.Skills = skills;
             JobPost jobPost = new JobPost() { CompanyID = id.CompanyId ,PostDate=DateTime.Now};
             return View(jobPost);
         }
         [HttpPost]
-        public ActionResult Create(JobPost jobPost)
+        public async Task<ActionResult> Create(JobPost jobPost)
         {
             if (ModelState.IsValid)
             {
-                var result = dbAccess.JobPosts.Add(jobPost);
-                dbAccess.SaveChanges();
+                var result =await jobService.Create(jobPost);
                 return RedirectToAction("Index", "Home");
             }
             else
@@ -57,49 +68,47 @@ namespace RecruitmentAdministrationSystemProject.Views
                 return RedirectToAction("Create");
             }
         }
-        public ActionResult Delete(int? id)
+        public async Task<ActionResult> Delete(int id)
         {
-            var result = dbAccess.JobPosts.Find(id);
-            dbAccess.JobPosts.Remove(result);
-            dbAccess.SaveChanges();
+            var isDeleted = await jobService.DeleteAsync(id);
             return RedirectToAction("Index","Home");
         }
-        public ActionResult Details(int? id)
+        async public Task<ActionResult> Details(int id)
         {
             if(id != null)
             {
-                JobPost jobPost = dbAccess.JobPosts.Find(id);
+                JobPost jobPost = await jobService.GetDataAsync(id);
                 return View(jobPost);
             }
             return RedirectToAction("Index");
         }
-        public ActionResult MyJobPosts(string username)
+        async public Task<ActionResult> MyJobPosts(string username)
         {
-            var jobList = jobPostServices.GetJobPost().Where(post => post.Company.User.UserName == username);
+            var jobList = (await jobService.GetDataAsync()).Where(post => post.Company.User.UserName == username);
             return View(jobList);
 
         }
 
         [HttpPost]
-        public ActionResult Index2(string search)
+        public async Task<ActionResult> Index2(string search)
         {
             List<JobPost> jobPosts = new List<JobPost>();
             if (search != null)
             {
-                 jobPosts = jobPostServices.SearchJob(search).ToList();
+                jobPosts = addService.SearchJob(search).ToList();
             }
             else
             {
-                jobPosts = jobPostServices.GetJobPost().ToList() ;
+                jobPosts = await jobService.GetDataAsync();
             }
 
             return View(jobPosts);
         }
-        //public ActionResult ShowDetails(int? id)
-        //{
-        //    return RedirectToAction("Index", new { id = id });
+        public ActionResult ShowDetails(int? id)
+        {
+            return RedirectToAction("Index", new { id = id });
 
-        //}
+        }
 
 
 

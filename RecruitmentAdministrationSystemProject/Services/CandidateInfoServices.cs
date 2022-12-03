@@ -2,34 +2,44 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace RecruitmentAdministrationSystemProject.Services
 {
-    public class CandidateInfoServices
+    public class CandidateInfoServices:IDataAccessService<CandidateInfo,int>
     {
-        RecruitmentManagementSystemEntities dbAccess = new RecruitmentManagementSystemEntities();   
+        RecruitmentManagementSystemEntities dbAccess;
+        public CandidateInfoServices(RecruitmentManagementSystemEntities dbAccess)
+        {
+            this.dbAccess = dbAccess;
+        }
 
-        public CandidateInfo CreateCandidateInfo(CandidateInfo info)
+        async Task<bool> IDataAccessService<CandidateInfo, int>.Create(CandidateInfo entity)
         {
             try
             {
-                var result = dbAccess.CandidateInfoes.Add(info);
-                dbAccess.SaveChanges();
-                return result;
+                var result = dbAccess.CandidateInfoes.Add(entity);
+                var isDeleted = await dbAccess.SaveChangesAsync();
+                if (isDeleted > 0)
+                {
+                    return true;
+                }
+                return false;
             }
             catch (Exception ex)
-            {
-
+            { 
                 throw ex;
             }
         }
-        public bool DeleteCandidateInfo(int id)
+
+        async Task<bool> IDataAccessService<CandidateInfo, int>.DeleteAsync(int id)
         {
             try
             {
-                var candidateInfo = dbAccess.CandidateInfoes.Find(id);
+                var candidateInfo =await dbAccess.CandidateInfoes.FindAsync(id);
                 if (candidateInfo == null)
                 {
                     throw new Exception("Info not found Enter Correct User ID");
@@ -37,11 +47,14 @@ namespace RecruitmentAdministrationSystemProject.Services
                 }
                 else
                 {
-                    dbAccess.CandidateInfoes .Remove(candidateInfo);
-                    dbAccess.SaveChanges();
-                    return true;
+                    dbAccess.CandidateInfoes.Remove(candidateInfo);
+                    var isdeleted = await dbAccess.SaveChangesAsync();
+                    if (isdeleted > 0)
+                    {
+                        return true;
+                    }
+                    return false;
                 }
-
             }
             catch (Exception ex)
             {
@@ -49,24 +62,25 @@ namespace RecruitmentAdministrationSystemProject.Services
                 throw ex;
             }
         }
-        public IEnumerable<CandidateInfo> GetCandidateInfo()
+
+        async Task<List<CandidateInfo>> IDataAccessService<CandidateInfo, int>.GetDataAsync()
         {
             try
             {
-                var candidateInfo = dbAccess.CandidateInfoes.ToList();
-                return candidateInfo;
+                var candidateInfos = await dbAccess.CandidateInfoes.ToListAsync();
+                return candidateInfos;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-
-                throw ex;
+                throw;
             }
         }
-        public CandidateInfo GetCandidateInfo(int id)
+
+        async Task<CandidateInfo> IDataAccessService<CandidateInfo, int>.GetDataAsync(int id)
         {
             try
             {
-                var candidateInfo= dbAccess.CandidateInfoes.Find(id);
+                var candidateInfo =await dbAccess.CandidateInfoes.FindAsync(id);
                 if (candidateInfo != null)
                 {
                     return candidateInfo;
@@ -83,27 +97,28 @@ namespace RecruitmentAdministrationSystemProject.Services
                 throw ex;
             }
         }
-        public bool UpdateUser(CandidateInfo candidate, int id)
+
+        async Task<bool> IDataAccessService<CandidateInfo, int>.UpdateAsync(CandidateInfo entity, int id)
         {
             try
             {
                 var candidateResult = dbAccess.CandidateInfoes.Find(id);
                 if (candidateResult != null)
                 {
-                    candidateResult.SSC_Marks = candidate.SSC_Marks;
-                    candidateResult.SSC_College = candidate.SSC_College;
-                    candidateResult.SSC_PassingYear = candidate.SSC_PassingYear;
-                    candidateResult.HSC_Marks = candidateResult.HSC_Marks;
-                    candidateResult.HSC_College = candidate.HSC_College;
-                    candidateResult.HSC_PassingYear = candidate.HSC_PassingYear;
-                    candidateResult.UG_Marks = candidate.UG_Marks;
-                    candidateResult.UG_College = candidate.UG_College;
-                    candidateResult.UG_PassingYear = candidate.UG_PassingYear;
-                    candidateResult.Skill_1 = candidate.Skill_1;
-                    candidateResult.Skill_2 = candidate.Skill_2;
-                    candidateResult.Skill_3 = candidate.Skill_3;
+                    candidateResult.SSC_Marks = entity.SSC_Marks;
+                    candidateResult.SSC_College = entity.SSC_College;
+                    candidateResult.SSC_PassingYear = entity.SSC_PassingYear;
+                    candidateResult.HSC_Marks = entity.HSC_Marks;
+                    candidateResult.HSC_College = entity.HSC_College;
+                    candidateResult.HSC_PassingYear = entity.HSC_PassingYear;
+                    candidateResult.UG_Marks = entity.UG_Marks;
+                    candidateResult.UG_College = entity.UG_College;
+                    candidateResult.UG_PassingYear = entity.UG_PassingYear;
+                    candidateResult.Skill_1 = entity.Skill_1;
+                    candidateResult.Skill_2 = entity.Skill_2;
+                    candidateResult.Skill_3 = entity.Skill_3;
                 }
-                var isUpdated = dbAccess.SaveChanges();
+                var isUpdated =await dbAccess.SaveChangesAsync();
                 if (isUpdated > 0)
                 {
                     return true;

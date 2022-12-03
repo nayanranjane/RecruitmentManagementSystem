@@ -1,22 +1,35 @@
 ﻿using RecruitmentAdministrationSystemProject.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
+using System.Web.Mvc;
 
 namespace RecruitmentAdministrationSystemProject.Services
 {
-    public class JobApplicationServices
+    [Authorize]
+    public class JobApplicationServices:IDataAccessService<JobApplication,int>
     {
-        RecruitmentManagementSystemEntities dbAccess = new RecruitmentManagementSystemEntities();
+        RecruitmentManagementSystemEntities dbAccess;
+        public JobApplicationServices(RecruitmentManagementSystemEntities dbAccess)
+        {
+            this.dbAccess = dbAccess;
+        }
 
-        public JobApplication CreateJobApplication(JobApplication jobApplication)
-        { 
+      
+        async Task<bool> IDataAccessService<JobApplication, int>.Create(JobApplication entity)
+        {
             try
             {
-                var result = dbAccess.JobApplications.Add(jobApplication);
-                dbAccess.SaveChanges();
-                return result;
+                var result = dbAccess.JobApplications.Add(entity);
+                var isAdded = await dbAccess.SaveChangesAsync();
+                if (isAdded > 0)
+                {
+                    return true;
+                }
+                return false;
             }
             catch (Exception ex)
             {
@@ -24,11 +37,12 @@ namespace RecruitmentAdministrationSystemProject.Services
                 throw ex;
             }
         }
-        public bool DeleteJobApplication(int? id)
+
+        async Task<bool> IDataAccessService<JobApplication, int>.DeleteAsync(int id)
         {
             try
             {
-                var jobApplication = dbAccess.JobApplications.Find(id);
+                var jobApplication =await dbAccess.JobApplications.FindAsync(id);
                 if (jobApplication == null)
                 {
                     throw new Exception("Application not found Enter Correct User ID");
@@ -37,7 +51,7 @@ namespace RecruitmentAdministrationSystemProject.Services
                 else
                 {
                     dbAccess.JobApplications.Remove(jobApplication);
-                    dbAccess.SaveChanges();
+                    dbAccess.SaveChangesAsync();
                     return true;
                 }
 
@@ -48,11 +62,12 @@ namespace RecruitmentAdministrationSystemProject.Services
                 throw ex;
             }
         }
-        public IEnumerable<JobApplication> GetJobApplication()
+
+        async Task<List<JobApplication>> IDataAccessService<JobApplication, int>.GetDataAsync()
         {
             try
             {
-                var applicationList = dbAccess.JobApplications.ToList();
+                var applicationList = await dbAccess.JobApplications.ToListAsync();
                 return applicationList;
             }
             catch (Exception ex)
@@ -61,11 +76,12 @@ namespace RecruitmentAdministrationSystemProject.Services
                 throw ex;
             }
         }
-        public JobApplication GetJobApplication(int id)
+
+        async Task<JobApplication> IDataAccessService<JobApplication, int>.GetDataAsync(int id)
         {
             try
             {
-                var applicationResult = dbAccess.JobApplications.Find(id);
+                var applicationResult =await dbAccess.JobApplications.FindAsync(id);
                 if (applicationResult != null)
                 {
                     return applicationResult;
@@ -82,18 +98,19 @@ namespace RecruitmentAdministrationSystemProject.Services
                 throw ex;
             }
         }
-        public bool UpdateJobApplication(JobApplication jobApplication, int id)
+
+        async Task<bool> IDataAccessService<JobApplication, int>.UpdateAsync(JobApplication entity, int id)
         {
             try
             {
-                var applicationResult = dbAccess.JobApplications.Find(id);
+                var applicationResult =await dbAccess.JobApplications.FindAsync(id);
                 if (applicationResult != null)
                 {
-                    applicationResult.AbleToReallocation = jobApplication.AbleToReallocation;
-                    applicationResult.PrevCompanyName = jobApplication.PrevCompanyName;
-                    applicationResult.WorkExperience = jobApplication.WorkExperience;
-                    applicationResult.NoticePeriod = jobApplication.NoticePeriod;
-                    applicationResult.Resume = jobApplication.Resume;
+                    applicationResult.AbleToReallocation = entity.AbleToReallocation;
+                    applicationResult.PrevCompanyName = entity.PrevCompanyName;
+                    applicationResult.WorkExperience = entity.WorkExperience;
+                    applicationResult.NoticePeriod = entity.NoticePeriod;
+                    applicationResult.Resume = entity.Resume;
                 }
                 var isUpdated = dbAccess.SaveChanges();
                 if (isUpdated > 0)

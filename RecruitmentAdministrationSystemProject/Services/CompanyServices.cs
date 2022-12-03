@@ -1,22 +1,32 @@
 ﻿using RecruitmentAdministrationSystemProject.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace RecruitmentAdministrationSystemProject.Services
 {
-    public class CompanyServices
+    public class CompanyServices:IDataAccessService<Company,int>
     {
-        RecruitmentManagementSystemEntities dbAccess = new RecruitmentManagementSystemEntities();   
+        RecruitmentManagementSystemEntities dbAccess;
+        public CompanyServices(RecruitmentManagementSystemEntities dbAccess)
+        {
+            this.dbAccess = dbAccess;   
+        }
 
-        public Company CreateCompany(Company company)
+        async Task<bool> IDataAccessService<Company, int>.Create(Company entity)
         {
             try
             {
-                var result = dbAccess.Companies.Add(company);
-                dbAccess.SaveChanges();
-                return result;
+                var result = dbAccess.Companies.Add(entity);
+                var isDeleted = await dbAccess.SaveChangesAsync();
+                if (isDeleted > 0)
+                {
+                    return true;
+                }
+                return false;
             }
             catch (Exception ex)
             {
@@ -24,11 +34,12 @@ namespace RecruitmentAdministrationSystemProject.Services
                 throw ex;
             }
         }
-        public bool DeleteCompany(int id)
+
+        async Task<bool> IDataAccessService<Company, int>.DeleteAsync(int id)
         {
             try
             {
-                var company = dbAccess.Companies.Find(id);
+                var company =await dbAccess.Companies.FindAsync(id);
                 if (company == null)
                 {
                     throw new Exception("Company not found Enter Correct User ID");
@@ -48,11 +59,12 @@ namespace RecruitmentAdministrationSystemProject.Services
                 throw ex;
             }
         }
-        public IEnumerable<Company> GetCompany()
+
+        async Task<List<Company>> IDataAccessService<Company, int>.GetDataAsync()
         {
             try
             {
-                var companyList = dbAccess.Companies.ToList();
+                var companyList = await dbAccess.Companies.ToListAsync();
                 return companyList;
             }
             catch (Exception ex)
@@ -61,11 +73,12 @@ namespace RecruitmentAdministrationSystemProject.Services
                 throw ex;
             }
         }
-        public Company GetCompany(int id)
+
+        async Task<Company> IDataAccessService<Company, int>.GetDataAsync(int id)
         {
             try
             {
-                var companyResult = dbAccess.Companies.Find(id);
+                var companyResult =await dbAccess.Companies.FindAsync(id);
                 if (companyResult != null)
                 {
                     return companyResult;
@@ -82,19 +95,20 @@ namespace RecruitmentAdministrationSystemProject.Services
                 throw ex;
             }
         }
-        public bool UpdateUser(Company company, int id)
+
+        async Task<bool> IDataAccessService<Company, int>.UpdateAsync(Company entity, int id)
         {
             try
             {
                 var companyResult = dbAccess.Companies.Find(id);
                 if (companyResult != null)
                 {
-                    companyResult.CompanyUrl = company.CompanyUrl;
-                    companyResult.EmployeeCount = company.EmployeeCount;
-                    companyResult.AboutCompany = company.AboutCompany;
-                    companyResult.FoundDate = company.FoundDate;
+                    companyResult.CompanyUrl = entity.CompanyUrl;
+                    companyResult.EmployeeCount = entity.EmployeeCount;
+                    companyResult.AboutCompany = entity.AboutCompany;
+                    companyResult.FoundDate = entity.FoundDate;
                 }
-                var isUpdated = dbAccess.SaveChanges();
+                var isUpdated =await dbAccess.SaveChangesAsync();
                 if (isUpdated > 0)
                 {
                     return true;

@@ -31,3 +31,141 @@
         background-color: lawngreen;
         color:red;
     }
+
+
+
+* {
+    margin: 0;
+}
+
+.body-conatiner {
+    height: 100vh;
+    width:100vw;
+    overflow: hidden;
+    position: relative;
+}
+
+.image-carousel {
+    top: 0%;
+    left: 0%;
+    position: absolute;
+    height: 100vh; /*Change this height to change image height*/
+    width: max-content;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    animation: changeImage 10s ease 0s infinite;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.63);
+}
+
+@keyframes changeImage {
+    0% {
+        left: 0vw;
+    }
+
+    20% {
+        left: 0vw;
+    }
+
+    40% {
+        left: -100vw;
+    }
+
+    60% {
+        left: -100vw;
+    }
+
+    80% {
+        left: -200vw;
+    }
+
+    100% {
+        left: -200vw;
+    }
+}
+
+.body-image-container {
+    height: 100vh;
+    width: 100vw;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.image01 {
+    background-image: url("https://images.unsplash.com/photo-1616386261012-8a328c89d5b6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1977&q=80");
+}
+
+.image02 {
+    background-image: url("https://images.unsplash.com/photo-1649521712353-e3661b4d42f4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1935&q=80");
+}
+
+.image03 {
+    background-image: url("https://images.unsplash.com/photo-1497215728101-856f4ea42174?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80");
+}
+
+.search-container {
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.63);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-headers {
+    color: white;
+}
+
+body > .container {
+    margin:0;
+    padding:0;
+}
+
+body > .body-content {
+    margin: 0;
+    padding: 0;
+}
+
+
+.Jobsearch > form {
+    display: flex;
+    /*align-items:center;*/
+    background:white;
+}
+
+    .Jobsearch > form > div {
+        display: flex;
+        align-items: center;
+        padding:1rem;
+        color:blueviolet;
+        font-size:2rem;
+    }
+
+.JobsearchInput {
+    outline: none;
+    width: 40rem;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    padding:1rem 0.75rem;
+    color:black !important;
+}
+
+.JobsearchButton {
+    margin: 0;
+    border: none;
+    outline: none;
+    background: linear-gradient(90deg, hsla(277, 75%, 84%, 1) 0%, hsla(297, 50%, 51%, 1) 100%);
+    color: white;
+    transition: all 0.5s ease;
+    padding:0.25rem 1.5rem;
+    font-size: 1.75rem;
+}
+
+    .JobsearchButton:hover {
+        scale: 105%;
+        background: linear-gradient(90deg, hsla(24, 100%, 83%, 1) 0%, hsla(341, 91%, 68%, 1) 100%);
+    }

@@ -6,6 +6,7 @@ using System.Data.Entity;
 using System.Data.Entity.Validation;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -13,12 +14,28 @@ namespace RecruitmentAdministrationSystemProject.Controllers
 {
     public class JobApplicationController : Controller
     {
-        RecruitmentManagementSystemEntities dbAccess = new RecruitmentManagementSystemEntities();
-        JobApplicationServices jobApplicationServices = new JobApplicationServices();
-        public ActionResult Apply(int? id, string ReturnUrl)
+        //RecruitmentManagementSystemEntities dbAccess = new RecruitmentManagementSystemEntities();
+        //JobApplicationServices jobApplicationServices = new JobApplicationServices();
+
+        IDataAccessService<JobApplication, int> jobApplicationService;
+        IDataAccessService<JobPost, int> jobPostService;
+        IDataAccessService<User,int > userService;
+        IDataAccessService<CandidateInfo, int> candidateInfo;
+        IDataAccessService<Status, int> statusService;
+        public JobApplicationController(IDataAccessService<JobApplication, int> jobApplicationService, IDataAccessService<JobPost, int> jobPostService, IDataAccessService<User, int> userService, IDataAccessService<CandidateInfo, int> candidateInfo, IDataAccessService<Status, int> statusService)
         {
-                var candidate = dbAccess.Users.ToList().Where(users => users.UserName == Session["Uname"].ToString()).FirstOrDefault();
-                if (dbAccess.JobApplications.ToList().Where(jobApp => jobApp.JobId == id && jobApp.UserId == candidate.UserId).FirstOrDefault() != null)
+            this.jobApplicationService = jobApplicationService;
+            this.jobPostService = jobPostService;
+            this.userService = userService;
+            this.candidateInfo = candidateInfo;
+            this.statusService = statusService;
+        }
+        AdditionalServices addService = new AdditionalServices();
+
+        public async Task<ActionResult> Apply(int? id, string ReturnUrl)
+        {
+                var candidate = (await userService.GetDataAsync()).ToList().Where(users => users.UserName == Session["Uname"].ToString()).FirstOrDefault();
+                if ((await jobApplicationService.GetDataAsync()).ToList().Where(jobApp => jobApp.JobId == id && jobApp.UserId == candidate.UserId).FirstOrDefault() != null)
                 {
                     TempData["ErrorMessage"] = "<script>alert('Already applied for this job');</script>";
                     if (ReturnUrl != null)
@@ -30,7 +47,7 @@ namespace RecruitmentAdministrationSystemProject.Controllers
       
         }
         [HttpPost]
-        public ActionResult Apply(JobApplication jobApplication)
+        public async Task<ActionResult> Apply(JobApplication jobApplication)
         {
             if (ModelState.IsValid)
             {
@@ -40,8 +57,7 @@ namespace RecruitmentAdministrationSystemProject.Controllers
                 jobApplication.Resume = "~/Documents/" + filename;
                 filename = Path.Combine(Server.MapPath("~/Documents/"), filename);
                 jobApplication.File.SaveAs(filename);
-                var result = dbAccess.JobApplications.Add(jobApplication);
-                dbAccess.SaveChanges();
+                var isApplied =await jobApplicationService.Create(jobApplication);
                 TempData["Applied"] = "Applied";
                 return RedirectToAction("Index", "JobPosts");
             }
@@ -52,15 +68,15 @@ namespace RecruitmentAdministrationSystemProject.Controllers
             
         }
         [Authorize(Roles = "Admin,Company")]
-        public ActionResult Index(int? id)
+        public async Task<ActionResult> Index(int? id)
         {
             List<JobApplication> jobApplication = new List<JobApplication>();
             if (Convert.ToInt32(Session["UID"]) != null && Session["Role"].ToString() != "Admin")
             {
 
                 id = Convert.ToInt32(Session["UID"]);
-                var jobPosts = dbAccess.JobPosts.ToList().Where(job => job.Company.UserId == id).ToList();
-                var jobApplications = dbAccess.JobApplications.ToList();
+                var jobPosts = (await jobPostService.GetDataAsync()).ToList().Where(job => job.Company.UserId == id).ToList();
+                var jobApplications = await jobApplicationService.GetDataAsync();
                 jobApplication = (from post in jobPosts
                                   join app in jobApplications
                                   on post.JobId equals app.JobId
@@ -68,55 +84,52 @@ namespace RecruitmentAdministrationSystemProject.Controllers
             }
             else
             {
-                jobApplication = dbAccess.JobApplications.ToList();
+                jobApplication = await jobApplicationService.GetDataAsync();
             }
             return View(jobApplication);
         }
 
-        public ActionResult GetMyApplication(int? id)
+        public async Task<ActionResult> GetMyApplication(int? id)
         {
-            var jobApplication = dbAccess.JobApplications.ToList().Where(user => user.UserId == id);
+            var jobApplication = (await jobApplicationService.GetDataAsync()).Where(user => user.UserId == id);
             return View(jobApplication);
         }
 
         public ActionResult MyAppliedJobs(int id)
         {
-            var jobApplication = dbAccess.sp_ApplicationDetails(id).ToList();
+            var jobApplication = addService.getapplicationDetails(id);
             return View(jobApplication);
         }
-        public ActionResult Details(int? id)
+        public async Task<ActionResult> Details(int? id)
         {
             var jobDetails = new JobPost();
             var educationalDetails = new CandidateInfo();
-            var jobApplication = dbAccess.JobApplications.ToList().Where(jobApp => jobApp.ApplicationId == id).FirstOrDefault();
-            jobDetails = dbAccess.JobPosts.ToList().Where(job => job.JobId == jobApplication.JobId).FirstOrDefault();
-            var status = dbAccess.Status.ToList();
-            educationalDetails = dbAccess.CandidateInfoes.ToList().Where(user => user.UserId == jobApplication.UserId).FirstOrDefault();
+            var jobApplication = (await jobApplicationService.GetDataAsync()).Where(jobApp => jobApp.ApplicationId == id).FirstOrDefault();
+            jobDetails = (await jobPostService.GetDataAsync()).Where(job => job.JobId == jobApplication.JobId).FirstOrDefault();
+            var status = (await statusService.GetDataAsync());
+            educationalDetails = (await candidateInfo.GetDataAsync()).Where(user => user.UserId == jobApplication.UserId).FirstOrDefault();
             ViewBag.JobDetails = jobDetails;
             ViewBag.EducationalDetails = educationalDetails;
             ViewBag.Status = status;
             return View(jobApplication);
 
         }
-        public ActionResult Delete(int? id)
+        public async Task<ActionResult> Delete(int id)
         {
-            //var result = dbAccess.JobApplications.Find(id);
-            //var isdeleted = dbAccess.JobApplications.Remove(result);
-            //dbAccess.SaveChanges()
-            var isDeleted = jobApplicationServices.DeleteJobApplication(id);
+            var isDeleted = await jobApplicationService.DeleteAsync(id);
             return RedirectToAction("");
         }
-        public ActionResult AppliedJobs(string userName)
+        public async Task<ActionResult> AppliedJobs(string userName)
         {
-            var applicationList = jobApplicationServices.GetJobApplication().Where(application => application.User.UserName==userName);
+            var applicationList = (await jobApplicationService.GetDataAsync()).Where(application => application.User.UserName==userName);
             return View(applicationList);
         }
-        public ActionResult EditStatus(string newstatus,int id)
+        public async Task<ActionResult> EditStatus(string newstatus,int id)
         {
-                var result = dbAccess.JobApplications.Find(id);
+                var result = await jobApplicationService.GetDataAsync(id);
                 result.Status = newstatus;
-                int ischanged = dbAccess.SaveChanges();
-            if (ischanged > 0)
+                var  ischanged = await jobApplicationService.UpdateAsync(result, result.ApplicationId);
+            if (ischanged)
             {
                 TempData["StatusChange"] = "Status Change";
             }

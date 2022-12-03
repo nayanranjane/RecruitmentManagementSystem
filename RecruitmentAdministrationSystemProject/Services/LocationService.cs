@@ -1,6 +1,5 @@
 ﻿using RecruitmentAdministrationSystemProject.Models;
 using System;
-using System.CodeDom;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -9,46 +8,43 @@ using System.Web;
 
 namespace RecruitmentAdministrationSystemProject.Services
 {
-    public class SkillsServices:IDataAccessService<Skill,int>
+    public class LocationService : IDataAccessService<Location, int>
     {
         RecruitmentManagementSystemEntities dbAccess;
-        public SkillsServices(RecruitmentManagementSystemEntities dbAccess)
+        public LocationService(RecruitmentManagementSystemEntities dbAccess)
         {
             this.dbAccess = dbAccess;
         }
-
-  
-
-        Task<bool> IDataAccessService<Skill, int>.Create(Skill entity)
+        Task<bool>IDataAccessService<Location, int>.Create(Location entity)
         {
             throw new NotImplementedException();
         }
 
-        Task<bool> IDataAccessService<Skill, int>.DeleteAsync(int id)
+        Task<bool> IDataAccessService<Location, int>.DeleteAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        async Task<List<Skill>> IDataAccessService<Skill, int>.GetDataAsync()
+        async Task<List<Location>> IDataAccessService<Location, int>.GetDataAsync()
         {
             try
             {
-                var skillList = await dbAccess.Skills.ToListAsync();
-                return skillList;
+                var locations =await dbAccess.Locations.ToListAsync();
+                return locations;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw ex;
             }
         }
 
-        Task<Skill> IDataAccessService<Skill, int>.GetDataAsync(int id)
+        Task<Location> IDataAccessService<Location, int>.GetDataAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        Task<bool> IDataAccessService<Skill, int>.UpdateAsync(Skill entity, int id)
+        Task<bool> IDataAccessService<Location, int>.UpdateAsync(Location entity, int id)
         {
             throw new NotImplementedException();
         }

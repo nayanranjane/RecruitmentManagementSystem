@@ -12,9 +12,7 @@ namespace RecruitmentAdministrationSystemProject.Models
    
     public class UserRoleProvider : RoleProvider
     {
-        RoleServices roleServices = new RoleServices();
-        UserServices userServices = new UserServices();
-
+        RecruitmentManagementSystemEntities dbAccess = new RecruitmentManagementSystemEntities();
         public override string ApplicationName { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public override void AddUsersToRoles(string[] usernames, string[] roleNames)
@@ -44,8 +42,8 @@ namespace RecruitmentAdministrationSystemProject.Models
 
         public override string[] GetRolesForUser(string username)
         {
-            var result = (from user in userServices.GetUsers()
-                          join role in roleServices.GetRole()
+            var result = (from user in dbAccess.Users.ToList()
+                          join role in dbAccess.Roles.ToList()
                           on user.RoleId equals role.RoleId
                           where user.UserName == username
                           select role.RoleName).ToArray();
@@ -59,8 +57,8 @@ namespace RecruitmentAdministrationSystemProject.Models
 
         public override bool IsUserInRole(string username, string roleName)
         {
-            var userResult = (from user in userServices.GetUsers()
-                             join roles in roleServices.GetRole()
+            var userResult = (from user in dbAccess.Users.ToList()
+                             join roles in dbAccess.Roles.ToList()
                              on user.RoleId equals roles.RoleId
                              where user.UserName == username && roles.RoleName == roleName
                              select user).FirstOrDefault();

@@ -1,6 +1,5 @@
 ﻿using RecruitmentAdministrationSystemProject.Models;
 using System;
-using System.CodeDom;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -9,46 +8,44 @@ using System.Web;
 
 namespace RecruitmentAdministrationSystemProject.Services
 {
-    public class SkillsServices:IDataAccessService<Skill,int>
+    public class StatusServices : IDataAccessService<Status, int>
     {
         RecruitmentManagementSystemEntities dbAccess;
-        public SkillsServices(RecruitmentManagementSystemEntities dbAccess)
+        public StatusServices(RecruitmentManagementSystemEntities dbAccess)
         {
             this.dbAccess = dbAccess;
         }
 
-  
-
-        Task<bool> IDataAccessService<Skill, int>.Create(Skill entity)
+        Task<bool> IDataAccessService<Status, int>.Create(Status entity)
         {
             throw new NotImplementedException();
         }
 
-        Task<bool> IDataAccessService<Skill, int>.DeleteAsync(int id)
+        Task<bool> IDataAccessService<Status, int>.DeleteAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        async Task<List<Skill>> IDataAccessService<Skill, int>.GetDataAsync()
+        async Task<List<Status>> IDataAccessService<Status, int>.GetDataAsync()
         {
             try
             {
-                var skillList = await dbAccess.Skills.ToListAsync();
-                return skillList;
+                var statusList = await dbAccess.Status.ToListAsync();
+                return statusList;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw ex;
             }
         }
 
-        Task<Skill> IDataAccessService<Skill, int>.GetDataAsync(int id)
+        Task<Status> IDataAccessService<Status, int>.GetDataAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        Task<bool> IDataAccessService<Skill, int>.UpdateAsync(Skill entity, int id)
+        Task<bool> IDataAccessService<Status, int>.UpdateAsync(Status entity, int id)
         {
             throw new NotImplementedException();
         }

@@ -1,0 +1,86 @@
+﻿.JobmainContainer{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr 1fr;
+    gap:1rem;
+}
+
+.JobcardContainer {
+    
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 0px 4px rgba(0,0,0,0.3);
+    padding:1.5rem;
+    border-radius:0.5rem;
+}
+.JobCard {
+    display: flex;
+    flex-direction: column;
+    gap:1rem;
+}
+.JobbuttonDiv{
+    position:relative;
+    min-height:3rem;
+    min-width:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.Jobsingup {
+    position:absolute;
+    background-color:yellowgreen;
+    padding:0.5rem 1.5rem;
+    color:#ffff;
+    border-radius:0.25rem;
+    transition:all 0.5s ease;
+}
+
+.Jobsingup:hover{
+    scale:110%;
+}
+
+
+.JobHeadingClass{
+    width:100%;
+    box-shadow:0px 0px 4px rgba(0,0,0,0.3);
+    padding:0.5rem 1rem;
+    margin:2rem 0rem;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+}
+
+h2{
+    margin:0;
+}
+
+.Jobsearch>form{
+    display:flex;
+    /*align-items:center;*/
+}
+.Jobsearch > form > div{
+    display: flex;
+    align-items:center;
+    margin-right:0.5rem;
+}
+.JobsearchInput {
+    outline: none;
+    width: 25rem;
+    border:none;
+    border-bottom:1px solid #ccc;
+}
+.JobsearchButton {
+    margin: 0;
+    border: none;
+    outline: none;
+    background: linear-gradient(90deg, hsla(277, 75%, 84%, 1) 0%, hsla(297, 50%, 51%, 1) 100%);
+    color:white;
+    transition:all 0.5s ease;
+    font-size:1.75rem;
+}
+
+    .JobsearchButton:hover {
+        scale:105%;
+        background: linear-gradient(90deg, hsla(24, 100%, 83%, 1) 0%, hsla(341, 91%, 68%, 1) 100%);
+    }
