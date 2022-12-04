@@ -33,7 +33,8 @@ namespace RecruitmentAdministrationSystemProject.Models
         public string Password { get; set; }
         public string Email { get; set; }
         public string Img { get; set; }
-        [Remote("isValidNumber", "Account", ErrorMessage = "Enter correct mobile number")]
+
+        [Remote("isValidNumber", "Account", ErrorMessage = "Invalid mobile number")]
         public string MobileNo { get; set; }
         public string Location { get; set; }
         public Nullable<int> RoleId { get; set; }

@@ -35,7 +35,7 @@ namespace RecruitmentAdministrationSystemProject.Controllers
 
         public async Task<ActionResult> DeleteCandidate(int id)
         {
-            var result =(await candidateInfoService.DeleteAsync(id));
+            var result =(await userService.DeleteAsync(id));
             return RedirectToAction("index");
 
         }

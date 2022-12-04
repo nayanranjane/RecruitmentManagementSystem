@@ -9,7 +9,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js">
     </script>
 </header>
-<h2>Index</h2>
+<div class="HeaderClass">
+    <h2>Job Application</h2>
+</div>
 @if (TempData["StatusChange"] != null)
 {
     <script>swal("Status Changed", "Status Changed for the Candidate", "success")</script>
@@ -24,7 +26,7 @@
             @Html.DisplayNameFor(model => model.JobPost.Title)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Status)
+            @Html.DisplayNameFor(model => model.ApplicationDate)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.PrevCompanyName)
@@ -35,10 +37,10 @@
         <th>
             @Html.DisplayNameFor(model => model.NoticePeriod)
         </th>
-
         <th>
-            @Html.DisplayNameFor(model => model.ApplicationDate)
+            @Html.DisplayNameFor(model => model.Status)
         </th>
+        <th></th>
         <th></th>
     </tr>
 
@@ -60,7 +62,7 @@
                 @Html.DisplayFor(modelItem => item.JobPost.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Status)
+                @Html.DisplayFor(modelItem => item.ApplicationDate)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.PrevCompanyName)
@@ -71,13 +73,14 @@
             <td>
                 @Html.DisplayFor(modelItem => item.NoticePeriod)
             </td>
-
             <td>
-                @Html.DisplayFor(modelItem => item.ApplicationDate)
+                @Html.DisplayFor(modelItem => item.Status)
             </td>
             <td>
-                @Html.ActionLink("Details", "Details", new { id = item.ApplicationId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ApplicationId })
+                 @Html.ActionLink("Details", "Details", new { id = item.ApplicationId }, new {@class= "DetailsButton buttonClass" })
+            </td>
+            <td>
+                 @Html.ActionLink("Delete", "Delete", new { id = item.ApplicationId }, new {@class= "DeleteButton buttonClass2" })
             </td>
         </tr>
     }

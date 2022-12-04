@@ -11,7 +11,9 @@ namespace RecruitmentAdministrationSystemProject.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+    using System.Web;
+
     public partial class JobApplication
     {
         public int ApplicationId { get; set; }
@@ -24,7 +26,6 @@ namespace RecruitmentAdministrationSystemProject.Models
         public Nullable<int> WorkExperience { get; set; }
         public Nullable<int> NoticePeriod { get; set; }
         public string Resume { get; set; }
-    
         public virtual JobPost JobPost { get; set; }
         public virtual User User { get; set; }
     }

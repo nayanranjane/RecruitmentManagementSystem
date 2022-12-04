@@ -1,0 +1,118 @@
+﻿.profile-background {
+    background: linear-gradient( 90deg, hsla(298, 68%, 90%, 1) 0%, hsla(30, 82%, 91%, 1) 100% );
+    height: 20vh;
+    margin:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:0;
+    width:100vw;
+}
+
+body > .container {
+    margin: 0;
+    padding: 0;
+}
+
+body > .body-content {
+    margin: 0;
+    padding: 0;
+}
+
+.img-class {
+    height: 14rem;
+    width: 14rem;
+    border-radius: 7rem;
+    position: relative;
+    margin-top: -7rem;
+    margin-left: 0.2rem;
+    box-shadow: -6px -5px 4px rgb(128 128 128 / 63%)
+}
+.profile-img {
+    height: 14rem;
+    width: 14rem;
+    border-radius: 7rem;
+}
+.details-container{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    width:100vw;
+}
+.education-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background-color: antiquewhite;
+    padding: 1rem;
+    margin:0.5rem .7rem;
+    border-radius: .5rem;
+}
+.header-name{
+    grid-column-start:1;
+    grid-column-end:3;
+}
+.editaction-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width:100vw;
+}
+.edit-container {
+    display: grid;
+    grid-template-columns:1fr 1fr;
+}
+.edit-list{
+    width:18rem;
+}
+.selectlist{
+    width:25rem;
+}
+
+
+.buttonClass {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: .8rem 1.5rem;
+    text-align: center;
+    display: inline-block;
+    color: white;
+    font-size: 16px;
+    transition: ease;
+}
+
+.progress-bar-container {
+    width: 70%;
+    min-height: 2rem;
+    background-color: antiquewhite;
+    position: relative;
+    border-radius: 1.5rem;
+}
+
+.progress-bar{
+    position:absolute;
+    left:0;
+    top:0;
+    height:2rem;
+    width:0;
+    width: calc(100% / var(--total-count) * var(--completed));
+    background-color: yellowgreen;
+    animation:progress 1s ease;
+    border-radius:1.5rem;
+}
+@keyframes progress {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: calc(100% / var(--total-count) * var(--completed));
+    }
+}
+.profile-strength{
+    display:flex;
+    align-items:center;
+    justify-content:flex-start;
+    gap:2rem;
+    width:100vw;
+}
+.url-content{
+    color: white;
+}

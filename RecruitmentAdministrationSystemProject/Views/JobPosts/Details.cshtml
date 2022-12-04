@@ -4,139 +4,127 @@
     ViewBag.Title = "Details";
 }
 <header>
-    <link href="~/Content/JobDetails.css" rel="stylesheet"/>
+    <link href="~/Content/JobPostDetails.css" rel="stylesheet" />
 </header>
 
 
 <body>
-    <div class="divImg">
-        <img src="@Url.Content(Model.Company.User.Img)" height="200px" width="200" class="profileImg" />
+    <div class="profile-background">
+        <h2>@Model.Company.User.Name</h2>
     </div>
-    <div class="mycontainer">
-        <div class="UserContainer">
-            <div class="UserMenu">
-                Company Name
+    <div class="profile-strength">
+
+        <div class="img-class">
+            <img src="@Url.Content(Model.Company.User.Img)" class="profile-img" />
+        </div>
+    </div>
+
+    <div class="details-container">
+        <div class="personalinfo-container">
+            <div class="header-name">
+                <h3>Company Details</h3>
             </div>
-            <div class="UserData">
+            <div class="content-head">
+                Name
+            </div>
+            <div class="content-body">
                 @Model.Company.User.Name
             </div>
-
-
-            <div class="UserMenu">
+            <div class="content-head">
                 Email
             </div>
-            <div class="UserData">
+            <div class="content-body">
                 @Model.Company.User.Email
-
             </div>
-
-
-            <div class="UserMenu">
-                Company URL
+            <div class="content-head">
+                Phone Number
             </div>
-            <div class="UserData">
-                @Model.Company.CompanyUrl
+            <div class="content-body">
+                @Model.Company.User.MobileNo
             </div>
-
-
-            <div class="UserMenu">
-                Employee Count
+            <div class="content-head">
+                Location
             </div>
-            <div class="UserData">
-                @Model.Company.EmployeeCount
-            </div>
-
-
-            <div class="UserMenu">
-                Company Location
-            </div>
-            <div class="UserData">
-                @Model.Location
+            <div class="content-body">
+                @Model.Company.User.Location
             </div>
         </div>
-        <div class="UserContainer2">
-            <div class="UserMenu">
-                Job Profile
+        <div class="Job-container">
+            <div class="header-name">
+                <h3>Job Details</h3>
             </div>
-            <div class="UserData">
+            <div class="content-head">
+                Job Title
+            </div>
+            <div class="content-body">
                 @Model.Title
             </div>
-
-
-            <div class="UserMenu">
-                Required Experience
-            </div>
-            <div class="UserData">
-                @Model.RequiredExperience
-
-            </div>
-
-
-            <div class="UserMenu">
-                CTC
-            </div>
-            <div class="UserData">
-                @Model.CTC
-            </div>
-
-
-            <div class="UserMenu">
-                SKILL-1
-            </div>
-            <div class="UserData">
-                @Model.Skill_1
-            </div>
-            <div class="UserMenu">
-                SKILL-2
-            </div>
-            <div class="UserData">
-                @Model.Skill_3
-            </div>
-            <div class="UserMenu">
-                SKILL-3
-            </div>
-            <div class="UserData">
-                @Model.Skill_3
-            </div>
-
-
-
-            <div class="UserMenu">
+            <div class="content-head">
                 Job Location
             </div>
-            <div class="UserData">
+            <div class="content-body">
                 @Model.Location
             </div>
-            <div class="UserMenu">
-                SSC Marks
+            <div class="content-head">
+                CTC
             </div>
-            <div class="UserData">
+            <div class="content-body">
+                @Model.CTC
+            </div>
+            <div class="content-head">
+                Required Experience (years)
+            </div>
+            <div class="content-body">
+                @Model.RequiredExperience
+            </div>
+            <div class="content-head">
+                Required Batch
+            </div>
+            <div class="content-body">
+                @Model.RequiredBatch
+            </div>
+            <div class="content-head">
+                Skills
+            </div>
+            <div class="content-body">
+                <span>@Model.Skill_1,</span><span>@Model.Skill_2,</span><span>@Model.Skill_3</span>
+            </div>
+            <div class="content-head">
+                SSC Passing Criteria
+            </div>
+            <div class="content-body">
                 @Model.SSCMarks
             </div>
-            <div class="UserMenu">
-                HSC Marks
+            <div class="content-head">
+                HSC Passing Criteria
             </div>
-            <div class="UserData">
+            <div class="content-body">
                 @Model.HSCMarks
             </div>
-
-
-
-            <div class="UserMenu">
-                UG Marks
+            <div class="content-head">
+                UG Passing Criteria
             </div>
-            <div class="UserData">
+            <div class="content-body">
                 @Model.UGMarks
             </div>
         </div>
-
+    </div>
+    <div class="useraction-container">
+        @if (User.Identity.IsAuthenticated)
+        {
+            if (User.IsInRole("Candidate"))
+            {
+                <div class="buttonClass">
+                    @Html.ActionLink("Apply", "Apply", "JobApplication", new { id = Model.JobId }, new { @class = "form-input-button button-link" })
+                </div>
+            }
+        }
+        else
+        {
+            <div class="buttonClass">
+                @Html.ActionLink("Login to apply for this Job", "Login", "Account", null, new { @class = "form-input-button button-link" })
+            </div>
+        }
     </div>
 
-    
-    @if (User.IsInRole("Candidate"))
-    {
-       <div class="buttonDiv">
-           @Html.ActionLink("Apply", "Apply", "JobApplication", new { id = Model.JobId }, new { @class = "form-input-button singup" })
-       </div>
-    }
 </body>

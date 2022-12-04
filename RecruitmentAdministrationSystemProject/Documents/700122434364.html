@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apply - My ASP.NET Application</title>
+    <link rel="stylesheet" href="/Content/layout.css" />
+    <link href="/Content/bootstrap.css" rel="stylesheet"/>
+<link href="/Content/site.css" rel="stylesheet"/>
+
+    <script src="/Scripts/modernizr-2.8.3.js"></script>
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-custom">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" title="more options">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">Recruitment Administration System</a>
+            </div>
+            <div class="navbar-collapse collapse container-navigation margin-right">
+                <ul class="nav navbar-nav ">
+                    <li><a href="/">Home</a></li>
+
+                    
+                            <li><a href="/JobPosts">JobPosts</a></li>
+                            <li><a href="/Interview/MyInterviews">MyInterviews</a></li>
+                            <li><a href="/JobApplication/MyAppliedJobs/106">Applied Jobs</a></li>
+                        <li class="action-container">
+                            <img src="/Image/User.jfif" id="logo" height="52px" width="52px" />
+                            <div class="actions">
+                                <a href="/Account/Logout">Logout</a>
+                                <a href="/User/MyProfile/106">Profile</a>
+                                <a href="/User/EditMyProfile/106">Edit Profile</a>
+                            </div>
+                        </li>
+
+
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        
+
+
+<header>
+    <link href="/Content/SignIn.css"/ rel="stylesheet">
+</header>
+<body>
+    <div class="main">
+        <div class="register">
+            <h2>Apply</h2>
+<form action="/JobApplication/Apply/7001" enctype="multipart/form-data" method="post"><input name="__RequestVerificationToken" type="hidden" value="79EIZGSitNK9XJxf1HeVicBxcg_CsVnRSnSJUqvlj8fSSfX4MO8--S49GhqJIBuxTj1TbRZdWelXeBpQI8lfkeN0mmiLLcSMmIeL1CEdW-A1" />        <div class="singup-form">
+            <div class="hiddenContent">
+                <label for="Name">Name</label>
+                <div class="input-container">
+                    <input class="form-control text-box single-line" data-val="true" data-val-number="The field UserId must be a number." id="UserId" name="UserId" type="number" value="106" />
+                    <span class="field-validation-valid text-danger" data-valmsg-for="UserId" data-valmsg-replace="true"></span>
+                </div>
+            </div>
+            <div class="hiddenContent">
+                <label for="Name">JobId</label>
+                <div class="input-container">
+                    <input class="form-control text-box single-line" data-val="true" data-val-number="The field JobId must be a number." id="JobId" name="JobId" type="number" value="7001" />
+                    <span class="field-validation-valid text-danger" data-valmsg-for="JobId" data-valmsg-replace="true"></span>
+
+                </div>
+            </div>
+            <div class="hiddenContent">
+                <label for="Name">Application Date</label>
+                <div class="input-container">
+                    <input class="form-control text-box single-line" data-val="true" data-val-date="The field ApplicationDate must be a date." id="ApplicationDate" name="ApplicationDate" type="datetime" value="12/4/2022 6:04:37 PM" />
+                    <span class="field-validation-valid text-danger" data-valmsg-for="ApplicationDate" data-valmsg-replace="true"></span>
+                </div>
+
+            </div>
+            <div>
+                <label for="Name">Previous Company Name</label>
+                <div class="input-container">
+
+                    <input class="form-control text-box single-line" id="PrevCompanyName" name="PrevCompanyName" placeholder="Name of Company" type="text" value="" />
+                    <span class="field-validation-valid text-danger" data-valmsg-for="PrevCompanyName" data-valmsg-replace="true"></span>
+                </div>
+
+            </div>
+            <div>
+                <label for="Name">Work Experience</label>
+                <div class="input-container">
+                    <input class="form-control text-box single-line" data-val="true" data-val-number="The field WorkExperience must be a number." data-val-range="Experience can only be between 0 and 100" data-val-range-max="100" data-val-range-min="0" data-val-required="Experience is required" id="WorkExperience" name="WorkExperience" placeholder="Enter Year of Experience" type="number" value="" />
+                    <span class="field-validation-valid text-danger" data-valmsg-for="WorkExperience" data-valmsg-replace="true"></span>
+                </div>
+            </div>
+            <div>
+                <label for="Name">Notice Period</label>
+                <div class="input-container">
+                    <input class="form-control text-box single-line" data-val="true" data-val-number="The field NoticePeriod must be a number." data-val-range="Notice Period can only be between 0 and 12" data-val-range-max="12" data-val-range-min="0" data-val-required="Notice period is required" id="NoticePeriod" name="NoticePeriod" placeholder="Notice Period in Months" type="number" value="" />
+                    <span class="field-validation-valid text-danger" data-valmsg-for="NoticePeriod" data-valmsg-replace="true"></span>
+                </div>
+            </div>
+            <div>
+                <label for="Name">Resume</label>
+                <div class="input-container">
+                    <input type="file" name="File" />
+                </div>
+            </div>
+
+        </div>
+                <div class="submit-btn-container">
+                    <input type="submit" value="Submit" name="submit" id="submit" />
+                </div>
+</form>
+        </div>
+    </div>
+</body>
+
+        
+        
+    </div>
+
+    <script src="/Scripts/jquery-3.4.1.js"></script>
+
+    <script src="/Scripts/bootstrap.js"></script>
+
+    
+</body>
+</html>

@@ -4,14 +4,20 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<header>
+    <link href="~/Content/all.css" rel="stylesheet"/>
+</header>
 
+
+<div class="HeaderClass">
+    <h2>Candidate Information</h2>
+</div>
 
 @if (Model != null)
 {
     <table class="table table-striped table-bordered">
         <tr>
-         
+
             <th>
                 @Html.DisplayNameFor(model => model.User.Name)
             </th>
@@ -63,7 +69,7 @@
                     @Html.DisplayFor(modelItem => item.Skill_1)
                 </td>
                 <td>
-                     
+
                     @*@Html.ActionLink("Edit", "Edit", new { id = item.CandidateId }) |*@
                     @Html.ActionLink("Details", "CandidateDetails", new { id = item.User.UserId }) |
                     @Html.ActionLink("Delete", "DeleteCandidate", new { id = item.User.UserId })

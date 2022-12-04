@@ -8,7 +8,6 @@
     <link href="~/Content/JobPost.css" rel="stylesheet" />
 
 </header>
-<div class="HeadingClass"><h2>Job Posts</h2></div>
 
 @if (User.IsInRole("Company"))
 {
@@ -31,8 +30,6 @@
             </div>
             <input type="text" placeholder="Search By Skill, Job Title & Company" name="search" class="JobsearchInput" />
             <input type="submit" value="Find Now" class="@*buttonDiv*@ JobsearchButton" />
-            @*<br />
-                <br />*@
         }
     </div>
 </div>
@@ -55,7 +52,7 @@
 
                 </div>
                 <div class="JobbuttonDiv">
-                    @Html.ActionLink("Details", "Details", new { id = job.JobId }, new { @class = "Jobsingup" })
+                    @Html.ActionLink("Details", "Details", new { id = job.JobId }, new { @class = "Jobsingup JobbuttonDiv" })
                 </div>
             </div>
         </div>

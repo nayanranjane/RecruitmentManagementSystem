@@ -2,111 +2,173 @@
 
 @{
     ViewBag.Title = "Details";
+    var educationDetails = (RecruitmentAdministrationSystemProject.Models.CandidateInfo)ViewBag.EducationalDetails;
+    var strength = (int)ViewBag.Strength;
+    var color = (strength > 3) ?  "yellowgreen" : "red" ;
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>JobApplication</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.User.Img)
-        </dt>
-
-        <dd>
-            <img src="@Url.Content(Model.User.Img)" />
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.User.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.User.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.User.Email)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.User.Email)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.User.MobileNo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.User.MobileNo)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.User.Location)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.User.Location)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.JobPost.Company.User.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.JobPost.Company.User.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.AbleToReallocation)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AbleToReallocation)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.PrevCompanyName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PrevCompanyName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.WorkExperience)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.WorkExperience)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.NoticePeriod)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NoticePeriod)
-        </dd>
+<header>
+    <link href="~/Content/ApplicationDetails.css" rel="stylesheet" />
+</header>
 
 
+<body>
+    <div class="profile-background">
+        <h2>@Model.User.Name</h2>
+    </div>
+    <div class="profile-strength">
 
+        <div class="img-class">
+            <img src="@Url.Content(Model.User.Img)" class="profile-img" />
+        </div>
+        <h4 style="width:15rem">Profile Strength</h4>
+        <div class="progress-bar-container">
+            <div class="progress-bar progress" style="--total-count: 8 ; --completed: @strength;background-color:@color;"></div>
+        </div>
+    </div>
 
+    <div class="details-container">
+        <div class="education-container">
+            <div class="header-name">
+                <h3>Personal Details</h3>
+            </div>
+            <div class="content-head">
+                Name
+            </div>
+            <div class="content-body">
+                @Model.User.Name
+            </div>
+            <div class="content-head">
+                Email
+            </div>
+            <div class="content-body">
+                @Model.User.Email
+            </div>
+            <div class="content-head">
+                Phone Number
+            </div>
+            <div class="content-body">
+                @Model.User.MobileNo
+            </div>
+            <div class="content-head">
+                Location
+            </div>
+            <div class="content-body">
+                @Model.User.Location
+            </div>
+            <div class="content-head">
+                Previos Company Name
+            </div>
+            <div class="content-body">
+                @Model.PrevCompanyName
+            </div>
+            <div class="content-head">
+                Experience in years
+            </div>
+            <div class="content-body">
+                @Model.WorkExperience
+            </div>
+            <div class="content-head">
+                Notice Period in months
+            </div>
+            <div class="content-body">
+                @Model.NoticePeriod
+            </div>
+            <div class="content-head">
+                Able to Reallocation
+            </div>
+            <div class="content-body">
+                @Model.AbleToReallocation
+            </div>
+            <div class="content-head">
+                Skills
+            </div>
+            <div class="content-body">
+                <span>@educationDetails.Skill_1,</span><span>@educationDetails.Skill_2,</span><span>@educationDetails.Skill_3</span>
+            </div>
+        </div>
+        <div class="education-container">
+            <div class="header-name">
+                <h3>Education Details</h3>
+            </div>
+            <div class="content-head">
+                SSC College
+            </div>
+            <div class="content-body">
+                @educationDetails.SSC_College
+            </div>
+            <div class="content-head">
+                SSC Marks
+            </div>
+            <div class="content-body">
+                @educationDetails.SSC_Marks
+            </div>
+            <div class="content-head">
+                SSC Passing Year
+            </div>
+            <div class="content-body">
+                @educationDetails.SSC_PassingYear
+            </div>
+            <div class="content-head">
+                HSC College
+            </div>
+            <div class="content-body">
+                @educationDetails.HSC_College
+            </div>
+            <div class="content-head">
+                HSC Marks
+            </div>
+            <div class="content-body">
+                @educationDetails.HSC_Marks
+            </div>
+            <div class="content-head">
+                HSC Passing Year
+            </div>
+            <div class="content-body">
+                @educationDetails.HSC_PassingYear
+            </div>
+            <div class="content-head">
+                UG College
+            </div>
+            <div class="content-body">
+                @educationDetails.UG_College
+            </div>
+            <div class="content-head">
+                UG Marks
+            </div>
+            <div class="content-body">
+                @educationDetails.UG_Marks
+            </div>
+            <div class="content-head">
+                UG Passing Year
+            </div>
+            <div class="content-body">
+                @educationDetails.UG_PassingYear
+            </div>
+        </div>
+    </div>
 
+    <div class="editaction-container">
+        @if (User.Identity.IsAuthenticated && ((Session["Role"]).ToString() == "Company" || (Session["Role"]).ToString() == "Admin" || (Session["Role"]).ToString() == "Staff"))
+        {
+            <div>
+                <button type="button" class="buttonClass">@Html.ActionLink("Shedule Interview", "Create", "Interview", new { id = Model.UserId, companyId = Model.JobPost.CompanyID }, new { @class = "url-content" }) </button>
+                <button type="button" class="buttonClass">@Html.ActionLink("Resume", "Resume", "JobApplication", new { id = Model.ApplicationId }, new { @class = "url-content" }) </button>
+            </div>
+            <div>
+                @using (Html.BeginForm("EditStatus", "JobApplication", new { id = Model.ApplicationId }, FormMethod.Post, new { @class = "edit-container" }))
+                {
+                    <div class="edit-list">
+                        <td>
+                            @Html.DropDownList("newstatus", new SelectList(ViewBag.Status, "Status1", "Status1"), "Select Status", new { @class = "form-control selectlist" })
+                        </td>
+                    </div>
+                    <div>
+                        <input type="submit" value="Edit Satus" class="buttonClass" />
+                    </div>
+                }
+            </div>
+        }
+    </div>
 
-    </dl>
-</div>
-@if (User.Identity.IsAuthenticated && ((Session["Role"]).ToString() == "Company" || (Session["Role"]).ToString() == "Admin" || (Session["Role"]).ToString() == "Staff"))
-{
-    @Html.ActionLink("Shedule Interview", "Create", "Interview", new { id = Model.UserId, companyId = Model.JobPost.CompanyID }, null);
-<div>
-    @using (Html.BeginForm("EditStatus", "JobApplication", new { id = Model.ApplicationId }, FormMethod.Post, new { }))
-    {
-        <span class="align-content-lg-center">Status :  </span>
-        @*<input type="text" placeholder="Edit Status" name="newstatus" />*@
-        @Html.DropDownList("newstatus", new SelectList(ViewBag.Status, "Status1", "Status1"), "Select Status", new { @class = "form-control selectlist" })
-        <input type="submit" value="Edit Satus" />
-        <br />
-        <br />
-    }
-</div>
-}
-
-
+</body>

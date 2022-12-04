@@ -168,6 +168,7 @@
     </Compile>
     <Compile Include="Models\CompanyDetails.cs" />
     <Compile Include="Models\DataAnnotation\CandidateInfo.cs" />
+    <Compile Include="Models\DataAnnotation\CustomValidation.cs" />
     <Compile Include="Models\DataAnnotation\JobApplication.cs" />
     <Compile Include="Models\DataAnnotation\JobPost.cs" />
     <Compile Include="Models\DataAnnotation\User.cs" />
@@ -244,6 +245,7 @@
   <ItemGroup>
     <Content Include="Content\all.css" />
     <Content Include="Content\Application.css" />
+    <Content Include="Content\ApplicationDetails.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -255,6 +257,7 @@
     <Content Include="Content\interview.css" />
     <Content Include="Content\JobDetails.css" />
     <Content Include="Content\JobPost.css" />
+    <Content Include="Content\JobPostDetails.css" />
     <Content Include="Content\layout.css" />
     <Content Include="Content\Login.css" />
     <Content Include="Content\loginPage.css" />
@@ -362,6 +365,7 @@
     <Content Include="Views\Interview\MyInterviews.cshtml" />
     <Content Include="Views\Interview\ScheduledInterview.cshtml" />
     <Content Include="Views\Interview\Remark.cshtml" />
+    <Content Include="Views\JobApplication\Resume.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

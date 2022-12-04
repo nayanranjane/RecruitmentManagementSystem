@@ -111,9 +111,9 @@ namespace RecruitmentAdministrationSystemProject.Controllers
         {
             return Json(!dbAccess.Users.Any(user => user.UserName == username), JsonRequestBehavior.AllowGet);
         }
-        public JsonResult isValidNumber(string number)
+        public JsonResult isValidNumber(string MobileNo)
         {
-            return Json(!dbAccess.Users.Any(user => user.MobileNo == number), JsonRequestBehavior.AllowGet);
+            return Json(!dbAccess.Users.Any(user => user.MobileNo == MobileNo), JsonRequestBehavior.AllowGet);
         }
     }
 

@@ -9,6 +9,7 @@
 
 namespace RecruitmentAdministrationSystemProject.Models
 {
+    using RecruitmentAdministrationSystemProject.Models.DataAnnotation;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -26,7 +27,12 @@ namespace RecruitmentAdministrationSystemProject.Models
 
         public string StatusId { get; set; }
         public string Remark { get; set; }
+        [DatetimeValidation(ErrorMessage ="Date shold be greater than today's Date")]
         public Nullable<System.DateTime> InterviewDate { get; set; }
+
+        [Required]
+        [DataType(DataType.Time)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:H:mm}")]
         public Nullable<System.DateTime> InterviewTime { get; set; }
     
         public virtual Staff Staff { get; set; }

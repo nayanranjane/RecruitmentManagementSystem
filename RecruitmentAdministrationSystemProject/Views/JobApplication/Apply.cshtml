@@ -5,7 +5,7 @@
 }
 
 <header>
-    <link href="~/Content/SignIn.css"/ rel="stylesheet">
+    <link href="~/Content/SignIn.css" / rel="stylesheet">
 </header>
 <body>
     <div class="main">
@@ -14,61 +14,65 @@
             @using (Html.BeginForm("Apply", "JobApplication", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
                 @Html.AntiForgeryToken()
-        <div class="singup-form">
-            <div class="hiddenContent">
-                <label for="Name">Name</label>
-                <div class="input-container">
-                    @Html.EditorFor(model => model.UserId, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="hiddenContent">
-                <label for="Name">JobId</label>
-                <div class="input-container">
-                    @Html.EditorFor(model => model.JobId, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.JobId, "", new { @class = "text-danger" })
+                <div class="singup-form">
+                    <div class="hiddenContent">
+                        <label for="Name">Name</label>
+                        <div class="input-container">
+                            @Html.EditorFor(model => model.UserId, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="hiddenContent">
+                        <label for="Name">JobId</label>
+                        <div class="input-container">
+                            @Html.EditorFor(model => model.JobId, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.JobId, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+                    <div class="hiddenContent">
+                        <label for="Name">Application Date</label>
+                        <div class="input-container">
+                            @Html.EditorFor(model => model.ApplicationDate, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ApplicationDate, "", new { @class = "text-danger" })
+                        </div>
+
+                    </div>
+                    <div>
+                        <label for="Name">Previous Company Name</label>
+                        <div class="input-container">
+
+                            @Html.EditorFor(model => model.PrevCompanyName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Name of Company" } })
+                            @Html.ValidationMessageFor(model => model.PrevCompanyName, "", new { @class = "text-danger" })
+                        </div>
+
+                    </div>
+                    <div>
+                        <label for="Name">Work Experience</label>
+                        <div class="input-container">
+                            @Html.EditorFor(model => model.WorkExperience, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Year of Experience" } })
+                            @Html.ValidationMessageFor(model => model.WorkExperience, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div>
+                        <label for="Name">Notice Period</label>
+                        <div class="input-container">
+                            @Html.EditorFor(model => model.NoticePeriod, new { htmlAttributes = new { @class = "form-control", @placeholder = "Notice Period in Months" } })
+                            @Html.ValidationMessageFor(model => model.NoticePeriod, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div>
+                        <label for="Name">Resume</label>
+                        <div class="input-container">
+                            <input type="file" name="File" />
+                            @*@Html.ValidationMessage("File", "", new { @class = "text-danger" })*@
+
+                            @*@Html.EditorFor(model => model.File, new { htmlAttributes = new { @class = "form-control",@type="file", @placeholder = "Notice Period in Months" } })*@
+                            @Html.ValidationMessageFor(model => model.File, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
                 </div>
-            </div>
-            <div class="hiddenContent">
-                <label for="Name">Application Date</label>
-                <div class="input-container">
-                    @Html.EditorFor(model => model.ApplicationDate, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.ApplicationDate, "", new { @class = "text-danger" })
-                </div>
-
-            </div>
-            <div>
-                <label for="Name">Previous Company Name</label>
-                <div class="input-container">
-
-                    @Html.EditorFor(model => model.PrevCompanyName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Name of Company" } })
-                    @Html.ValidationMessageFor(model => model.PrevCompanyName, "", new { @class = "text-danger" })
-                </div>
-
-            </div>
-            <div>
-                <label for="Name">Work Experience</label>
-                <div class="input-container">
-                    @Html.EditorFor(model => model.WorkExperience, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Year of Experience" } })
-                    @Html.ValidationMessageFor(model => model.WorkExperience, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div>
-                <label for="Name">Notice Period</label>
-                <div class="input-container">
-                    @Html.EditorFor(model => model.NoticePeriod, new { htmlAttributes = new { @class = "form-control", @placeholder = "Notice Period in Months" } })
-                    @Html.ValidationMessageFor(model => model.NoticePeriod, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div>
-                <label for="Name">Resume</label>
-                <div class="input-container">
-                    <input type="file" name="File" />
-                </div>
-            </div>
-
-        </div>
                 <div class="submit-btn-container">
                     <input type="submit" value="Submit" name="submit" id="submit" />
                 </div>
@@ -77,3 +81,8 @@
         </div>
     </div>
 </body>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

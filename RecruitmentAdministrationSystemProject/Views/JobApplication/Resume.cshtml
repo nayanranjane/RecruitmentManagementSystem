@@ -1,0 +1,16 @@
+﻿@model RecruitmentAdministrationSystemProject.Models.JobApplication
+
+@{
+    ViewBag.Title = "Resume";
+}
+
+<header>
+    <link href="~/Content/all.css" rel="stylesheet" />
+</header>
+<div class="HeaderClass">
+    <h2>Resume</h2>
+</div>
+
+<div class="resume-container">
+   <img src="@Url.Content(Model.Resume)" class="resume">
+</div>

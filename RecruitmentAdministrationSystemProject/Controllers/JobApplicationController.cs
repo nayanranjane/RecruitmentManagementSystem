@@ -32,6 +32,7 @@ namespace RecruitmentAdministrationSystemProject.Controllers
         }
         AdditionalServices addService = new AdditionalServices();
 
+        [Authorize]
         public async Task<ActionResult> Apply(int? id, string ReturnUrl)
         {
                 var candidate = (await userService.GetDataAsync()).ToList().Where(users => users.UserName == Session["Uname"].ToString()).FirstOrDefault();
@@ -51,13 +52,20 @@ namespace RecruitmentAdministrationSystemProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                string filename = Path.GetFileNameWithoutExtension(jobApplication.File.FileName); // .FleName Contain the name of the file with the directory
-                string extension = Path.GetExtension(jobApplication.File.FileName);
-                filename = filename + DateTime.Now.ToString("yymmssff") + extension;
-                jobApplication.Resume = "~/Documents/" + filename;
-                filename = Path.Combine(Server.MapPath("~/Documents/"), filename);
-                jobApplication.File.SaveAs(filename);
-                var isApplied =await jobApplicationService.Create(jobApplication);
+                if (jobApplication.File != null)
+                {
+                    string filename = Path.GetFileNameWithoutExtension(jobApplication.File.FileName); // .FleName Contain the name of the file with the directory
+                    string extension = Path.GetExtension(jobApplication.File.FileName);
+                    filename = filename + DateTime.Now.ToString("yymmssff") + extension;
+                    jobApplication.Resume = "~/Documents/" + filename;
+                    filename = Path.Combine(Server.MapPath("~/Documents/"), filename);
+                    jobApplication.File.SaveAs(filename);
+                }
+                else
+                {
+                    jobApplication.Resume = "~/Documents/";
+                }
+                var isApplied = await jobApplicationService.Create(jobApplication);
                 TempData["Applied"] = "Applied";
                 return RedirectToAction("Index", "JobPosts");
             }
@@ -88,18 +96,19 @@ namespace RecruitmentAdministrationSystemProject.Controllers
             }
             return View(jobApplication);
         }
-
+        [Authorize (Roles ="Candidate")]
         public async Task<ActionResult> GetMyApplication(int? id)
         {
             var jobApplication = (await jobApplicationService.GetDataAsync()).Where(user => user.UserId == id);
             return View(jobApplication);
         }
-
+        [Authorize(Roles = "Candidate")]
         public ActionResult MyAppliedJobs(int id)
         {
             var jobApplication = addService.getapplicationDetails(id);
             return View(jobApplication);
         }
+        [Authorize]
         public async Task<ActionResult> Details(int? id)
         {
             var jobDetails = new JobPost();
@@ -108,6 +117,7 @@ namespace RecruitmentAdministrationSystemProject.Controllers
             jobDetails = (await jobPostService.GetDataAsync()).Where(job => job.JobId == jobApplication.JobId).FirstOrDefault();
             var status = (await statusService.GetDataAsync());
             educationalDetails = (await candidateInfo.GetDataAsync()).Where(user => user.UserId == jobApplication.UserId).FirstOrDefault();
+            ViewBag.Strength = addService.getProfileStrength(educationalDetails, jobApplication, jobDetails);
             ViewBag.JobDetails = jobDetails;
             ViewBag.EducationalDetails = educationalDetails;
             ViewBag.Status = status;
@@ -124,19 +134,41 @@ namespace RecruitmentAdministrationSystemProject.Controllers
             var applicationList = (await jobApplicationService.GetDataAsync()).Where(application => application.User.UserName==userName);
             return View(applicationList);
         }
+        [Authorize(Roles = "Company,Staff,Admin")]
         public async Task<ActionResult> EditStatus(string newstatus,int id)
         {
+            try
+            {
                 var result = await jobApplicationService.GetDataAsync(id);
                 result.Status = newstatus;
-                var  ischanged = await jobApplicationService.UpdateAsync(result, result.ApplicationId);
-            if (ischanged)
-            {
-                TempData["StatusChange"] = "Status Change";
+                var ischanged = await jobApplicationService.UpdateAsync(result, result.ApplicationId);
+                if (ischanged)
+                {
+                    TempData["StatusChange"] = "Status Change";
+                }
+                
             }
-                //return RedirectToAction("Details", new { id = id });
-                return RedirectToAction("Index");
+            catch (DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+                throw;
+            }
+            return RedirectToAction("Index");
+        }
 
-           
+        public async Task<ActionResult> Resume(int id)
+        {
+            var info = await jobApplicationService.GetDataAsync(id);
+            return View(info);
         }
     }
 }

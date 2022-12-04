@@ -67,5 +67,26 @@ namespace RecruitmentAdministrationSystemProject.Services
             var authenticatedStaff = dbAccess.sp_MyAuthenticatedStaff(id).ToList();
             return authenticatedStaff;
         }
+        public int getProfileStrength(CandidateInfo candidateInfo,JobApplication jobApplication,JobPost jobPost)
+        {
+            int strenght = 0;
+            if (candidateInfo.SSC_Marks >= jobPost.SSCMarks)
+                strenght++;
+            if (candidateInfo.HSC_Marks >= jobPost.HSCMarks)
+                strenght++;
+            if (candidateInfo.UG_Marks >= jobPost.UGMarks)
+                strenght++;
+            if (candidateInfo.Skill_1 == jobPost.Skill_1)
+                strenght++;
+            if (candidateInfo.Skill_2 == jobPost.Skill_2)
+                strenght++;
+            if (candidateInfo.Skill_3 == jobPost.Skill_3)
+                strenght++;
+            if (candidateInfo.UG_PassingYear == jobPost.RequiredBatch)
+                strenght++;
+            if (jobApplication.WorkExperience == jobPost.RequiredExperience)
+                strenght++;
+            return strenght;
+        }
     }
 }

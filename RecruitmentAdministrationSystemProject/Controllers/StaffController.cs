@@ -9,7 +9,8 @@ using RecruitmentAdministrationSystemProject.Services;
 
 namespace RecruitmentAdministrationSystemProject.Controllers
 {
-  
+
+    [Authorize]
     public class StaffController : Controller
     {
         //RecruitmentManagementSystemEntities dbAccess = new RecruitmentManagementSystemEntities();

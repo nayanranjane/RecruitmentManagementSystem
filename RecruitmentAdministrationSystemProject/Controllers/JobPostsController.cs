@@ -13,7 +13,7 @@ using RecruitmentAdministrationSystemProject.Services;
 
 namespace RecruitmentAdministrationSystemProject.Views
 {
-    [Authorize]
+
     public class JobPostsController : Controller
     {
       
@@ -68,6 +68,7 @@ namespace RecruitmentAdministrationSystemProject.Views
                 return RedirectToAction("Create");
             }
         }
+        [Authorize (Roles ="Company,Staff")]
         public async Task<ActionResult> Delete(int id)
         {
             var isDeleted = await jobService.DeleteAsync(id);
@@ -82,6 +83,7 @@ namespace RecruitmentAdministrationSystemProject.Views
             }
             return RedirectToAction("Index");
         }
+        [Authorize (Roles ="Company")]
         async public Task<ActionResult> MyJobPosts(string username)
         {
             var jobList = (await jobService.GetDataAsync()).Where(post => post.Company.User.UserName == username);
@@ -104,13 +106,6 @@ namespace RecruitmentAdministrationSystemProject.Views
 
             return View(jobPosts);
         }
-        public ActionResult ShowDetails(int? id)
-        {
-            return RedirectToAction("Index", new { id = id });
-
-        }
-
-
 
     }
 }

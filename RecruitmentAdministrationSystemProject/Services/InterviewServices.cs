@@ -40,15 +40,15 @@ namespace RecruitmentAdministrationSystemProject.Services
         {
             try
             {
-                var interview = await dbAccess.Roles.FindAsync(id);
+                var interview = await dbAccess.Interviews.FindAsync(id);
                 if (interview == null)
                 {
-                    throw new Exception("Role not found Enter Correct User ID");
+                    throw new Exception("InterviewID found Enter Correct User ID");
                     return false;
                 }
                 else
                 {
-                    dbAccess.Roles.Remove(interview);
+                    dbAccess.Interviews.Remove(interview);
                     await dbAccess.SaveChangesAsync();
                     return true;
                 }
