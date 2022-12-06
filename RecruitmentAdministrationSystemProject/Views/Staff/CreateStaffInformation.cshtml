@@ -26,7 +26,7 @@
                     <div >
                         <label for="Name">Company</label>
                         <div class="input-container">
-                            @Html.DropDownListFor(model => model.CompanyId, new SelectList(ViewBag.companies, "Id", "Name"), "Select skills", new { @class = "form-control" })
+                            @Html.DropDownListFor(model => model.CompanyId, new SelectList(ViewBag.companies, "Id", "Name"), "Select Company", new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.UserID, "", new { @class = "text-danger" })
                         </div>
                     </div>

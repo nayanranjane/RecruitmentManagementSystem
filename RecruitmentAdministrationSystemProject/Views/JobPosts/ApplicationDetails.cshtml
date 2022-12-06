@@ -102,7 +102,7 @@
 
     </dl>
 </div>
- @if (User.Identity.IsAuthenticated && ((Session["Role"]).ToString() == "Company" || (Session["Role"]).ToString() == "Admin" || (Session["Role"]).ToString() == "Staff"))
+ @if (User.Identity.IsAuthenticated && (User.IsInRole("Company") || User.IsInRole("Admin") || User.IsInRole("Staff")))
         { 
 
         }

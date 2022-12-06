@@ -103,7 +103,7 @@ namespace RecruitmentAdministrationSystemProject.Controllers
         [HttpPost]
         public async Task<ActionResult> EditMyProfile(User user)
         {
-            if (ModelState.IsValid)
+            if (true)
             {
                 var result = await userService.UpdateAsync(user, user.UserId);
                 return RedirectToAction("Index", "Home");

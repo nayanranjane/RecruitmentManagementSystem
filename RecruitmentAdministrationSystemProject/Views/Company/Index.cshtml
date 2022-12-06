@@ -66,7 +66,7 @@
                     @Html.DisplayFor(modelItem => item.EmployeeCount)
                 </td>
                 <td>
-                    @Html.ActionLink("Delete", "DeleteCompany", new { id = item.UserId })
+                    @Html.ActionLink("Delete", "DeleteCompany", new { id = item.UserId }, new {@class= "DeleteButton buttonClass2" })
                 </td>
 
 

@@ -34,7 +34,7 @@ namespace RecruitmentAdministrationSystemProject.Controllers
         public async Task<ActionResult> CreateCompanyInformation(Company info)
         {
             var isCreated =await companyService.Create(info);
-            if (isCreated)
+            if (isCreated!=null)
             {
                 TempData["UserCreated"] = "UserCreated";
             }

@@ -4,7 +4,7 @@
 }
 
 body {
-    background-image: url("https://localhost:44390/Image/background.jpg");
+    background-image: url("https://localhost:44390/Image/login2.jpg");
     background-size: cover;
 }
 
@@ -150,3 +150,4 @@ input#submit {
     width: 249px;
     margin-left: 1rem;
 }
+

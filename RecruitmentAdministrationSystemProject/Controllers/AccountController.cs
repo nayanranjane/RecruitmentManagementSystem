@@ -7,23 +7,34 @@ using System.Web.Mvc;
 using System.Web.Security;
 using System.Configuration;
 using System.IO;
+using RecruitmentAdministrationSystemProject.Services;
+using System.Threading.Tasks;
+using WebGrease.Css.Visitor;
 
 namespace RecruitmentAdministrationSystemProject.Controllers
 {
 
     public class AccountController : Controller
     {
-        RecruitmentManagementSystemEntities dbAccess = new RecruitmentManagementSystemEntities();
+       // RecruitmentManagementSystemEntities dbAccess = new RecruitmentManagementSystemEntities();
 
-        public ActionResult SignUp()
+        IDataAccessService<User, int> userService;
+        IDataAccessService<Role, int> roleService;
+        public AccountController( IDataAccessService<User, int> userService, IDataAccessService<Role, int> roleService)
+        {
+            this.userService = userService;
+            this.roleService = roleService;
+        }
+
+        public async Task<ActionResult> SignUp()
         {
             User user = new User();
-            var roles = dbAccess.Roles.ToList().Skip(1).ToList();
+            var roles = (await roleService.GetDataAsync()).ToList().Skip(1).ToList();
             ViewBag.roles = roles;
             return View(user);
         }
         [HttpPost]
-        public ActionResult SignUp(User user)
+        public async Task<ActionResult> SignUp(User user)
         {
             if (ModelState.IsValid)
             {
@@ -40,18 +51,17 @@ namespace RecruitmentAdministrationSystemProject.Controllers
                 {
                     user.Img = "~/Image/" + "User.jfif";
                 }
-                var result = dbAccess.Users.Add(user);
-                dbAccess.SaveChanges();
+                var result = await userService.Create(user);
                 switch (user.RoleId)
                 {
                     case 2:
-                        return RedirectToAction("CreateCandidateInfo", "Candidate", new { id = user.UserId });
+                        return RedirectToAction("CreateCandidateInfo", "Candidate", new { id = result.UserId });
                         break;
                     case 3:
-                        return RedirectToAction("CreateCompanyInformation", "Company", new { id = user.UserId });
+                        return RedirectToAction("CreateCompanyInformation", "Company", new { id = result.UserId });
                         break;
                     case 4:
-                        return RedirectToAction("CreateStaffInformation", "Staff", new { id = user.UserId });
+                        return RedirectToAction("CreateStaffInformation", "Staff", new { id = result.UserId });
                         break;
                 }
                 return RedirectToAction("SignUp");
@@ -69,11 +79,11 @@ namespace RecruitmentAdministrationSystemProject.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Login(string username,string password)
+        public async Task<ActionResult> Login(string username, string password)
         {
             if (true)
             {
-                var result = dbAccess.Users.ToList().Where(u => u.UserName == username && u.Password == password).FirstOrDefault();
+                var result =( await userService.GetDataAsync()).ToList().Where(u => u.UserName == username && u.Password == password).FirstOrDefault();
                 if (result != null)
                 {
                     FormsAuthentication.SetAuthCookie(result.UserName, false);
@@ -81,15 +91,9 @@ namespace RecruitmentAdministrationSystemProject.Controllers
                     Session["UID"] = result.UserId.ToString();
                     Session["User"] = result;
                     Session["Img"] = result.Img;
-                    var role = (from userInfo in dbAccess.Users.ToList()
-                                join roles in dbAccess.Roles.ToList()
-                                on userInfo.RoleId equals roles.RoleId
-                                where userInfo.UserName == result.UserName
-                                select roles).FirstOrDefault();
-                    Session["Role"] = role.RoleName.ToString();
 
-                        TempData["SuccessMessage"] = "Login SuccessFull";
-                        return RedirectToAction("index", "home");
+                    TempData["SuccessMessage"] = "Login SuccessFull";
+                    return RedirectToAction("index", "home");
                 }
                 else
                 {
@@ -100,20 +104,20 @@ namespace RecruitmentAdministrationSystemProject.Controllers
             }
             return View();
         }
-        public ActionResult Logout()
+        public  ActionResult Logout()
         {
             FormsAuthentication.SignOut();
             Session["Uname"] = null;
 
             return RedirectToAction("Login");
         }
-        public JsonResult IsUserExist(string username)
+        public async Task<JsonResult> IsUserExist(string username)
         {
-            return Json(!dbAccess.Users.Any(user => user.UserName == username), JsonRequestBehavior.AllowGet);
+            return Json(!(await userService.GetDataAsync()).Any(user => user.UserName == username), JsonRequestBehavior.AllowGet);
         }
-        public JsonResult isValidNumber(string MobileNo)
+        public async Task<JsonResult> isValidNumber(string MobileNo)
         {
-            return Json(!dbAccess.Users.Any(user => user.MobileNo == MobileNo), JsonRequestBehavior.AllowGet);
+            return Json(!(await userService.GetDataAsync()).Any(user => user.MobileNo == MobileNo), JsonRequestBehavior.AllowGet);
         }
     }
 

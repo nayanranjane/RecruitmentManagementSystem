@@ -1,0 +1,132 @@
+﻿@model RecruitmentAdministrationSystemProject.Models.Interview
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+<header>
+    <link href="~/Content/ApplicationDetails.css" rel="stylesheet" />
+</header>
+
+@*<div class="HeaderClass"><h2>@Model.User.Name</h2></div>*@
+
+<div class="profile-background">
+    <h2>@Model.User.Name</h2>
+</div>
+<div class="">
+
+    <div class="img-class">
+        <img src="@Url.Content(Model.User.Img)" class="profile-img" />
+    </div>
+</div>
+
+<div class="details-container">
+    <div class="education-container">
+        <div class="header-name">
+            <h3>Interview Details</h3>
+        </div>
+        <div class="content-head">
+            Candidate Name
+        </div>
+        <div class="content-body">
+            @Model.User.Name
+        </div>
+        <div class="content-head">
+            Email
+        </div>
+        <div class="content-body">
+            @Model.User.Email
+        </div>
+        <div class="content-head">
+            Phone Number
+        </div>
+        <div class="content-body">
+            @Model.User.MobileNo
+        </div>
+        <div class="content-head">
+            Location
+        </div>
+        <div class="content-body">
+            @Model.User.Location
+        </div>
+
+    </div>
+
+    <div class="education-container">
+        <div class="header-name">
+            <h3>Interview Details</h3>
+        </div>
+        <div class="content-head">
+            Interview Venue
+        </div>
+        <div class="content-body">
+            @Model.MettingId
+        </div>
+        <div class="content-head">
+            Interview Date
+        </div>
+        <div class="content-body">
+            @{
+                var datetime = Model.InterviewDate.Value.ToLongDateString();
+            }
+            @datetime
+        </div>
+        <div class="content-head">
+            Interview Time
+        </div>
+        <div class="content-body">
+            @{
+                var interviewTime = Model.InterviewTime.Value.ToShortTimeString();
+            }
+            @interviewTime
+        </div>
+        <div class="content-head">
+            Description
+        </div>
+        <div class="content-body">
+            @Model.Description
+        </div>
+        <div class="content-head">
+            Status
+        </div>
+        <div class="content-body">
+            @Model.StatusId
+        </div>
+        <div class="content-head">
+            Remark
+        </div>
+        <div class="content-body">
+            @Model.Remark
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="Staff-Remark">
+    @using (Html.BeginForm("Remark", "Interview", new { id = Model.InterviewID }, FormMethod.Post, new { @class = "remark-form-container" }))
+    {
+                <div class="input-container">
+                    <label for="Name" class="remark-label">Status</label>
+                    @Html.DropDownList("StatusId", new List<SelectListItem> { new SelectListItem { Text = "Selected", Value = "Selected" }, new SelectListItem { Text = "Rejected", Value = "Rejected" } }, "-Select Status-", new { @class = "SelectList-remark" })
+
+
+                </div>
+                <div class="remark">
+                    <label for="Name" class="remark-label">Remark</label>
+                    <div class="input-container">
+                        @Html.Editor("Remark", new { htmlAttributes = new { @class = "form-control remark-editor" } })
+                        @Html.ValidationMessageFor(model => model.Remark, "", new { @class = "text-white" })
+                    </div>
+                </div>
+                    <div>
+                        <input type="submit" value="Edit Satus" class="buttonClass" />
+                    </div>
+                }
+</div>
+
+
+
+

@@ -32,7 +32,7 @@ div.navclass {
     right: 1rem;
     box-shadow: 0px 0px 10px rgba(0,0,0,0.63);
     z-index: 2;
-    color: #ffff;
+    color: white;
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -45,3 +45,9 @@ div.navclass {
         color: #ffff;
         border-bottom: thin solid black;
     }
+
+
+.user-option{
+    margin-left:.5rem;
+    color:white;
+}

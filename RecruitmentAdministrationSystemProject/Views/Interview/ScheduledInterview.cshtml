@@ -4,64 +4,65 @@
     ViewBag.Title = "ScheduledInterview";
 }
 
-<h2>ScheduledInterview</h2>
+<header>
+    <link href="~/Content/all.css" rel="stylesheet" />
+</header>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.User.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MettingId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StatusId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Remark)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.InterviewDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.InterviewTime)
-        </th>
-        <th></th>
-    </tr>
+<body>
+    <div class="HeaderClass">
+        <h2>Scheduled Interview</h2>
+    </div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.User.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MettingId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StatusId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Remark)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.InterviewDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.InterviewTime)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Remark", new { id = item.InterviewID }) 
-        </td>
-    </tr>
-}
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.User.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MettingId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StatusId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InterviewDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InterviewTime)
+            </th>
+            <th></th>
+        </tr>
 
-</table>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MettingId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StatusId)
+                </td>
+                <td>
+                    @{
+                        var datetime = item.InterviewDate.Value.ToLongDateString();
+                    }
+                    @datetime
+                </td>
+                <td>
+                    @{
+                        var interviewTime = item.InterviewTime.Value.ToShortTimeString();
+                    }
+                    @interviewTime
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id = item.InterviewID }, new { @class = "action-link DetailsButton buttonClass" })
+                </td>
+            </tr>
+        }
+
+    </table>
+
+</body>

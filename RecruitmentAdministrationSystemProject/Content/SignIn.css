@@ -142,3 +142,7 @@ input#submit {
 .hiddenContent{
     display:none;
 }
+
+.SelectList{
+    color:black;
+}

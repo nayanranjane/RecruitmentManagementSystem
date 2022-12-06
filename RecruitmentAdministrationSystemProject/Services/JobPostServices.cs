@@ -20,7 +20,7 @@ namespace RecruitmentAdministrationSystemProject.Services
         }
 
        
-        async Task<bool> IDataAccessService<JobPost, int>.Create(JobPost entity)
+        async Task<JobPost> IDataAccessService<JobPost, int>.Create(JobPost entity)
         {
             try
             {
@@ -28,9 +28,9 @@ namespace RecruitmentAdministrationSystemProject.Services
                 var idAdded = await dbAccess.SaveChangesAsync();
                 if (idAdded > 0)
                 {
-                    return true;
+                    return result;
                 }
-                return false;
+                return null;
             }
             catch (Exception ex)
             {

@@ -11,7 +11,7 @@ namespace RecruitmentAdministrationSystemProject.Services
         Task<List<TEntity>> GetDataAsync();
         Task<TEntity> GetDataAsync(Tpk id);
         Task<bool> UpdateAsync(TEntity entity, Tpk id);
-        Task<bool> Create(TEntity entity);
+        Task<TEntity> Create(TEntity entity);
         Task<bool> DeleteAsync(Tpk id);
     }
 }

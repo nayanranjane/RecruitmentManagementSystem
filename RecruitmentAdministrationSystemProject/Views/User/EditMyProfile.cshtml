@@ -6,7 +6,7 @@
 
 
 <header>
-    <link href="~/Content/SignIn.css" rel="stylesheet"/>
+    <link href="~/Content/SignIn.css" rel="stylesheet" />
 </header>
 
 <body>
@@ -33,14 +33,6 @@
                         </div>
                     </div>
                     <div>
-                        <label for="Name">Username</label>
-                        <div class="input-container">
-                            @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
-
-                        </div>
-                    </div>
-                    <div>
                         <label for="Name">Password</label>
                         <div class="input-container">
                             @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
@@ -49,17 +41,18 @@
 
                     </div>
                     <div>
+                        <label for="Name">Password</label>
+                        <div class="input-container">
+                            @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                        </div>
+
+                    </div>
+                    <div>
                         <label for="Name">Email</label>
                         <div class="input-container">
                             @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                    <div>
-                        <label for="Name">MobileNo</label>
-                        <div class="input-container">
-                            @Html.EditorFor(model => model.MobileNo, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.MobileNo, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div>
@@ -78,3 +71,7 @@
         </div>
     </div>
 </body>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

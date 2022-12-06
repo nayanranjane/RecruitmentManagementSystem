@@ -15,7 +15,7 @@ namespace RecruitmentAdministrationSystemProject.Services
         {
             this.dbAccess = dbAccess;
         }
-        async Task<bool> IDataAccessService<Staff, int>.Create(Staff entity)
+        async Task<Staff> IDataAccessService<Staff, int>.Create(Staff entity)
         {
             try
             {
@@ -23,9 +23,9 @@ namespace RecruitmentAdministrationSystemProject.Services
                 var isAdded = await dbAccess.SaveChangesAsync();
                 if (isAdded > 0)
                 {
-                    return true;
+                    return result;
                 }
-                return false;
+                return null;
 
             }
             catch (Exception ex)

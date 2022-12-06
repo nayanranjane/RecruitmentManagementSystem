@@ -11,7 +11,9 @@ namespace RecruitmentAdministrationSystemProject.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
+    [MetadataType(typeof(JobPostMetadata))]
     public partial class JobPost
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]

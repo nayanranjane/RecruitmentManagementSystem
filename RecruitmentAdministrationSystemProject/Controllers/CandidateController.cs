@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace RecruitmentAdministrationSystemProject.Controllers
 {
+    [Authorize]
     public class CandidateController : Controller
     {
         IDataAccessService<Skill, int> skillService;
@@ -39,6 +40,7 @@ namespace RecruitmentAdministrationSystemProject.Controllers
             return RedirectToAction("index");
 
         }
+        [AllowAnonymous]
         public async Task<ActionResult> CreateCandidateInfo(int id)
         {
             CandidateInfo info = new CandidateInfo() { UserId = id };
@@ -47,10 +49,11 @@ namespace RecruitmentAdministrationSystemProject.Controllers
             return View(info);
         }
         [HttpPost]
+        [AllowAnonymous]
         public async Task<ActionResult> CreateCandidateInfo(CandidateInfo info)
         {
             var isCreated =await candidateInfoService.Create(info);
-            if (isCreated)
+            if (isCreated!=null)
             {
                 TempData["UserCreated"] = "UserCreated";
             }

@@ -149,7 +149,7 @@
     </div>
 
     <div class="editaction-container">
-        @if (User.Identity.IsAuthenticated && ((Session["Role"]).ToString() == "Company" || (Session["Role"]).ToString() == "Admin" || (Session["Role"]).ToString() == "Staff"))
+        @if (User.Identity.IsAuthenticated && (User.IsInRole("Company")|| User.IsInRole("Admin") || User.IsInRole("Staff")))
         {
             <div>
                 <button type="button" class="buttonClass">@Html.ActionLink("Shedule Interview", "Create", "Interview", new { id = Model.UserId, companyId = Model.JobPost.CompanyID }, new { @class = "url-content" }) </button>

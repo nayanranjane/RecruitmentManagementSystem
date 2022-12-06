@@ -63,11 +63,11 @@ namespace RecruitmentAdministrationSystemProject.Services
                 if (userResult != null)
                 {
                     userResult.Name = entity.Name;
-                    userResult.UserName = entity.UserName;
+                    //userResult.UserName = entity.UserName;
                     userResult.Password = entity.Password;
                     userResult.Email = entity.Email;
-                    userResult.Img = entity.Img;
-                    userResult.MobileNo = entity.MobileNo;
+                    userResult.ConfirmPassword = entity.ConfirmPassword;
+                    //userResult.MobileNo = entity.MobileNo;
                     userResult.Location = entity.Location;
                 }
                 var isUpdated =await dbAccess.SaveChangesAsync();
@@ -84,7 +84,7 @@ namespace RecruitmentAdministrationSystemProject.Services
             }
         }
 
-        async Task<bool> IDataAccessService<User, int>.Create(User entity)
+        async Task<User> IDataAccessService<User, int>.Create(User entity)
         {
             try
             {
@@ -92,9 +92,9 @@ namespace RecruitmentAdministrationSystemProject.Services
                 var isAdded = await dbAccess.SaveChangesAsync();
                 if (isAdded > 0)
                 {
-                    return true;
+                    return result;
                 }
-                return false;
+                return null;
             }
             catch (Exception ex)
             {

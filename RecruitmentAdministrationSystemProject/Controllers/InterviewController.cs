@@ -78,18 +78,25 @@ namespace RecruitmentAdministrationSystemProject.Controllers
             var interviewList = (await interviewService.GetDataAsync()).Where(interview => interview.Staff.User.UserId == Convert.ToInt32(Session["UID"]));
             return View(interviewList);
         }
-        public async Task<ActionResult> Remark(int id)
+        //public async Task<ActionResult> Remark(int id)
+        //{
+        //    var status = (await statusService.GetDataAsync());
+        //    var interview = await interviewService.GetDataAsync(id);
+        //    ViewBag.Status = status;
+        //    return View(interview);
+        //}
+        //[HttpPost]
+        public async Task<ActionResult> Remark(int id,string StatusId,string Remark)
         {
-            var status = (await statusService.GetDataAsync());
-            var interview =await interviewService.GetDataAsync(id);
-            ViewBag.Status = status;
-            return View(interview);
-        }
-        [HttpPost]
-        public async Task<ActionResult> Remark(Interview interview)
-        {
-            var result = interviewService.UpdateAsync(interview, interview.InterviewID);
+            Interview interview = new Interview { InterviewID= id, StatusId = StatusId, Remark = Remark };
+            var result =await interviewService.UpdateAsync(interview, interview.InterviewID);
             return RedirectToAction("ScheduledInterview");
+        }
+
+        public async Task<ActionResult> Details(int id)
+        {
+            var interview =await interviewService.GetDataAsync(id);
+            return View(interview);
         }
     }
 }

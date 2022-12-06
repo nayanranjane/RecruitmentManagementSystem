@@ -15,7 +15,7 @@ namespace RecruitmentAdministrationSystemProject.Services
         {
             this.dbAccess = dbAccess;
         }
-        Task<bool>IDataAccessService<Location, int>.Create(Location entity)
+        Task<Location>IDataAccessService<Location, int>.Create(Location entity)
         {
             throw new NotImplementedException();
         }

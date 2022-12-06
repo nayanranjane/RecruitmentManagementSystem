@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
     <link rel="stylesheet" href="~/Content/layout.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
@@ -23,9 +24,8 @@
                 <ul class="nav navbar-nav ">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
 
-                    @*<li>@Html.ActionLink("About", "About", "Home")</li>
-        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
-                    @if (User.Identity.IsAuthenticated && Session["Role"] != null)
+
+                    @if (User.Identity.IsAuthenticated && Session["Img"]!=null)
                     {
 
                         if (User.IsInRole("Admin"))
@@ -57,9 +57,9 @@
                         <li class="action-container">
                             <img src="@Url.Content(Session["Img"].ToString())" id="logo" height="52px" width="52px" />
                             <div class="actions">
-                                @Html.ActionLink("Logout", "Logout", "Account")
-                                @Html.ActionLink("Profile", "MyProfile", "User", new { id = Convert.ToInt32(Session["UID"]) }, null)
-                                @Html.ActionLink("Edit Profile", "EditMyProfile", "User", new { id = Convert.ToInt32(Session["UID"]) }, null)
+                                <div><i class="fa fa-sign-out" aria-hidden="true"></i>@Html.ActionLink("Logout", "Logout", "Account",null, new {@class="user-option"})</div>
+                                <div><i class="fa-solid fa-user"></i>@Html.ActionLink("Profile", "MyProfile", "User", new { id = Convert.ToInt32(Session["UID"]) }, new { @class = "user-option" })</div>
+                                <div><i class="fa-solid fa-user-pen"></i>@Html.ActionLink("Edit Profile", "EditMyProfile", "User", new { id = Convert.ToInt32(Session["UID"]) }, new { @class = "user-option" })</div>
                             </div>
                         </li>
                         @*<li><div text-danger>Dear @User.Identity.Name</div></li>*@

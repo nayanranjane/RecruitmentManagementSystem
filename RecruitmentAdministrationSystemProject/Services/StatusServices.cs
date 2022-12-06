@@ -16,7 +16,7 @@ namespace RecruitmentAdministrationSystemProject.Services
             this.dbAccess = dbAccess;
         }
 
-        Task<bool> IDataAccessService<Status, int>.Create(Status entity)
+        Task<Status > IDataAccessService<Status, int>.Create(Status entity)
         {
             throw new NotImplementedException();
         }

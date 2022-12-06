@@ -25,10 +25,10 @@ namespace RecruitmentAdministrationSystemProject.Models {
         [DataType(DataType.Password)]
         [MinLength(6, ErrorMessage = " 6 character Required")]
         public string Password { get; set; }
-        //  [Required(AllowEmptyStrings = false, ErrorMessage = "Confirm Password is required")]
-        //   [DataType(DataType.Password)]
-        // [MinLength(6, ErrorMessage = "6 character Required")]
-        //  [Compare("Password", ErrorMessage = "Password are not matching")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Confirm Password is required")]
+        [DataType(DataType.Password)]
+        [MinLength(6, ErrorMessage = "6 character Required")]
+        [Compare("Password", ErrorMessage = "Passwords are not matching")]
         public string ConfirmPassword { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Email is required")]
         [DataType(DataType.EmailAddress, ErrorMessage = "E-mail is not valid")]

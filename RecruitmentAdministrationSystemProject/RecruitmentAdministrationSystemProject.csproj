@@ -366,6 +366,7 @@
     <Content Include="Views\Interview\ScheduledInterview.cshtml" />
     <Content Include="Views\Interview\Remark.cshtml" />
     <Content Include="Views\JobApplication\Resume.cshtml" />
+    <Content Include="Views\Interview\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

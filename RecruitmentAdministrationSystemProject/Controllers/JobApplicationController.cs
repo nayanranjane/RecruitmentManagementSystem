@@ -79,7 +79,7 @@ namespace RecruitmentAdministrationSystemProject.Controllers
         public async Task<ActionResult> Index(int? id)
         {
             List<JobApplication> jobApplication = new List<JobApplication>();
-            if (Convert.ToInt32(Session["UID"]) != null && Session["Role"].ToString() != "Admin")
+            if (Convert.ToInt32(Session["UID"]) != null && !User.IsInRole("Admin"))
             {
 
                 id = Convert.ToInt32(Session["UID"]);
@@ -148,19 +148,9 @@ namespace RecruitmentAdministrationSystemProject.Controllers
                 }
                 
             }
-            catch (DbEntityValidationException e)
+            catch(Exception ex)
             {
-                foreach (var eve in e.EntityValidationErrors)
-                {
-                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                    foreach (var ve in eve.ValidationErrors)
-                    {
-                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-                            ve.PropertyName, ve.ErrorMessage);
-                    }
-                }
-                throw;
+                throw ex;
             }
             return RedirectToAction("Index");
         }

@@ -17,7 +17,7 @@ namespace RecruitmentAdministrationSystemProject.Services
             this.dbAccess = dbAccess;
         }
 
-        async Task<bool> IDataAccessService<CandidateInfo, int>.Create(CandidateInfo entity)
+        async Task<CandidateInfo> IDataAccessService<CandidateInfo, int>.Create(CandidateInfo entity)
         {
             try
             {
@@ -25,9 +25,9 @@ namespace RecruitmentAdministrationSystemProject.Services
                 var isDeleted = await dbAccess.SaveChangesAsync();
                 if (isDeleted > 0)
                 {
-                    return true;
+                    return result;
                 }
-                return false;
+                return null;
             }
             catch (Exception ex)
             { 

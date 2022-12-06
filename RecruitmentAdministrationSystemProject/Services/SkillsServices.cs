@@ -19,7 +19,7 @@ namespace RecruitmentAdministrationSystemProject.Services
 
   
 
-        Task<bool> IDataAccessService<Skill, int>.Create(Skill entity)
+        Task<Skill> IDataAccessService<Skill, int>.Create(Skill entity)
         {
             throw new NotImplementedException();
         }

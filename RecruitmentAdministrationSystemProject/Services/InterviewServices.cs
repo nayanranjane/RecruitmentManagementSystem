@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -16,7 +17,7 @@ namespace RecruitmentAdministrationSystemProject.Services
             this.dbAccess = dbAccess;
         }
 
-        async Task<bool>  IDataAccessService<Interview, int>.Create(Interview entity)
+        async Task<Interview>  IDataAccessService<Interview, int>.Create(Interview entity)
         {
             try
             {
@@ -24,9 +25,9 @@ namespace RecruitmentAdministrationSystemProject.Services
                 var isAdded = await dbAccess.SaveChangesAsync();
                 if (isAdded > 0)
                 {
-                    return true;
+                    return result;
                 }
-                return false;
+                return null;
 
             }
             catch (Exception ex)
@@ -104,12 +105,12 @@ namespace RecruitmentAdministrationSystemProject.Services
                 var interview = await dbAccess.Interviews.FindAsync(id);
                 if (interview != null)
                 {
-                    interview.InterviewTime = entity.InterviewTime;
-                    interview.InterviewDate = entity.InterviewDate;
-                    interview.Description = entity.Description;
+                    //interview.InterviewTime = entity.InterviewTime;
+                    //interview.InterviewDate = entity.InterviewDate;
+                    //interview.Description = entity.Description;
                     interview.StatusId = entity.StatusId;
                     interview.Remark = entity.Remark;
-                    interview.MettingId = entity.MettingId;
+                    //interview.MettingId = entity.MettingId;
                 }
                 var isUpdated = await dbAccess.SaveChangesAsync();
                 if (isUpdated > 0)
@@ -118,10 +119,19 @@ namespace RecruitmentAdministrationSystemProject.Services
                 }
                 return false;
             }
-            catch (Exception ex)
+            catch (DbEntityValidationException e)
             {
-
-                throw ex;
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+                throw;
             }
         }
     }

@@ -26,7 +26,7 @@ namespace RecruitmentAdministrationSystemProject.Models
         public string Skill_2 { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Skill 3 is required")]
         public string Skill_3 { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "REquired Batch is required")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Enter Required Batch")]
         public Nullable<int> RequiredBatch { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Description is required")]
         public string Description { get; set; }
@@ -36,10 +36,10 @@ namespace RecruitmentAdministrationSystemProject.Models
         [Required(ErrorMessage = "HSC Marks is required")]
         [Range(typeof(int), "35", "100", ErrorMessage = "Enter Valid Marks")]
         public Nullable<int> HSCMarks { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Name is required")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "UG marks is required")]
         public Nullable<int> UGMarks { get; set; }
-        [Required(ErrorMessage = "UG Marks is required")]
-        [Range(typeof(int), "35", "100", ErrorMessage = "Enter Valid Marks")]
+        [Required(ErrorMessage = "Experience is required")]
+        [Range(typeof(int), "0", "100", ErrorMessage = "Enter Valid Experience")]
         public Nullable<int> RequiredExperience { get; set; }
     }
 }

@@ -71,8 +71,8 @@
                 <td>
 
                     @*@Html.ActionLink("Edit", "Edit", new { id = item.CandidateId }) |*@
-                    @Html.ActionLink("Details", "CandidateDetails", new { id = item.User.UserId }) |
-                    @Html.ActionLink("Delete", "DeleteCandidate", new { id = item.User.UserId })
+                    @Html.ActionLink("Details", "CandidateDetails", new { id = item.User.UserId }, new {@class= "DetailsButton buttonClass" }) |
+                    @Html.ActionLink("Delete", "DeleteCandidate", new { id = item.User.UserId }, new {@class= "DeleteButton buttonClass2" })
                 </td>
             </tr>
         }

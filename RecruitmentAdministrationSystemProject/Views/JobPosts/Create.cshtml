@@ -4,7 +4,7 @@
     ViewBag.Title = "Create";
 }
 <header>
-    <link href="~/Content/Application.css" rel="stylesheet"/>
+    <link href="~/Content/Application.css" rel="stylesheet" />
 </header>
 
 
@@ -27,7 +27,7 @@
                         <label for="Name">Title</label>
                         <div class="input-container">
                             @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-white" })
 
                         </div>
                     </div>
@@ -35,7 +35,7 @@
                         <label for="Name">CTC</label>
                         <div class="input-container">
                             @Html.EditorFor(model => model.CTC, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.CTC, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.CTC, "", new { @class = "text-white" })
                         </div>
 
                     </div>
@@ -44,7 +44,7 @@
                         <div class="input-container">
 
                             @Html.EditorFor(model => model.NoOfOpening, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.NoOfOpening, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.NoOfOpening, "", new { @class = "text-white" })
                         </div>
 
                     </div>
@@ -52,22 +52,22 @@
                         <label for="Name">Location</label>
                         <div class="input-container">
                             @Html.DropDownListFor(model => model.Location, new SelectList(ViewBag.location, "Name", "Name"), "Select Location", new { @class = "form-control selectlist" })
-                            @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-white selectlist" })
                         </div>
                     </div>
                     <div class="hiddenContent">
                         <label for="Name">Post Date</label>
                         <div class="input-container">
                             @Html.EditorFor(model => model.PostDate, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.PostDate, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.PostDate, "", new { @class = "text-white" })
 
                         </div>
                     </div>
                     <div>
                         <label for="Name">Last Date</label>
                         <div class="input-container">
-                            @Html.EditorFor(model => model.LastDate, new { htmlAttributes = new { @class = "form-control" ,@type="time" } })
-                            @Html.ValidationMessageFor(model => model.LastDate, "", new { @class = "text-danger" })
+                            @Html.EditorFor(model => model.LastDate, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                            @Html.ValidationMessageFor(model => model.LastDate, "", new { @class = "text-white" })
                         </div>
 
                     </div>
@@ -76,7 +76,7 @@
                         <div class="input-container">
 
                             @Html.DropDownListFor(model => model.Skill_1, new SelectList(ViewBag.Skills, "SkillName", "SkillName"), "Select skills", new { @class = "form-control selectlist" })
-                            @Html.ValidationMessageFor(model => model.Skill_1, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.Skill_1, "", new { @class = "text-white selectlist" })
                         </div>
 
                     </div>
@@ -84,22 +84,22 @@
                         <label for="Name">Skill 2</label>
                         <div class="input-container">
                             @Html.DropDownListFor(model => model.Skill_2, new SelectList(ViewBag.Skills, "SkillName", "SkillName"), "Select skills", new { @class = "form-control selectlist" })
-                            @Html.ValidationMessageFor(model => model.Skill_2, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.Skill_2, "", new { @class = "text-white selectlist" })
                         </div>
                     </div>
                     <div class="selectlist">
                         <label for="Name">Skill 3</label>
                         <div class="input-container">
                             @Html.DropDownListFor(model => model.Skill_3, new SelectList(ViewBag.Skills, "SkillName", "SkillName"), "Select skills", new { @class = "form-control selectlist" })
-                            @Html.ValidationMessageFor(model => model.Skill_3, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.Skill_3, "", new { @class = "text-white selectlist" })
 
                         </div>
                     </div>
-                    <div >
+                    <div>
                         <label for="Name">Required Batch</label>
                         <div class="input-container">
                             @Html.EditorFor(model => model.RequiredBatch, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.RequiredBatch, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.RequiredBatch, "", new { @class = "text-white" })
                         </div>
 
                     </div>
@@ -108,7 +108,7 @@
                         <div class="input-container">
 
                             @Html.EditorFor(model => model.RequiredExperience, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.RequiredExperience, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.RequiredExperience, "", new { @class = "text-white" })
                         </div>
 
                     </div>
@@ -116,14 +116,14 @@
                         <label for="Name">Description</label>
                         <div class="input-container">
                             @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-white" })
                         </div>
                     </div>
                     <div>
                         <label for="Name">SSC Marks</label>
                         <div class="input-container">
                             @Html.EditorFor(model => model.SSCMarks, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.SSCMarks, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.SSCMarks, "", new { @class = "text-white" })
                         </div>
 
                     </div>
@@ -132,7 +132,7 @@
                         <div class="input-container">
 
                             @Html.EditorFor(model => model.HSCMarks, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.HSCMarks, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.HSCMarks, "", new { @class = "text-white" })
                         </div>
 
                     </div>
@@ -140,7 +140,7 @@
                         <label for="Name">UG Marks</label>
                         <div class="input-container">
                             @Html.EditorFor(model => model.UGMarks, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.UGMarks, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.UGMarks, "", new { @class = "text-white" })
                         </div>
                     </div>
 
@@ -154,3 +154,6 @@
     </div>
 </body>
 
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
